@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House of Guidance</title>
-    <!-- Google Fonts for ultra-clean mobile application styling -->
+    <!-- Premium Fonts -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Part 1: Unified Application Layout Engine */
+        /* Part 1: MSN Glass Indigo Style Engine */
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body {
             margin: 0;
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: #0b0f19; /* Deep indigo dark background */
+            color: #f8fafc;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -23,53 +23,57 @@
         }
         main { flex-grow: 1; padding-bottom: 6rem; }
 
-        /* NAVIGATION BAR SYSTEM */
+        /* THE PREMIUM GLASS NAVBAR */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .nav-container { max-width: 600px; margin: 0 auto; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
         .nav-top { display: flex; justify-content: space-between; align-items: center; }
         .logo-group { display: flex; align-items: center; gap: 0.5rem; }
-        .logo-img { height: 38px; width: 38px; border-radius: 10px; object-fit: cover; border: 1.5px solid #059669; }
-        .logo-text { font-size: 1.1rem; font-weight: 800; color: #047857; letter-spacing: -0.01em; }
+        .logo-img { height: 38px; width: 38px; border-radius: 10px; object-fit: cover; border: 1.5px solid #38bdf8; }
+        .logo-text { font-size: 1.1rem; font-weight: 800; color: #38bdf8; letter-spacing: -0.01em; }
         
-        .nav-menu-bar { display: flex; justify-content: space-between; background-color: #f1f5f9; padding: 0.35rem; border-radius: 10px; margin-top: 0.25rem; gap: 4px; overflow-x: auto; }
-        .menu-btn { flex: 1; text-align: center; color: #475569; text-decoration: none; font-size: 0.72rem; font-weight: 600; padding: 0.4rem 0.2rem; border-radius: 8px; white-space: nowrap; }
-        .menu-btn:hover { background-color: #ffffff; color: #047857; }
+        .nav-menu-bar { display: flex; justify-content: space-between; background-color: rgba(255,255,255,0.05); padding: 0.35rem; border-radius: 12px; margin-top: 0.25rem; gap: 4px; overflow-x: auto; }
+        .menu-btn { flex: 1; text-align: center; color: #94a3b8; text-decoration: none; font-size: 0.7rem; font-weight: 600; padding: 0.4rem 0.2rem; border-radius: 8px; white-space: nowrap; }
+        .menu-btn:hover { background-color: rgba(255,255,255,0.1); color: #ffffff; }
 
-        /* HERO BANNER FRAME READS FROM GITHUB STORAGE DIRECTLY */
+        /* HERO KAABA BANNER WITH LOCAL FILE HOOK */
         .hero {
             position: relative;
-            background: linear-gradient(135deg, rgba(2, 44, 34, 0.88) 0%, rgba(2, 44, 34, 0.95) 100%), 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.95) 100%), 
                         url('kaaba.jpg');
             background-size: cover;
             background-position: center;
             color: #ffffff;
             text-align: center;
             padding: 3.5rem 1.25rem;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.15);
         }
         .hero h1 { font-size: 2.1rem; margin: 0 0 0.5rem; font-weight: 800; letter-spacing: -0.02em; }
-        .hero p { font-size: 0.95rem; color: #a7f3d0; max-width: 450px; margin: 0 auto; font-weight: 400; line-height: 1.5; }
-
-        /* THE UPGRADED DETAILED YASSARNA LESSON ANNOUNCEMENT BOARD */
+        .hero p { font-size: 0.95rem; color: #bae6fd; max-width: 450px; margin: 0 auto; font-weight: 400; line-height: 1.5; }
+    </style>
+</head>
+    <style>
+        /* Part 2: Premium Cards & Gallery Layout */
+        /* HIGH-GLOSS MSN FLUID GRADIENT ANNOUNCEMENT BOX */
         .ad-banner {
             max-width: 560px;
             margin: -1.25rem auto 0;
             padding: 1.25rem;
-            background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
-            border: 1px solid #a7f3d0;
-            border-radius: 16px;
-            color: #064e3b;
-            box-shadow: 0 10px 25px rgba(4, 120, 87, 0.15);
+            background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%); /* Vibrant blue-purple gradient from your graphic! */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            color: #ffffff;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
             position: relative;
             z-index: 20;
             width: calc(100% - 2rem);
@@ -77,88 +81,54 @@
             flex-direction: column;
             gap: 0.35rem;
         }
-        .ad-title-bar { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.02em; color: #047857; }
-        .ad-body-text { font-size: 0.85rem; line-height: 1.5; font-weight: 500; color: #065f46; margin: 0; }
+        .ad-title-bar { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #67e8f9; }
+        .ad-body-text { font-size: 0.88rem; line-height: 1.5; font-weight: 500; color: #e2e8f0; margin: 0; }
 
-        /* APP LAYOUT INTERFACES */
-        .section-container { max-width: 600px; margin: 1.75rem auto 0; padding: 2rem 1.25rem; width: 100%; border-radius: 24px; }
-        .bg-motivation { background-color: #ecfdf5; border: 1px solid #d1fae5; }
-        .bg-prayer { background-color: #f8fafc; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.02); } /* Neutral Premium Hub for Widgets */
-        .bg-zoom { background-color: #f0f9ff; border: 1px solid #bae6fd; }
-        .bg-reminders { background-color: #fef2f2; border: 1px solid #fee2e2; }
-        .bg-khutbahs { background-color: #f5f3ff; border: 1px solid #edd9ff; }
-        .bg-charity { background-color: #fff7ed; border: 1px solid #ffedd5; }
-
-        .section-header { margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
-        .section-header h2 { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0; }
+        /* APPLICATION GLASS BACKGROUND CONTAINER MODULES */
+        .section-container { max-width: 600px; margin: 2rem auto 0; padding: 2.25rem 1.25rem; width: 100%; border-radius: 28px; background-color: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.03); }
+        .section-header { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .section-header h2 { font-size: 1.25rem; font-weight: 800; color: #ffffff; margin: 0; letter-spacing: -0.01em; }
         .pulse-dot { width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
         
         .grid { display: flex; flex-direction: column; gap: 1.25rem; }
         
-        /* WHITE CONTEXT INSIDE CARDS */
-        .card { background-color: #ffffff; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02); border: 1px solid rgba(255,255,255,0.7); }
-        .card-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #475569; display: inline-block; margin-bottom: 0.5rem; background-color: #f1f5f9; padding: 0.2rem 0.5rem; border-radius: 6px; }
-        .card-title { font-size: 1.1rem; margin: 0 0 0.5rem; color: #0f172a; font-weight: 700; }
-        .card-text { color: #475569; font-size: 0.9rem; line-height: 1.5; margin: 0; }
+        /* SOLID ULTRA-MODERN CONTRAST CARDS */
+        .card { background-color: #1e293b; padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .card-tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: #38bdf8; display: inline-block; margin-bottom: 0.6rem; background-color: rgba(56, 189, 248, 0.1); padding: 0.25rem 0.6rem; border-radius: 8px; }
+        .card-title { font-size: 1.15rem; margin: 0 0 0.5rem; color: #ffffff; font-weight: 700; }
+        .card-text { color: #94a3b8; font-size: 0.92rem; line-height: 1.5; margin: 0; }
         
-        /* PREMIUM REGISTRATION INPUT PORTS */
-        .input-group { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
-        .input-group label { font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .form-input { width: 100%; border: 1.5px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 10px; font-family: inherit; font-size: 0.95rem; outline: none; }
-        .form-input:focus { border-color: #059669; box-shadow: 0 0 0 4px rgba(5,150,105,0.1); }
-        .submit-btn { width: 100%; border: none; background-color: #059669; color: white; padding: 0.85rem; font-weight: 700; border-radius: 12px; font-size: 0.95rem; cursor: pointer; }
-
-        /* WIDGET STYLINGS */
-        .prayer-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-weight: 600; font-size: 0.95rem; }
-        .prayer-row:last-child { border: none; }
-        .active-prayer { background-color: #f0fdf4; border-radius: 8px; color: #166534; border: 1px solid #bbf7d0; padding: 0.75rem; }
-        .countdown-display { font-size: 1.5rem; font-weight: 800; color: #dc2626; text-align: center; padding: 0.5rem 0; font-family: monospace; }
-        .event-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9; }
-        .event-date { font-size: 0.75rem; font-weight: 800; background-color: #f1f5f9; color: #475569; padding: 0.3rem 0.5rem; border-radius: 6px; min-width: 75px; text-align: center; }
-
-        .reminder-img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-top: 1rem; }
-        .video-wrapper { background-color: #000000; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; margin-top: 1rem; }
-        video { width: 100%; height: 100%; }
-        
-        .download-btn { display: block; text-align: center; background-color: #6d28d9; color: white; padding: 0.8rem; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.85rem; margin-top: 1.25rem; }
-        .zoom-btn { display: block; text-align: center; background-color: #0284c7; color: white; padding: 0.9rem; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 1rem; }
-
-        /* FIXED LOWER APP PANEL */
-        .social-dock { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; z-index: 110; }
-        .social-icon { height: 3.5rem; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 0.85rem; font-weight: 700; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .social-icon span { font-size: 0.65rem; opacity: 0.9; font-weight: 400; }
-        .wa { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
-        .tt { background: linear-gradient(135deg, #1e293b 0%, #000000 100%); border: 1px solid rgba(255,255,255,0.1); }
-
-        .footer { background-color: #0f172a; color: #64748b; text-align: center; padding: 2rem 1rem; font-size: 0.8rem; margin-top: 4rem; }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
+        /* NEW DYNAMIC INTERACTIVE GALLERY GRID */
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.5rem; }
+        .gallery-item { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background-color: #334155; border: 1px solid rgba(255,255,255,0.05); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 0.75rem 0.5rem 0.5rem; font-size: 0.72rem; font-weight: 600; color: #ffffff; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- STICKY COMMUNICATION SHORTCUTS -->
+    <!-- STICKY ACTION PIPELINES -->
     <div class="social-dock">
         <a href="https://wa.me" target="_blank" class="social-icon wa">WhatsApp<br><span>Tap to Chat</span></a>
         <a href="https://tiktok.com" target="_blank" class="social-icon tt">TikTok<br><span>Tap to Follow</span></a>
     </div>
 
-    <!-- APP NAVIGATION BAR -->
+    <!-- WINDOW NAVIGATION BAR LAYER -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-top">
                 <div class="logo-group">
+                    <!-- Your logo image file hook -->
                     <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none';">
                     <div class="logo-text">HOUSE OF GUIDANCE</div>
                 </div>
             </div>
+            <!-- APP STYLE SCROLLING LINKS -->
             <div class="nav-menu-bar">
                 <a href="#prayer-hub" class="menu-btn">Prayer Hub</a>
                 <a href="#student-portal" class="menu-btn">Registration</a>
+                <a href="#activity-gallery" class="menu-btn">Gallery</a>
                 <a href="#motivation" class="menu-btn">Motivation</a>
                 <a href="#zoom-class" class="menu-btn">Zoom Class</a>
                 <a href="#charity" class="menu-btn">Charity</a>
@@ -167,35 +137,35 @@
     </nav>
 
     <main>
-        <!-- GRAPHIC HERO BACKDROP BANNER -->
+        <!-- MASTER WELCOME Banner COATED FRAME -->
         <section class="hero">
             <h1>Welcome to House of Guidance</h1>
             <p>Your premier online destination for structured learning, growth, and daily Islamic development.</p>
         </section>
 
-        <!-- DETAILED REWRITTEN YASSARNA LESSONS ANNOUNCEMENT BOARD -->
+        <!-- HIGH VISIBILITY DYNAMIC YASSARNA LESSONS TICKER -->
         <div class="ad-banner">
             <div class="ad-title-bar">
-                <span>📢</span> Live Updates & Announcement
+                <span>📢</span> Ongoing Free Lessons
             </div>
             <p class="ad-body-text">
-                <strong>Free Yassarna Lessons Are Ongoing!</strong> We are actively conducting completely free introductory recitation and pronunciation classes. No payment is required. Tap the WhatsApp panel below to contact our administrative desk or scroll down to the student registration portal to secure your virtual learning space immediately.
+                <strong>Free Yassarna Lessons Are Ongoing!</strong> We are actively conducting completely free introductory Arabic recitation and pronunciation classes. No payment is required. Tap the WhatsApp panel below to contact our administrative desk or scroll down to the student registration portal to secure your virtual learning space immediately.
             </p>
         </div>
-        <!-- SECTION 1: PRAYER HUB & COUNTDOWN WIDGET -->
-        <section id="prayer-hub" class="section-container bg-prayer">
+        <!-- SECTION 1: PRAYER HUB & ISLAMIC CALENDAR WIDGETS -->
+        <section id="prayer-hub" class="section-container">
             <div class="section-header">
-                <h2 style="color: #0f172a;">Uganda Prayer Hub & Calendar</h2>
+                <h2>Uganda Prayer Hub & Calendar</h2>
             </div>
             <div class="grid">
-                <!-- Live Countdown Card -->
-                <div class="card" style="border-top: 4px solid #dc2626; background: #fff5f5;">
-                    <span class="card-tag" style="color: #991b1b; background-color: #fee2e2;">Time Remaining</span>
+                <!-- Live Counter Block -->
+                <div class="card" style="border-top: 4px solid #38bdf8; background: rgba(56, 189, 248, 0.02);">
+                    <span class="card-tag" style="color: #38bdf8; background-color: rgba(56, 189, 248, 0.1);">Time Remaining</span>
                     <h3 class="card-title">Next Prayer Countdown</h3>
                     <div id="countdown-timer" class="countdown-display">Calculating...</div>
                 </div>
 
-                <!-- Prayer Times Roster -->
+                <!-- Prayer Timetable -->
                 <div class="card">
                     <span class="card-tag">Daily Timetable</span>
                     <h3 class="card-title">Today's Prayer Times</h3>
@@ -207,92 +177,120 @@
                 </div>
 
                 <!-- Major Islamic Events Tracker -->
-                <div class="card" style="border-top: 4px solid #059669;">
-                    <span class="card-tag" style="color: #047857; background-color: #ecfdf5;">Hijri Tracker</span>
-                    <h3 class="card-title">Major Islamic Events (2026)</h3>
+                <div class="card" style="border-top: 4px solid #a7f3d0;">
+                    <span class="card-tag" style="color: #34d399; background-color: rgba(52, 211, 153, 0.1);">Hijri Tracker</span>
+                    <h3 class="card-title">Major Islamic Events (2026 / 1447h)</h3>
                     <div class="event-item">
-                        <div class="event-date">Ended</div>
-                        <div class="card-text"><strong>Ramadhan 1447:</strong> Month of Holy Fasting</div>
+                        <div class="event-date" style="color: #ef4444; background: rgba(239,68,68,0.1);">Ended</div>
+                        <div class="card-text" style="color: #94a3b8;"><strong>Ramadhan 1447:</strong> Month of Holy Fasting</div>
                     </div>
                     <div class="event-item">
-                        <div class="event-date">Ended</div>
-                        <div class="card-text"><strong>Eid al-Fitr:</strong> Islamic Celebration</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">May 27</div>
-                        <div class="card-text"><strong>Eid al-Adha (1447):</strong> Festival of Sacrifice</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">Jun 16</div>
+                        <div class="event-date" style="color: #38bdf8; background: rgba(56,189,248,0.1);">Jun 16</div>
                         <div class="card-text"><strong>Islamic New Year:</strong> 1st Muharram 1448</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date" style="color: #34d399; background: rgba(52,211,153,0.1);">Aug 25</div>
+                        <div class="card-text"><strong>Arba'een:</strong> Safar Commemoration</div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- SECTION 2: STUDENT REGISTRATION DATABASE PORTAL (SOFT BLUE PANEL) -->
-        <section id="student-portal" class="section-container" style="background-color: #f0fdfa; border: 1px solid #ccfbf1;">
+
+        <!-- SECTION 2: STUDENT REGISTRATION DATABASE PORTAL FORM -->
+        <section id="student-portal" class="section-container">
             <div class="section-header">
-                <h2 style="color: #0d9488;">Student Registration Portal</h2>
+                <h2>Student Registration Portal</h2>
             </div>
             <div class="grid">
-                <div class="card" style="border-top: 4px solid #0d9488;">
-                    <span class="card-tag" style="color: #0f766e; background-color: #ccfbf1;">Enrollment Form</span>
+                <div class="card" style="border-top: 4px solid #38bdf8;">
+                    <span class="card-tag">Enrollment Form</span>
                     <h3 class="card-title">Join Our Free Classes</h3>
                     <p class="card-text" style="margin-bottom: 1.25rem;">Enter your details below to register. Your information will be safely delivered directly to the administration registry panel.</p>
                     
-                    <!-- Form submission infrastructure -->
                     <form action="https://formspree.io" method="POST">
                         <div class="input-group">
                             <label for="student-name">Full Name</label>
                             <input type="text" id="student-name" name="Full Name" placeholder="Enter your full name" class="form-input" required>
                         </div>
-                        
                         <div class="input-group">
                             <label for="student-phone">Phone Number</label>
                             <input type="tel" id="student-phone" name="Phone Number" placeholder="e.g. 0751703270" class="form-input" required>
                         </div>
-                        
                         <div class="input-group" style="margin-bottom: 1.5rem;">
                             <label for="course-select">Preferred Course</label>
-                            <select id="course-select" name="Selected Course" class="form-input" style="background-color: #fff;">
+                            <select id="course-select" name="Selected Course" class="form-input">
                                 <option value="Free Yassarna Recitation">Free Yassarna Recitation & Pronunciation</option>
                                 <option value="General Guidance Class">General Guidance Class</option>
                             </select>
                         </div>
-                        
                         <button type="submit" class="submit-btn">Submit Registration</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: DAILY MOTIVATION FEED (MINT GREEN BACKDROP) -->
-        <section id="motivation" class="section-container bg-motivation">
+        <!-- SECTION 3: NEW INTERACTIVE IMAGE GALLERY MODULE -->
+        <section id="activity-gallery" class="section-container">
             <div class="section-header">
-                <h2 style="color: #065f46;">Daily Motivation</h2>
+                <h2>Our Activities Gallery</h2>
             </div>
             <div class="grid">
-                <div class="card" style="border-top: 4px solid #059669;">
-                    <span class="card-tag" style="color: #047857; background-color: #ecfdf5;">Heart & Soul</span>
+                <div class="card">
+                    <span class="card-tag">Photo Showcase</span>
+                    <h3 class="card-title">Class Activities & Distribution</h3>
+                    <p class="card-text" style="margin-bottom: 1rem;">Here is a view of our ongoing operations, learning sessions, and text distributions in regional areas.</p>
+                    
+                    <!-- 4-Slot Responsive Photo Grid Interface Matrix -->
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <!-- To display your custom gallery files, simply save image files named gallery1.jpg, gallery2.jpg etc inside your github main folder layer -->
+                            <img src="gallery1.jpg" alt="Activity 1" onerror="this.src='yassarna.jpg';">
+                            <div class="gallery-caption">Yassarna Distribution</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="gallery2.jpg" alt="Activity 2" onerror="this.src='reminder.jpg';">
+                            <div class="gallery-caption">Rural Mosques Outreach</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="gallery3.jpg" alt="Activity 3" onerror="this.src='kaaba.jpg';">
+                            <div class="gallery-caption">Online Study Streams</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="gallery4.jpg" alt="Activity 4" onerror="this.src='yassarna.jpg';">
+                            <div class="gallery-caption">Class Recitations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- SECTION 4: ISLAMIC MOTIVATION FEED -->
+        <section id="motivation" class="section-container">
+            <div class="section-header">
+                <h2>Daily Motivation</h2>
+            </div>
+            <div class="grid">
+                <div class="card" style="border-top: 4px solid #34d399;">
+                    <span class="card-tag" style="color: #34d399; background-color: rgba(52, 211, 153, 0.1);">Heart & Soul</span>
                     <h3 class="card-title">Renew Your Intentions (Niyyah)</h3>
                     <p class="card-text">"Every action is judged by its intention. Before studying, teaching, or reminding others, check your heart. Dedicate your efforts purely for the sake of Allah, and watch your daily routines transform into massive acts of worship."</p>
                 </div>
 
-                <div class="card" style="border-top: 4px solid #059669;">
-                    <span class="card-tag" style="color: #047857; background-color: #ecfdf5;">Consistency</span>
+                <div class="card" style="border-top: 4px solid #34d399;">
+                    <span class="card-tag" style="color: #34d399; background-color: rgba(52, 211, 153, 0.1);">Consistency</span>
                     <h3 class="card-title">Small Steps, Massive Rewards</h3>
                     <p class="card-text">"The most beloved deeds to Allah are those done consistently, even if they are small. Do not underestimate a daily 5-minute reminder, a single verse read, or a short video watched. Consistency builds your spiritual foundation."</p>
                 </div>
             </div>
         </section>
-        <!-- SECTION 4: LIVE ZOOM CLASSROOM MODULE (SKY BLUE BACKDROP) -->
-        <section id="zoom-class" class="section-container bg-zoom">
+
+        <!-- SECTION 5: LIVE ZOOM CLASSROOM MODULE -->
+        <section id="zoom-class" class="section-container">
             <div class="section-header">
-                <h2 style="color: #0369a1;">Live Online Classroom</h2>
+                <h2>Live Online Classroom</h2>
             </div>
             <div class="grid">
-                <div class="card" style="border-top: 4px solid #0284c7;">
-                    <span class="card-tag" style="color: #0369a1; background-color: #e0f2fe;">Virtual Session</span>
+                <div class="card" style="border-top: 4px solid #38bdf8;">
+                    <span class="card-tag">Virtual Session</span>
                     <h3 class="card-title">Join Live Stream Guidance</h3>
                     <p class="card-text">Click the link below to enter our interactive virtual classroom workspace. Please make sure you have the Zoom app downloaded on your smartphone or PC before the stream opens.</p>
                     <a href="https://zoom.us" target="_blank" class="zoom-btn">
@@ -302,14 +300,14 @@
             </div>
         </section>
 
-        <!-- SECTION 5: LECTURE CHANNELS (SPIRITUAL PURPLE BACKDROP) -->
-        <section id="khutbahs" class="section-container bg-khutbahs">
+        <!-- SECTION 6: LECTURE CHANNELS -->
+        <section id="khutbahs" class="section-container">
             <div class="section-header">
-                <h2 style="color: #5b21b6;">Khutbahs & Lectures</h2>
+                <h2>Khutbahs & Lectures</h2>
             </div>
             <div class="grid">
-                <div class="card" style="border-top: 4px solid #7c3aed;">
-                    <span class="card-tag" style="color: #5b21b6; background-color: #f5f3ff;">Short Video</span>
+                <div class="card" style="border-top: 4px solid #a7f3d0;">
+                    <span class="card-tag">Short Video</span>
                     <h3 class="card-title">Weekly Reflection</h3>
                     <div class="video-wrapper">
                         <video controls>
@@ -319,8 +317,8 @@
                     </div>
                 </div>
 
-                <div class="card" style="border-top: 4px solid #7c3aed;">
-                    <span class="card-tag" style="color: #5b21b6; background-color: #f5f3ff;">Materials</span>
+                <div class="card" style="border-top: 4px solid #a7f3d0;">
+                    <span class="card-tag">Materials</span>
                     <h3 class="card-title">Written Notes Outlines</h3>
                     <p class="card-text">Access full lesson notes and syllabus structures compiled by the administrators. Download and print easily.</p>
                     <a href="notes.pdf" download class="download-btn">
@@ -330,25 +328,25 @@
             </div>
         </section>
 
-        <!-- SECTION 6: SECRET CHARITY CAMPAIGN (WARM SAND AMBER BACKDROP) -->
-        <section id="charity" class="section-container bg-charity">
+        <!-- SECTION 7: SECRET CHARITY CAMPAIGN -->
+        <section id="charity" class="section-container">
             <div class="section-header">
-                <h2 style="color: #9a3412;">Secret Charity Support</h2>
+                <h2>Secret Charity Support</h2>
             </div>
             <div class="grid">
-                <div class="card" style="border-top: 4px solid #ea580c;">
-                    <span class="card-tag" style="color: #9a3412; background-color: #fff7ed;">Active Campaign</span>
+                <div class="card" style="border-top: 4px solid #f97316;">
+                    <span class="card-tag" style="color: #f97316; background-color: rgba(249, 115, 22, 0.1);">Active Campaign</span>
                     <h3 class="card-title">Quran in Rural Mosques</h3>
                     <p class="card-text">We are distributing copies of <strong>Yassarnaal Qur'an</strong> modules to rural mosques across communities. Support this noble cause secretly below.</p>
                     <img src="yassarna.jpg" alt="[Place your yassarna.jpg file inside your folder]" class="reminder-img">
-                    <p class="card-text" style="font-size: 0.85rem; color: #9a3412; font-weight: 600; margin-top: 1rem; background-color: #fff7ed; padding: 0.5rem; border-radius: 8px;">
+                    <p class="card-text" style="font-size: 0.85rem; color: #f97316; font-weight: 600; margin-top: 1rem; background-color: rgba(249,115,22,0.05); padding: 0.5rem; border-radius: 8px;">
                         Direct Mobile Phone Contact: 0751703270
                     </p>
                 </div>
 
-                <!-- COPIER PAYMENTS HUB INTERACTION PORT -->
-                <div class="card" style="border-top: 4px solid #ea580c;">
-                    <span class="card-tag" style="color: #9a3412; background-color: #fff7ed;">Gateways</span>
+                <!-- COPIER PAYMENTS INTERACTIVE HUB -->
+                <div class="card" style="border-top: 4px solid #f97316;">
+                    <span class="card-tag" style="color: #f97316; background-color: rgba(249, 115, 22, 0.1);">Gateways</span>
                     <h3 class="card-title">Donate Instantly Below</h3>
                     <p class="card-text" style="font-size: 0.9rem; margin-bottom: 1.25rem;">Tap a button. The app will automatically copy <strong>0751703270</strong> and open your dialer application.</p>
                     
@@ -366,7 +364,7 @@
         </section>
     </main>
 
-    <!-- TERMINAL APPS FOOTER -->
+    <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2026 House of Guidance. All rights reserved.</p>
     </footer>
@@ -397,7 +395,7 @@
             let timeDiff = Infinity;
 
             for (let prayer of prayerTimes) {
-                const [hours, minutes] = prayer.parseTime = prayer.time.split(':').map(Number);
+                const [hours, minutes] = prayer.time.split(':').map(Number);
                 const prayerDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
                 
                 let diff = prayerDate - now;
@@ -407,7 +405,6 @@
                 }
             }
 
-            // Fallback to Fajr tomorrow if all prayers for today passed
             if (!nextPrayer) {
                 const [hours, minutes] = prayerTimes[0].time.split(':').map(Number);
                 const tomorrowFajr = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, hours, minutes, 0);
@@ -415,13 +412,11 @@
                 nextPrayer = prayerTimes[0];
             }
 
-            // Highlight current active prayer row
             prayerTimes.forEach(p => {
                 const row = document.getElementById('p-' + p.name.toLowerCase());
                 if (row) row.classList.remove('active-prayer');
             });
 
-            // Convert millisecond differences into standard countdown strings
             const totalSeconds = Math.floor(timeDiff / 1000);
             const hrs = Math.floor(totalSeconds / 3600);
             const mins = Math.floor((totalSeconds % 3600) / 60);
@@ -429,6 +424,9 @@
 
             const displayStr = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} left for ${nextPrayer.name}`;
             document.getElementById('countdown-timer').innerText = displayStr;
+            
+            const activeRow = document.getElementById('p-' + nextPrayer.name.toLowerCase());
+            if (activeRow) activeRow.classList.add('active-prayer');
         }
 
         setInterval(updatePrayerCountdown, 1000);
