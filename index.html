@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of Guidance</title>
+    <style>
+        /* Pure CSS - 100% Solid & Static Styles */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main { flex-grow: 1; }
+
+        /* STICKY NAVBAR */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .logo-group { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-img { height: 45px; width: 45px; border-radius: 8px; object-fit: contain; background-color: #e2e8f0; }
+        .logo-text { font-size: 1.25rem; font-weight: 800; color: #047857; letter-spacing: 0.05em; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+        .nav-link:hover { color: #047857; }
+        .portal-btn { background-color: #059669; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; opacity: 0.6; cursor: not-allowed; }
+
+        /* DEEP ISLAMIC EMERALD GREEN HERO HEADER */
+        .hero {
+            background-color: #022c22;
+            color: #ffffff;
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 5px solid #10b981;
+        }
+        .hero h1 { font-size: 2.75rem; margin: 0 0 1rem; font-weight: 800; }
+        .hero p { font-size: 1.2rem; color: #a7f3d0; max-width: 650px; margin: 0 auto; font-weight: 300; line-height: 1.6; }
+
+        /* ANNOUNCEMENTS BAR */
+        .ad-banner {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            padding: 1.25rem;
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 0.75rem;
+            color: #78350f;
+            font-weight: 500;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* SECTION LAYOUT STRUCTURES */
+        .section-container { max-width: 1100px; margin: 0 auto; padding: 3rem 1rem; }
+        .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; border-bottom: 2px solid #cbd5e1; padding-bottom: 0.75rem; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin: 0; text-transform: uppercase; }
+        .static-dot { width: 12px; height: 12px; background-color: #ef4444; border-radius: 50%; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        
+        /* NO MOVEMENTS - CLEAN TEXT CARDS */
+        .card { 
+            background-color: #ffffff; 
+            padding: 2rem; 
+            border-radius: 0.75rem; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); 
+            border-left: 5px solid #059669; 
+        }
+        .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #059669; display: block; margin-bottom: 0.5rem; }
+        .card-title { font-size: 1.25rem; margin: 0 0 0.75rem; color: #0f172a; font-weight: 700; }
+        .card-text { color: #475569; font-size: 1rem; line-height: 1.6; margin: 0; }
+        
+        .reminder-img { width: 100%; height: 220px; object-fit: cover; border-radius: 0.5rem; margin-top: 1.25rem; background-color: #cbd5e1; border: 1px solid #e2e8f0; }
+        .video-wrapper { background-color: #000000; aspect-ratio: 16/9; border-radius: 0.5rem; overflow: hidden; margin-top: 1rem; }
+        video { width: 100%; height: 100%; }
+        .download-btn { display: block; text-align: center; background-color: #0f172a; color: white; padding: 0.85rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; margin-top: 1.5rem; }
+
+        /* USER INFORMATION SIDEBARS */
+        .social-dock { position: fixed; bottom: 1.5rem; right: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 100; }
+        .social-icon { width: 5rem; height: 5rem; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.15); text-align: center; font-size: 0.75rem; font-weight: bold; line-height: 1.2; }
+        .social-icon span { font-size: 0.6rem; opacity: 0.9; margin-top: 3px; font-weight: normal; }
+        .wa { background-color: #25D366; }
+        .tt { background-color: #000000; border: 1px solid #475569; }
+
+        .footer { background-color: #0f172a; color: #94a3b8; text-align: center; padding: 2.5rem 1rem; font-size: 0.9rem; margin-top: 5rem; border-top: 4px solid #047857; }
+    </style>
+</head>
+<body>
+
+    <!-- STATIC USERNAME FLOATS -->
+    <div class="social-dock">
+        <div class="social-icon wa">WhatsApp<br><span>0751703270</span></div>
+        <div class="social-icon tt">TikTok<br><span>houseofguidance.ug</span></div>
+    </div>
+
+    <!-- HEADER LOGO STAGING -->
+    <nav class="navbar">
+        <div class="logo-group">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none';">
+            <div class="logo-text">HOUSE OF GUIDANCE</div>
+        </div>
+        <div class="nav-links">
+            <a href="#motivation" class="nav-link">Motivation</a>
+            <a href="#reminders" class="nav-link">Reminders</a>
+            <a href="#khutbahs" class="nav-link">Khutbahs</a>
+            <button class="portal-btn">Student Portal</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- EMERALD WALL HERO HULL -->
+        <section class="hero">
+            <h1>Welcome to House of Guidance</h1>
+            <p>Your premier online destination for structured learning, growth, and daily Islamic development.</p>
+        </section>
+
+        <!-- BULLETIN AD BANNER -->
+        <div class="ad-banner">
+            📢 <strong>Featured Advertisement:</strong> Registration for the upcoming semester is now open. Contact our administration panel to secure your slot!
+        </div>
+        <!-- MODULE: ISLAMIC MOTIVATION SECTION -->
+        <section id="motivation" class="section-container">
+            <div class="section-header" style="border-bottom-color: #047857;">
+                <h2>Daily Islamic Motivation</h2>
+            </div>
+            <div class="grid">
+                <!-- Motivation Card 1 -->
+                <div class="card" style="border-left-color: #047857; background: linear-gradient(to right, #ffffff, #f0fdf4);">
+                    <span class="card-tag" style="color: #047857;">Heart & Soul</span>
+                    <h3 class="card-title">Renew Your Intentions (Niyyah)</h3>
+                    <p class="card-text">"Every action is judged by its intention. Before studying, teaching, or reminding others, check your heart. Dedicate your efforts purely for the sake of Allah, and watch your daily routines transform into massive acts of worship."</p>
+                </div>
+
+                <!-- Motivation Card 2 -->
+                <div class="card" style="border-left-color: #047857; background: linear-gradient(to right, #ffffff, #f0fdf4);">
+                    <span class="card-tag" style="color: #047857;">Consistency</span>
+                    <h3 class="card-title">Small Steps, Massive Rewards</h3>
+                    <p class="card-text">"The most beloved deeds to Allah are those done consistently, even if they are small. Do not underestimate a daily 5-minute reminder, a single verse read, or a short video watched. Consistency builds your spiritual foundation."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE: DAILY REMINDERS (TEXT & IMAGES) -->
+        <section id="reminders" class="section-container">
+            <div class="section-header">
+                <!-- Glowing live animation dot -->
+                <div class="pulse-dot"></div>
+                <h2>Daily Islamic Reminders</h2>
+            </div>
+            <div class="grid">
+                <!-- Written Reminder Card -->
+                <div class="card">
+                    <span class="card-tag">Daily Verse / Hadith</span>
+                    <h3 class="card-title">Patience & Ease</h3>
+                    <p class="card-text italic">"Indeed, with hardship [will be] ease." — Quran 94:6</p>
+                </div>
+                
+                <!-- Image Upload Card -->
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <span class="card-tag" style="color: #d97706;">Visual Reminder Photo</span>
+                    <h3 class="card-title">Morning Dhikr Graphic</h3>
+                    <p class="card-text">Keep your tongue moist with the remembrance of Allah throughout your day.</p>
+                    <!-- Save your custom graphic as reminder.jpg inside your folder -->
+                    <img src="reminder.jpg" alt="[Place your reminder.jpg image inside your folder to display your daily photo graphic]" class="reminder-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE: ACADEMIC KHUTBAHS & VIDEOS -->
+        <section id="khutbahs" class="section-container" style="background-color: #f1f5f9; border-radius: 1rem; padding: 2rem;">
+            <div class="section-header" style="border-bottom-color: #cbd5e1;">
+                <h2>Khutbahs & Short Video Lectures</h2>
+            </div>
+            <div class="grid">
+                <!-- Video Player Card -->
+                <div class="card" style="border-left: none;">
+                    <h3 class="card-title">Short Video Khutbah</h3>
+                    <p class="card-text">Watch our latest short reflection directly below:</p>
+                    <div class="video-wrapper">
+                        <!-- Save your video as lecture.mp4 inside your folder -->
+                        <video controls>
+                            <source src="lecture.mp4" type="video/mp4">
+                            Your browser file loader could not track 'lecture.mp4'.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- PDF Notes Card -->
+                <div class="card" style="border-left: none; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 class="card-title">Download Course Materials</h3>
+                        <p class="card-text">Access full lesson notes and syllabus structures compiled by the administrators. Download, print, and study offline.</p>
+                    </div>
+                    <!-- Save your PDF document as notes.pdf inside your folder -->
+                    <a href="notes.pdf" download class="download-btn" style="display: block; text-align: center; background-color: #0f172a; color: white; padding: 0.85rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; margin-top: 1.5rem;">
+                        Download Written PDF Notes
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+            <!-- MODULE: SECRET CHARITY & RURAL MOSQUES PROJECT -->
+        <section id="charity" class="section-container" style="margin-top: 3rem;">
+            <div class="section-header" style="border-bottom-color: #b45309;">
+                <h2>Support Our Ongoing Projects (Secret Charity)</h2>
+            </div>
+            
+            <div class="grid">
+                <!-- Project Detail Card -->
+                <div class="card" style="border-left-color: #b45309;">
+                    <span class="card-tag" style="color: #b45309;">Ongoing Program</span>
+                    <h3 class="card-title">Improving Quran in Rural Mosques</h3>
+                    <p class="card-text">We are actively distributing copies of <strong>Yassarnaal Qur'an</strong> learning modules to rural mosques across the region to improve Quranic literacy. You can support this noble cause by donating a book or contributing any amount secretly.</p>
+                    
+                    <!-- Yassarna Graphic Placeholder -->
+                    <img src="yassarna.jpg" alt="[Place your yassarna.jpg image inside your project folder to display the book graphic]" class="reminder-img" style="border-color: #fde68a;">
+                    
+                    <div style="margin-top: 1.25rem; background-color: #fef3c7; padding: 1rem; border-radius: 0.5rem; border: 1px solid #fde68a;">
+                        <p class="card-text" style="font-size: 0.9rem; color: #78350f;">
+                            <strong>Direct Mobile Contact:</strong> 0751703270
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Payment Channels Card -->
+                <div class="card" style="border-left-color: #b45309; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span class="card-tag" style="color: #b45309;">Payment Gateways</span>
+                        <h3 class="card-title">Mobile Money Donation Channels</h3>
+                        <p class="card-text" style="font-size: 0.95rem; margin-bottom: 1.5rem;">Tap your preferred network below to initiate your secret charity donation via secure mobile channels.</p>
+                        
+                        <!-- MTN Mobile Money Button Slot -->
+                        <div style="margin-bottom: 1rem;">
+                            <a href="tel:*165*3#" style="display: flex; align-items: center; justify-content: space-between; background-color: #ffcc00; color: #000000; padding: 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                                <span>MTN Mobile Money</span>
+                                <span style="font-size: 0.8rem; background-color: rgba(0,0,0,0.1); padding: 2px 8px; border-radius: 4px;">Dial *165*3#</span>
+                            </a>
+                        </div>
+
+                        <!-- Airtel Money Button Slot -->
+                        <div>
+                            <a href="tel:*185*9#" style="display: flex; align-items: center; justify-content: space-between; background-color: #ff0000; color: #ffffff; padding: 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                                <span>Airtel Money</span>
+                                <span style="font-size: 0.8rem; background-color: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px;">Dial *185*9#</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: #64748b; margin-top: 1.5rem; text-align: center; font-style: italic;">
+                        "Secret charity extinguishes the anger of the Lord."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    <!-- TERMINAL FOOTER BLOCK -->
+    <footer class="footer">
+        <p>&copy; 2026 House of Guidance. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
