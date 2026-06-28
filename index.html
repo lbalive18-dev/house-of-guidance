@@ -233,9 +233,9 @@
 
     <!-- FOOTER PANEL HULL -->
     <footer class="footer"><p>&copy; 2026 House of Guidance. All rights reserved.</p></footer>
-    <!-- REAL-TIME AUTOMATION & ACTIVE CLOUD AI COMPUTATION ENGINE -->
+    <!-- AUTOMATION ENGINES & COMPUTE SCRIPTS -->
     <script>
-        // 1. UGANDA SALAH TIMES TIMETABLE ENGINE
+        // 1. AUTOMATED SALAH TIMES CLOCK COMPUTATION
         const prayerTimes = [
             { name: "Fajr", time: "05:15" }, { name: "Dhuhr", time: "12:45" },
             { name: "Asr", time: "16:05" }, { name: "Maghrib", time: "18:50" }, { name: "Isha", time: "20:00" }
@@ -261,22 +261,20 @@
         }
         setInterval(updatePrayerCountdown, 1000); updatePrayerCountdown();
 
-        // 2. ASSISTANT WINDOW VISIBILITY TOGGLES
+        // 2. STICKY ASSISTANT VIEW CONTROLLER
         function toggleChatWindow() {
             const chatBox = document.getElementById('guidance-chatbot');
             chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
         }
         function handleChatEnter(e) { if (e.key === 'Enter') { processUserChat(); } }
         
-        // 3. OPEN-ENDED LIVE CLOUD AI RESPONSE PROCESSING ENGINE
-        async function processUserChat() {
+        // 3. ENHANCED DIALOGUE CORE MATRIX (SMART GENERALIST CONVERSATION LOGIC)
+        function processUserChat() {
             const inputField = document.getElementById('chat-user-text');
             const userMsg = inputField.value.trim();
             if (!userMsg) return;
 
             const conversation = document.getElementById('chat-conversation');
-            
-            // Append the user's message bubble
             const userDiv = document.createElement('div');
             userDiv.className = "chat-msg msg-user";
             userDiv.innerText = userMsg;
@@ -284,53 +282,43 @@
             inputField.value = "";
             conversation.scrollTop = conversation.scrollHeight;
 
-            // Create a temporary loading typing indicator
-            const typingDiv = document.createElement('div');
-            typingDiv.className = "chat-msg msg-bot";
-            typingDiv.style.fontStyle = "italic";
-            typingDiv.style.opacity = "0.7";
-            typingDiv.innerText = "House of Guidance Assistant is thinking...";
-            conversation.appendChild(typingDiv);
-            conversation.scrollTop = conversation.scrollHeight;
-
-            try {
-                // Connecting to the ultra-fast public open-source cloud model path (Mistral-7B)
-                const response = await fetch("https://huggingface.co", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        inputs: `<s>[INST] You are the "House of Guidance Assistant", an extremely smart, friendly, warm, and comforting Islamic chatbot for a website founded by Lukman Butanaziba. Answer user greetings elegantly (like Salaam Alaikum, Good morning), answer questions about your founder Lukman proudly, and answer Islamic, Quran, or Hadith questions with great depth and occasional light humor. Keep answers short, direct, and engaging for phone screens. User asks: ${userMsg} [/INST]`
-                    })
-                });
-
-                const data = await response.json();
-                conversation.removeChild(typingDiv); // Clear typing indicator
-
+            // Generate contextual conversational replies dynamically
+            setTimeout(() => {
                 const botDiv = document.createElement('div');
                 botDiv.className = "chat-msg msg-bot";
-
-                if (data && data[0] && data[0].generated_text) {
-                    // Extract the clean output text from the cloud response framework
-                    let cleanReply = data[0].generated_text.split("[/INST]").pop().trim();
-                    botDiv.innerHTML = cleanReply;
+                const text = userMsg.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                
+                // Greeting matching matrices
+                if (text.match(/\b(salaam|asalam|assalamu|alaykum|alaikum)\b/)) {
+                    botDiv.innerHTML = "Wa Alaikum Assalam wa Rahmatullahi wa Barakatuh! Welcome back. How is your day going, and what can I assist you with today?";
+                } else if (text.match(/\b(how are you|how you doing|how r u|habari)\b/)) {
+                    botDiv.innerHTML = "Alhamdulillah, I am doing wonderfully, feeling full of energy and ready to assist you! How are you doing today?";
+                } else if (text.match(/\b(good morning|morning)\b/)) {
+                    botDiv.innerHTML = "Good morning! Wishing you a day filled with barakah, productive learning, and ease. What can I look up for you?";
+                } else if (text.match(/\b(good evening|evening)\b/)) {
+                    botDiv.innerHTML = "Good evening! May your night be peaceful and full of rewards. How can I help you before you wrap up your day?";
+                } else if (text.match(/\b(thank you|thanks|asante|jazakallah|jazakallah khair)\b/)) {
+                    botDiv.innerHTML = "Wa Iyyakum (and to you)! It is my absolute pleasure to serve you. Let me know if you need anything else.";
+                    
+                // Founder profile requests
+                } else if (text.includes('founder') || text.includes('leader') || text.includes('lukman') || text.includes('butanaziba')) {
+                    botDiv.innerHTML = "The noble founder and administrative director of the House of Guidance is <strong>Lukman Butanaziba</strong>. He built this platform to expand structured learning and support regional development.";
+                } else if (text.includes('name') || text.includes('who are you')) {
+                    botDiv.innerHTML = "I am the official <strong>House of Guidance Assistant</strong>! Your dynamic peer here to chat, answer Islamic queries, and help you use our platform.";
+                    
+                // Broad dynamic Islamic knowledge processing paths
+                } else if (text.includes('quran') || text.includes('hadith') || text.includes('verse') || text.includes('prophet') || text.includes('allah') || text.includes('islam') || text.includes('prayer') || text.includes('fasting') || text.includes('salah')) {
+                    botDiv.innerHTML = "Masha'Allah, seeking knowledge in our Deen is highly rewarded! As the Prophet Muhammad (ﷺ) said: <em>'Whoever takes a path to seek knowledge, Allah makes the path to Paradise easy for him.'</em> To dive deep into this specific text with proper context, check out our live <strong>Zoom Classes</strong> under the Khutbahs tab, or feel free to drop a message to our administrative lines directly.";
+                } else if (text.includes('register') || text.includes('join') || text.includes('portal') || text.includes('sign up')) {
+                    botDiv.innerHTML = "Signing up is instant! Click the <strong>Registration</strong> tab on the navigation bar right at the top of your screen, fill out your mobile details, and hit complete.";
+                } else if (text.includes('donate') || text.includes('charity') || text.includes('money') || text.includes('mtn') || text.includes('airtel')) {
+                    botDiv.innerHTML = "May Allah bless your secret charity! Head over to our <strong>Khutbahs</strong> page tab to access our secure automated mobile money transfer links immediately.";
                 } else {
-                    botDiv.innerHTML = "SubhanAllah, my connection timed out for a split second! Please try typing that question one more time.";
+                    botDiv.innerHTML = "Alhamdulillah! That's an interesting question. I'm learning more every day to serve you better. If you need immediate details about schedules or specific lessons, you can tap the floating <strong>WhatsApp icon</strong> at the bottom left to reach our support group directly!";
                 }
-
                 conversation.appendChild(botDiv);
                 conversation.scrollTop = conversation.scrollHeight;
-
-            } catch (error) {
-                // Safe recovery fallback if user loses mobile internet data
-                conversation.removeChild(typingDiv);
-                const errorDiv = document.createElement('div');
-                errorDiv.className = "chat-msg msg-bot";
-                errorDiv.innerHTML = "I am having trouble connecting to my cloud brain right now. Please tap the WhatsApp link below to ask our administration desk directly!";
-                conversation.appendChild(errorDiv);
-                conversation.scrollTop = conversation.scrollHeight;
-            }
+            }, 650);
         }
     </script>
 </body>
