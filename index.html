@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House of Guidance | Home</title>
-    <!-- Google Fonts Framework -->
+    <!-- Premium Google Fonts Framework -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Part 1: Core Layout Settings */
+        /* Base Setup Styles */
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body {
             margin: 0;
@@ -24,7 +24,7 @@
         }
         main { flex-grow: 1; padding-bottom: 6rem; }
 
-        /* HEADER & MENU NAVIGATION TABS */
+        /* SCROLLING HEADER & NAVIGATION MENUS */
         .navbar {
             background-color: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
@@ -47,7 +47,7 @@
     </style>
 </head>
     <style>
-        /* Part 2: Graphic Dashboards & Custom Muslim Character Vector CSS */
+        /* Part 2: Card Containers & Branded Assistant Icon Engines */
         .hero {
             position: relative;
             background: linear-gradient(135deg, rgba(7, 10, 19, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%), url('kaaba.jpg');
@@ -74,6 +74,7 @@
         .card-title { font-size: 1.15rem; margin: 0 0 0.5rem; color: #ffffff; font-weight: 700; }
         .card-text { color: #94a3b8; font-size: 0.92rem; line-height: 1.5; margin: 0; }
 
+        /* THE ANIMATED MOON AND SUN BOX */
         .celestial-box { display: flex; justify-content: center; gap: 2rem; padding: 1.25rem; background: #0f172a; border-radius: 20px; border: 1px solid rgba(255,255,255,0.03); margin-bottom: 0.5rem; }
         .celestial-sun { width: 45px; height: 45px; background: radial-gradient(circle, #f59e0b 0%, #d97706 100%); border-radius: 50%; box-shadow: 0 0 20px #f59e0b; position: relative; animation: floatSun 4s ease-in-out infinite alternate; }
         .celestial-sun::after { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 50%; border: 2px dashed rgba(245, 158, 11, 0.4); animation: rotateSun 20s linear infinite; }
@@ -83,7 +84,7 @@
         .active-prayer { background-color: rgba(56, 189, 248, 0.06); border-radius: 12px; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.8rem; }
         .countdown-display { font-size: 1.35rem; font-weight: 800; color: #38bdf8; text-align: center; padding: 0.25rem 0; font-family: monospace; }
 
-        /* UPGRADED ASSISTANT ARCHITECTURE - MUSLIM CHARACTER DESIGN TRIGGER SYSTEM */
+        /* UPGRADED ASSISTANT SYSTEM (MUSLIM HEAD DESIGN WITH CAP) */
         .chat-trigger { position: fixed; bottom: 5.25rem; right: 1.25rem; width: 3.75rem; height: 3.75rem; background: #0f172a; border-radius: 50%; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35); display: flex; align-items: center; justify-content: center; border: 2px solid #38bdf8; cursor: pointer; z-index: 120; animation: bounceChat 3s ease-in-out infinite; }
         .chat-trigger-label { position: absolute; bottom: -14px; white-space: nowrap; font-size: 0.52rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; background: #070a13; padding: 1px 4px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.2); }
         
@@ -96,16 +97,19 @@
         .muslim-beard { position: absolute; bottom: 0; left: 4px; width: 32px; height: 16px; background: #1e293b; border-radius: 0 0 16px 16px; z-index: 1; }
 
         .chat-box-widget { position: fixed; bottom: 9.5rem; right: 1.25rem; width: 310px; height: 420px; background-color: #161e2e; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 130; display: none; flex-direction: column; overflow: hidden; }
-        .chat-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
         .chat-title { font-size: 0.9rem; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 0.5rem; }
         .chat-close { color: #94a3b8; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
         .chat-logs { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; flex-grow: 1; font-size: 0.85rem; background-color: #0d131f; }
-        .chat-msg { padding: 0.65rem 0.85rem; border-radius: 14px; max-width: 85%; line-height: 1.4; word-wrap: break-word; }
+        .chat-msg { padding: 0.65rem 0.85rem; border-radius: 14px; max-width: 85%; line-height: 1.4; word-wrap: break-word; position: relative; }
         .msg-bot { background-color: #1f293d; color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; }
         .msg-user { background-color: #0284c7; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-inputs { display: flex; gap: 0.4rem; padding: 0.75rem; background-color: #0f172a; border-top: 1px solid rgba(255,255,255,0.04); }
         .chat-text-input { flex: 1; background-color: #161e2e; border: 1px solid #334155; border-radius: 10px; color: white; padding: 0.5rem 0.75rem; font-size: 0.85rem; outline: none; }
         .chat-send-btn { background-color: #0284c7; border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        
+        /* Interactive text-to-speech audio graphic tag and typing loaders */
+        .speaking-wave { display: inline-block; width: 6px; height: 6px; background-color: #38bdf8; border-radius: 50%; margin-left: 6px; animation: soundPulse 0.8s infinite alternate; }
 
         .social-dock { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; z-index: 110; }
         .social-icon { height: 3.5rem; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 0.85rem; font-weight: 700; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
@@ -119,17 +123,18 @@
         @keyframes floatMoon { 0% { transform: rotate(-20deg) translateY(0); } 100% { transform: rotate(-20deg) translateY(-4px); } }
         @keyframes rotateSun { 100% { transform: rotate(360deg); } }
         @keyframes bounceChat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes soundPulse { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- SIDE NAVIGATION CONTROL PANELS -->
+    <!-- BOTTOM MOBILE APP CONTROL BADGES -->
     <div class="social-dock">
         <a href="https://wa.me" target="_blank" class="social-icon wa">WhatsApp<br><span>Tap to Chat</span></a>
         <a href="https://tiktok.com" target="_blank" class="social-icon tt">TikTok<br><span>Tap to Follow</span></a>
     </div>
 
-    <!-- GRAPHIC CHARACTER TRIGGER EMBED -->
+    <!-- GRAPHIC MUSLIM CHARACTER TRIGGER EMBED WITH KOFIA -->
     <div class="chat-trigger" onclick="toggleChatWindow()">
         <div class="muslim-avatar">
             <div class="muslim-cap"><div class="muslim-cap-lines"></div></div>
@@ -139,7 +144,7 @@
         <div class="chat-trigger-label">Assistant</div>
     </div>
 
-    <!-- THE HOUSE OF GUIDANCE ASSISTANT CHAT HUB -->
+    <!-- HOUSE OF GUIDANCE ASSISTANT CHAT TERMINAL WINDOW -->
     <div id="guidance-chatbot" class="chat-box-widget">
         <div class="chat-header">
             <div class="chat-title">
@@ -149,18 +154,18 @@
             <div class="chat-close" onclick="toggleChatWindow()">&times;</div>
         </div>
         <div id="chat-conversation" class="chat-logs">
-            <!-- Completely rewritten, clean greeting message containing zero preamble texts -->
-            <div class="chat-msg msg-bot">
-                Assalamu Alaikum! I am your <strong>House of Guidance Assistant</strong>. I am here to help you navigate our platform and answer any questions concerning Islam. Feel free to ask me anything!
+            <!-- Completely cleaned greeting message containing no preamble or founder text loops -->
+            <div class="chat-msg msg-bot" id="initial-welcome-msg">
+                Assalamu Alaikum! I am your <strong>House of Guidance Assistant</strong>. Feel free to ask me any question about our platform or anything concerning Islam!
             </div>
         </div>
         <div class="chat-inputs">
-            <input type="text" id="chat-user-text" placeholder="Ask a question..." class="chat-text-input" onkeypress="handleChatEnter(event)">
+            <input type="text" id="chat-user-text" placeholder="Ask a question in English or Luganda..." class="chat-text-input" onkeypress="handleChatEnter(event)">
             <button class="chat-send-btn" onclick="processUserChat()">Send</button>
         </div>
     </div>
 
-    <!-- MASTER NAVBAR SYSTEM -->
+    <!-- MAIN NAV STRIP SYSTEMS -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-top">
@@ -233,9 +238,9 @@
 
     <!-- FOOTER PANEL HULL -->
     <footer class="footer"><p>&copy; 2026 House of Guidance. All rights reserved.</p></footer>
-    <!-- AUTOMATION ENGINES & COMPUTE SCRIPTS -->
+    <!-- REAL-TIME AUTOMATION & ACTIVE BACKEND AI ROUTING ENGINES -->
     <script>
-        // 1. AUTOMATED SALAH TIMES CLOCK COMPUTATION
+        // 1. UGANDA SALAH TIMES CLOCK TIMETABLE ENGINE
         const prayerTimes = [
             { name: "Fajr", time: "05:15" }, { name: "Dhuhr", time: "12:45" },
             { name: "Asr", time: "16:05" }, { name: "Maghrib", time: "18:50" }, { name: "Isha", time: "20:00" }
@@ -261,20 +266,46 @@
         }
         setInterval(updatePrayerCountdown, 1000); updatePrayerCountdown();
 
-        // 2. STICKY ASSISTANT VIEW CONTROLLER
+        // 2. ASSISTANT WINDOW CONTROLLERS
         function toggleChatWindow() {
             const chatBox = document.getElementById('guidance-chatbot');
             chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
         }
         function handleChatEnter(e) { if (e.key === 'Enter') { processUserChat(); } }
         
-        // 3. ENHANCED DIALOGUE CORE MATRIX (SMART GENERALIST CONVERSATION LOGIC)
-        function processUserChat() {
+        // 3. NATIVE TEXT-TO-SPEECH (TTS) AUDIO SYNTHESIS SYSTEM
+        function speakAssistantReply(text) {
+            // Check if the browser supports speech synthesis text reading engines
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speaking audio streams to avoid voice overlaps
+                window.speechSynthesis.cancel();
+                
+                // Strip out raw HTML character tags so the robot doesn't read codes out loud
+                const cleanText = text.replace(/<\/?[^>]+(>|$)/g, "");
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                
+                // Clean dialect detection handles Luganda words smoothly via rhythmic pacing
+                if (text.match(/\b(Oli otya|Gyebale|Asalamu|Mwebale|Kale)\b/i)) {
+                    utterance.lang = 'en-ZA'; // Paces smoothly for local African vernacular styles
+                    utterance.rate = 0.85; 
+                } else {
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.95;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // 4. SECURE SECURE NETLIFY FUNCTION AI PIPELINE CHANNEL
+        async function processUserChat() {
             const inputField = document.getElementById('chat-user-text');
             const userMsg = inputField.value.trim();
             if (!userMsg) return;
 
             const conversation = document.getElementById('chat-conversation');
+            
+            // Append User Chat Bubble
             const userDiv = document.createElement('div');
             userDiv.className = "chat-msg msg-user";
             userDiv.innerText = userMsg;
@@ -282,43 +313,51 @@
             inputField.value = "";
             conversation.scrollTop = conversation.scrollHeight;
 
-            // Generate contextual conversational replies dynamically
-            setTimeout(() => {
+            // Generate Temporary Thinking Loader Bubble
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = "chat-msg msg-bot";
+            thinkingDiv.style.fontStyle = "italic";
+            thinkingDiv.style.opacity = "0.6";
+            thinkingDiv.innerText = "Thinking...";
+            conversation.appendChild(thinkingDiv);
+            conversation.scrollTop = conversation.scrollHeight;
+
+            try {
+                // Securely routing the prompt text directly into your backend cloud endpoint
+                const response = await fetch("/.netlify/functions/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMsg })
+                });
+
+                const data = await response.json();
+                conversation.removeChild(thinkingDiv); // Remove thinking loop bubble
+
                 const botDiv = document.createElement('div');
                 botDiv.className = "chat-msg msg-bot";
-                const text = userMsg.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-                
-                // Greeting matching matrices
-                if (text.match(/\b(salaam|asalam|assalamu|alaykum|alaikum)\b/)) {
-                    botDiv.innerHTML = "Wa Alaikum Assalam wa Rahmatullahi wa Barakatuh! Welcome back. How is your day going, and what can I assist you with today?";
-                } else if (text.match(/\b(how are you|how you doing|how r u|habari)\b/)) {
-                    botDiv.innerHTML = "Alhamdulillah, I am doing wonderfully, feeling full of energy and ready to assist you! How are you doing today?";
-                } else if (text.match(/\b(good morning|morning)\b/)) {
-                    botDiv.innerHTML = "Good morning! Wishing you a day filled with barakah, productive learning, and ease. What can I look up for you?";
-                } else if (text.match(/\b(good evening|evening)\b/)) {
-                    botDiv.innerHTML = "Good evening! May your night be peaceful and full of rewards. How can I help you before you wrap up your day?";
-                } else if (text.match(/\b(thank you|thanks|asante|jazakallah|jazakallah khair)\b/)) {
-                    botDiv.innerHTML = "Wa Iyyakum (and to you)! It is my absolute pleasure to serve you. Let me know if you need anything else.";
+
+                if (data && data.reply) {
+                    // Injecting the raw HTML formatting safely into your updated layout shell
+                    botDiv.innerHTML = data.reply + ' <span class="speaking-wave"></span>';
+                    conversation.appendChild(botDiv);
+                    conversation.scrollTop = conversation.scrollHeight;
                     
-                // Founder profile requests
-                } else if (text.includes('founder') || text.includes('leader') || text.includes('lukman') || text.includes('butanaziba')) {
-                    botDiv.innerHTML = "The noble founder and administrative director of the House of Guidance is <strong>Lukman Butanaziba</strong>. He built this platform to expand structured learning and support regional development.";
-                } else if (text.includes('name') || text.includes('who are you')) {
-                    botDiv.innerHTML = "I am the official <strong>House of Guidance Assistant</strong>! Your dynamic peer here to chat, answer Islamic queries, and help you use our platform.";
-                    
-                // Broad dynamic Islamic knowledge processing paths
-                } else if (text.includes('quran') || text.includes('hadith') || text.includes('verse') || text.includes('prophet') || text.includes('allah') || text.includes('islam') || text.includes('prayer') || text.includes('fasting') || text.includes('salah')) {
-                    botDiv.innerHTML = "Masha'Allah, seeking knowledge in our Deen is highly rewarded! As the Prophet Muhammad (ﷺ) said: <em>'Whoever takes a path to seek knowledge, Allah makes the path to Paradise easy for him.'</em> To dive deep into this specific text with proper context, check out our live <strong>Zoom Classes</strong> under the Khutbahs tab, or feel free to drop a message to our administrative lines directly.";
-                } else if (text.includes('register') || text.includes('join') || text.includes('portal') || text.includes('sign up')) {
-                    botDiv.innerHTML = "Signing up is instant! Click the <strong>Registration</strong> tab on the navigation bar right at the top of your screen, fill out your mobile details, and hit complete.";
-                } else if (text.includes('donate') || text.includes('charity') || text.includes('money') || text.includes('mtn') || text.includes('airtel')) {
-                    botDiv.innerHTML = "May Allah bless your secret charity! Head over to our <strong>Khutbahs</strong> page tab to access our secure automated mobile money transfer links immediately.";
+                    // Trigger native smartphone vocal audio system streams
+                    speakAssistantReply(data.reply);
                 } else {
-                    botDiv.innerHTML = "Alhamdulillah! That's an interesting question. I'm learning more every day to serve you better. If you need immediate details about schedules or specific lessons, you can tap the floating <strong>WhatsApp icon</strong> at the bottom left to reach our support group directly!";
+                    botDiv.innerHTML = "SubhanAllah, my connection timed out for a split second! Please try typing that question one more time.";
+                    conversation.appendChild(botDiv);
                 }
-                conversation.appendChild(botDiv);
+
+            } catch (error) {
+                // Safety network recovery fallback triggers if connection is poor
+                conversation.removeChild(thinkingDiv);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = "chat-msg msg-bot";
+                errorDiv.innerHTML = "I am having trouble connecting to my backend right now. Make sure your mobile data is active or tap the WhatsApp button below to talk to us directly!";
+                conversation.appendChild(errorDiv);
                 conversation.scrollTop = conversation.scrollHeight;
-            }, 650);
+            }
         }
     </script>
 </body>
