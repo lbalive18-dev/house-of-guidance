@@ -1,7 +1,6 @@
 // ==========================================================================
 // HOUSE OF GUIDANCE ADVANCED OPENAI BACKEND ROUTING NETLIFY FUNCTION MATRIX
 // ==========================================================================
-const fetch = require('node-fetch');
 
 exports.handler = async function (event, context) {
     // Only permit secure incoming POST request parameters
@@ -21,7 +20,7 @@ exports.handler = async function (event, context) {
             };
         }
 
-        // Secure endpoint routing targeting OpenAI's fast context engine (gpt-4o-mini)
+        // Secure endpoint routing targeting OpenAI's fast context engine using native global fetch
         const response = await fetch("https://openai.com", {
             method: "POST",
             headers: {
@@ -51,8 +50,8 @@ exports.handler = async function (event, context) {
 
         const data = await response.json();
 
-        if (data.choices && data.choices[0].message) {
-            const aiReply = data.choices[0].message.content;
+        if (data.choices && data.choices.message) {
+            const aiReply = data.choices.message.content;
             return {
                 statusCode: 200,
                 headers: { "Content-Type": "application/json" },
