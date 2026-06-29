@@ -28,18 +28,17 @@ exports.handler = async function (event, context) {
         4. Support English and Luganda languages seamlessly. If the user prompts in Luganda, converse back in beautiful, fluent, polite Luganda (Oli otya, Weebale nnyo, Kale).
         5. Keep responses direct and highly engaging for phone screens. No raw code.`;
 
-        // Updated chat payload structure optimized for Qwen text processors
         const requestData = JSON.stringify({
             inputs: `<|im_start|>system\n${systemInstruction}<|im_end|>\n<|im_start|>user\n${message}<|im_end|>\n<|im_start|>assistant\n`,
-            parameters: { max_new_tokens: 350, temperature: 0.7, return_full_text: false }
+            parameters: { max_new_tokens: 250, temperature: 0.7, return_full_text: false }
         });
 
         return new Promise((resolve, reject) => {
             const options = {
                 hostname: 'api-inference.huggingface.co',
                 port: 443,
-                // Switched to the lightning-fast, high-availability Qwen 2.5 server engine model path
-                path: '/models/Qwen/Qwen2.5-7B-Instruct',
+                // Switched to the high-availability, instant-response lightweight Qwen model
+                path: '/models/Qwen/Qwen2.5-1.5B-Instruct',
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${apiKey}`,
@@ -63,7 +62,6 @@ exports.handler = async function (event, context) {
                         }
 
                         if (aiReply) {
-                            // Strip any accidental system prompt bleedover
                             aiReply = aiReply.replace(/<\|im_end\|>/g, "").trim();
                             resolve({
                                 statusCode: 200,
