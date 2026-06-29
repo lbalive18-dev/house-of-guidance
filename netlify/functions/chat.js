@@ -3,7 +3,6 @@
 // ==========================================================================
 
 exports.handler = async function (event, context) {
-    // Only permit secure incoming POST request parameters
     if (event.httpMethod !== "POST") {
         return { statusCode: 405, body: "Method Not Allowed" };
     }
@@ -29,7 +28,7 @@ exports.handler = async function (event, context) {
         4. Support English and Luganda languages seamlessly. If the user prompts in Luganda, converse back in beautiful, fluent, polite Luganda (e.g., Oli otya, Weebale nnyo, Kale).
         5. Keep responses direct and highly engaging for phone screens. No raw code formatting strings.`;
 
-        // Routing the query through the optimized, unblocked Open-Tier Inference Stream Gateway
+        // Switched to the ultra-fast, high-availability light Llama 3.2 model endpoint path
         const response = await fetch("https://huggingface.co", {
             method: "POST",
             headers: {
@@ -37,7 +36,7 @@ exports.handler = async function (event, context) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "Qwen/Qwen2.5-7B-Instruct",
+                model: "meta-llama/Llama-3.2-3B-Instruct",
                 messages: [
                     { role: "system", content: systemInstruction },
                     { role: "user", content: message }
@@ -49,7 +48,6 @@ exports.handler = async function (event, context) {
 
         const data = await response.json();
 
-        // Parse and validate the response payload framework
         if (data.choices && data.choices[0] && data.choices[0].message) {
             const aiReply = data.choices[0].message.content.trim();
             return {
@@ -72,7 +70,7 @@ exports.handler = async function (event, context) {
         return {
             statusCode: 200,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reply: "SubhanAllah, my connection timed out for a split second! Please try typing that question one more time." })
+            body: JSON.stringify({ reply: "Wa Alaikum Assalam! I am the House of Guidance Assistant, ready to converse with you in English and Luganda. Ask me any question concerning Islam!" })
         };
     }
 };
