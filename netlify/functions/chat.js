@@ -1,6 +1,7 @@
 // ==========================================================================
 // HOUSE OF GUIDANCE ADVANCED OPENAI BACKEND ROUTING NETLIFY FUNCTION MATRIX
 // ==========================================================================
+const https = require('https');
 
 exports.handler = async function (event, context) {
     // Only permit secure incoming POST request parameters
@@ -16,18 +17,14 @@ exports.handler = async function (event, context) {
         if (!apiKey) {
             return {
                 statusCode: 500,
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ reply: "Configuration Error: The administration has not configured the secure cloud environment variable tokens yet inside Netlify." })
             };
         }
 
-        // Secure endpoint routing targeting OpenAI's fast context engine using native global fetch
-        const response = await fetch("https://openai.com", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        // Wrap the OpenAI API connection securely inside a native background request loop
+        return new Promise((resolve, reject) => {
+            const requestData = JSON.stringify({
                 model: "gpt-4o-mini",
                 messages: [
                     {
@@ -45,29 +42,62 @@ exports.handler = async function (event, context) {
                 ],
                 max_tokens: 450,
                 temperature: 0.7
-            })
+            });
+
+            const options = {
+                hostname: '://openai.com',
+                port: 443,
+                path: '/v1/chat/completions',
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(requestData)
+                }
+            };
+
+            const req = https.request(options, (res) => {
+                let responseBody = '';
+                res.on('data', (chunk) => { responseBody += chunk; });
+                res.on('end', () => {
+                    try {
+                        const parsedData = JSON.parse(responseBody);
+                        if (parsedData.choices && parsedData.choices[0].message) {
+                            resolve({
+                                statusCode: 200,
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ reply: parsedData.choices[0].message.content })
+                            });
+                        } else {
+                            resolve({
+                                statusCode: 500,
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ reply: "SubhanAllah, the cloud AI brain returned an empty value. Please try again." })
+                            });
+                        }
+                    } catch (e) {
+                        resolve({ statusCode: 500, body: JSON.stringify({ reply: "Processing error parsing data." }) });
+                    }
+                });
+            });
+
+            req.on('error', (error) => {
+                resolve({
+                    statusCode: 500,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ reply: "Connection failed to reach OpenAI cloud databases." })
+                });
+            });
+
+            req.write(requestData);
+            req.end();
         });
-
-        const data = await response.json();
-
-        if (data.choices && data.choices.message) {
-            const aiReply = data.choices.message.content;
-            return {
-                statusCode: 200,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ reply: aiReply })
-            };
-        } else {
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ reply: "SubhanAllah, my cloud connection dropped for a quick second! Please try prompting me again." })
-            };
-        }
 
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ reply: "Error: My backend framework encountered a data retrieval processing timeout error." })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reply: "Error: My backend framework encountered an execution timeout error." })
         };
     }
 };
