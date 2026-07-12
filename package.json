@@ -1,0 +1,8 @@
+{
+  "name": "house-of-guidance",
+  "version": "1.0.0",
+  "description": "Islamic website with Noor AI",
+  "dependencies": {
+    "@google/generative-ai": "^0.1.0"
+  }
+}

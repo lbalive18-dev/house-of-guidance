@@ -45,9 +45,7 @@
         .nav-menu-bar { display: flex; justify-content: space-between; background-color: rgba(255,255,255,0.05); padding: 0.35rem; border-radius: 12px; margin-top: 0.25rem; gap: 4px; overflow-x: auto; }
         .menu-btn { flex: 1; text-align: center; color: #94a3b8; text-decoration: none; font-size: 0.72rem; font-weight: 600; padding: 0.4rem 0.2rem; border-radius: 8px; white-space: nowrap; }
         .menu-btn.active { background-color: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.05); }
-    </style>
-</head>
-    <style>
+
         /* Part 2: Premium UI Element Containers & Avatar CSS */
         .hero {
             position: relative;
@@ -153,7 +151,7 @@
         </div>
         <div id="chat-conversation" class="chat-logs">
             <div class="chat-msg msg-bot">
-                Assalamu Alaikum! I am your <strong>House of Guidance Assistant</strong>. Ask me any question about our free classes, our founder, or anything concerning Islam in English or Luganda!
+                Assalamu Alaikum! 🌙 I am <strong>Noor</strong>, your House of Guidance Assistant. Ask me any question about Islam, Quran, du'a, or daily guidance in English or Luganda!
             </div>
         </div>
         <div class="chat-inputs">
@@ -234,51 +232,88 @@
     </main>
 
     <footer class="footer"><p>&copy; 2026 House of Guidance. All rights reserved.</p></footer>
-    <!-- REAL-TIME AUTOMATION & DIRECT FRONTEND GOOGLE GEMINI CORE SCRIPTS -->
+
+    <!-- ============================================ -->
+    <!-- NOOR AI ASSISTANT - Complete JavaScript      -->
+    <!-- ============================================ -->
     <script>
-        // 1. UGANDA SALAH TIMES TIMETABLE CALCULATOR
+        // ============================================
+        // PRAYER TIMES CALCULATOR
+        // ============================================
         const prayerTimes = [
-            { name: "Fajr", time: "05:15" }, { name: "Dhuhr", time: "12:45" },
-            { name: "Asr", time: "16:05" }, { name: "Maghrib", time: "18:50" }, { name: "Isha", time: "20:00" }
+            { name: "Fajr", time: "05:15" },
+            { name: "Dhuhr", time: "12:45" },
+            { name: "Asr", time: "16:05" },
+            { name: "Maghrib", time: "18:50" },
+            { name: "Isha", time: "20:00" }
         ];
+
         function updatePrayerCountdown() {
-            const now = new Date(); let nextPrayer = null; let timeDiff = Infinity;
+            const now = new Date();
+            let nextPrayer = null;
+            let timeDiff = Infinity;
             for (let prayer of prayerTimes) {
                 const [hours, minutes] = prayer.time.split(':').map(Number);
                 const prayerDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
                 let diff = prayerDate - now;
-                if (diff > 0 && diff < timeDiff) { timeDiff = diff; nextPrayer = prayer; }
+                if (diff > 0 && diff < timeDiff) {
+                    timeDiff = diff;
+                    nextPrayer = prayer;
+                }
             }
             if (!nextPrayer) {
                 const [hours, minutes] = prayerTimes[0].time.split(':').map(Number);
                 const tomorrowFajr = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, hours, minutes, 0);
-                timeDiff = tomorrowFajr - now; nextPrayer = prayerTimes[0];
+                timeDiff = tomorrowFajr - now;
+                nextPrayer = prayerTimes[0];
             }
-            prayerTimes.forEach(p => { const row = document.getElementById('p-' + p.name.toLowerCase()); if (row) row.classList.remove('active-prayer'); });
+            prayerTimes.forEach(p => {
+                const row = document.getElementById('p-' + p.name.toLowerCase());
+                if (row) row.classList.remove('active-prayer');
+            });
             const totalSeconds = Math.floor(timeDiff / 1000);
-            const hrs = Math.floor(totalSeconds / 3600); const mins = Math.floor((totalSeconds % 3600) / 60); const secs = totalSeconds % 60;
-            document.getElementById('countdown-timer').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} left for ${nextPrayer.name}`;
-            const activeRow = document.getElementById('p-' + nextPrayer.name.toLowerCase()); if (activeRow) activeRow.classList.add('active-prayer');
+            const hrs = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+            const timer = document.getElementById('countdown-timer');
+            if (timer) {
+                timer.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} left for ${nextPrayer.name}`;
+            }
+            const activeRow = document.getElementById('p-' + nextPrayer.name.toLowerCase());
+            if (activeRow) activeRow.classList.add('active-prayer');
         }
-        setInterval(updatePrayerCountdown, 1000); updatePrayerCountdown();
+        setInterval(updatePrayerCountdown, 1000);
+        updatePrayerCountdown();
 
-        // 2. CHAT PANEL VISIBILITY MANAGERS
+        // ============================================
+        // CHAT TOGGLE FUNCTIONS
+        // ============================================
         function toggleChatWindow() {
             const chatBox = document.getElementById('guidance-chatbot');
-            chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
+            if (chatBox) {
+                chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
+                if (chatBox.style.display === 'flex') {
+                    document.getElementById('chat-user-text').focus();
+                }
+            }
         }
-        function handleChatEnter(e) { if (e.key === 'Enter') { processUserChat(); } }
 
-        // 3. NATIVE TEXT-TO-SPEECH (TTS) AUDIO FRAMEWORK
+        function handleChatEnter(e) {
+            if (e.key === 'Enter') {
+                processUserChat();
+            }
+        }
+
+        // ============================================
+        // TEXT-TO-SPEECH
+        // ============================================
         function speakAssistantReply(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Abort active speaking waves
-                
+                window.speechSynthesis.cancel();
                 const cleanText = text.replace(/<\/?[^>]+(>|$)/g, "").replace(/\*+/g, "");
                 const utterance = new SpeechSynthesisUtterance(cleanText);
-                
                 if (text.match(/\b(Oli otya|Gyebale|Asalamu|Mwebale|Kale|Otyanno)\b/i)) {
-                    utterance.lang = 'en-ZA'; // Natural sync flow for East African voice synthesis
+                    utterance.lang = 'en-ZA';
                     utterance.rate = 0.85;
                 } else {
                     utterance.lang = 'en-US';
@@ -288,15 +323,17 @@
             }
         }
 
-        // 4. SECURE FRONTEND DIRECT SECURE AI STREAM HOOK
+        // ============================================
+        // NOOR AI ASSISTANT - Calls Netlify Function
+        // ============================================
         async function processUserChat() {
             const inputField = document.getElementById('chat-user-text');
             const userMsg = inputField.value.trim();
             if (!userMsg) return;
 
             const conversation = document.getElementById('chat-conversation');
-            
-            // Append User Question
+
+            // Add user message
             const userDiv = document.createElement('div');
             userDiv.className = "chat-msg msg-user";
             userDiv.innerText = userMsg;
@@ -304,71 +341,74 @@
             inputField.value = "";
             conversation.scrollTop = conversation.scrollHeight;
 
-            // Append Thinking Placeholder
+            // Add thinking indicator
             const thinkingDiv = document.createElement('div');
             thinkingDiv.className = "chat-msg msg-bot";
             thinkingDiv.style.fontStyle = "italic";
             thinkingDiv.style.opacity = "0.6";
-            thinkingDiv.innerText = "Thinking...";
+            thinkingDiv.innerText = "Thinking... 🤔";
             conversation.appendChild(thinkingDiv);
             conversation.scrollTop = conversation.scrollHeight;
 
-            // Secure unblocked public access token pass key
-            const p1 = "AIzaSyD"; const p2 = "W8iX2YV"; const p3 = "P_3kO0X"; const p4 = "qLn8R9"; const p5 = "uMv2Z"; const p6 = "b4e7A";
-            const geminiGatePass = p1 + p2 + p3 + p4 + p5 + p6;
-
-            const trainingContext = `You are the official "House of Guidance Assistant", a warm, comforting, smart, and lighthearted Islamic AI companion for a website platform founded by Lukman Butanaziba in Uganda.
-            Instructions:
-            1. Greet users warmly only when prompted (e.g., if they say Salaam Alaikum, reply elegantly with: Wa Alaikum Assalam wa Rahmatullahi wa Barakatuh!).
-            2. If asked about your founder, proudly announce that it was founded by Lukman Butanaziba to spread structured knowledge and distribute copies of Yassarnaal Qur'an guides to communities.
-            3. Answer any question regarding Islam, Quran, Fiqh, or Hadith with great depth, respect, clarity, and a touch of warm, friendly peer-like humor.
-            4. Support English and Luganda languages seamlessly. If the user prompts in Luganda, converse back in beautiful, fluent, polite Luganda (Oli otya, Weebale nnyo, Kale).
-            5. Keep responses direct, friendly, conversational, and highly engaging for phone screens. Never display raw technical code tags. User asks: ${userMsg}`;
-
             try {
-                // Connecting directly over the web to Google's stable public API pipeline
-                const url = `https://googleapis.com{geminiGatePass}`;
-                
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: trainingContext }] }] })
+                // Call Netlify function (this is the backend)
+                const response = await fetch('/.netlify/functions/noor-gemini', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userMsg })
                 });
 
                 const data = await response.json();
-                conversation.removeChild(thinkingDiv); // Remove loading text bubble
+
+                // Remove thinking indicator
+                if (thinkingDiv.parentNode) {
+                    conversation.removeChild(thinkingDiv);
+                }
 
                 const botDiv = document.createElement('div');
                 botDiv.className = "chat-msg msg-bot";
 
-                // Corrected precise object access path notation to parse Google's payload JSON framework
-                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
-                    let aiReply = data.candidates[0].content.parts[0].text.trim();
-                    
-                    // Convert markdown double asterisks safely into standard HTML bold rendering styles
-                    aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
-                    
+                if (data.reply) {
+                    let aiReply = data.reply;
+                    // Convert markdown to HTML
+                    aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                     .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                                     .replace(/\n/g, '<br>');
                     botDiv.innerHTML = aiReply + ' <span class="speaking-wave"></span>';
                     conversation.appendChild(botDiv);
                     conversation.scrollTop = conversation.scrollHeight;
-                    
-                    // Speak the response out loud
                     speakAssistantReply(aiReply);
                 } else {
-                    botDiv.innerHTML = "SubhanAllah, my connection timed out for a split second! Please try typing that question one more time.";
+                    botDiv.innerHTML = "SubhanAllah! I had a small glitch. Could you please ask again?";
                     conversation.appendChild(botDiv);
                     conversation.scrollTop = conversation.scrollHeight;
                 }
 
             } catch (error) {
-                conversation.removeChild(thinkingDiv);
+                // Remove thinking indicator
+                if (thinkingDiv.parentNode) {
+                    conversation.removeChild(thinkingDiv);
+                }
+
                 const errorDiv = document.createElement('div');
                 errorDiv.className = "chat-msg msg-bot";
-                errorDiv.innerHTML = "SubhanAllah, my free cloud brain is taking a quick moment to refresh. Please send your question one more time!";
+                errorDiv.innerHTML = "😅 SubhanAllah! I'm having trouble connecting. Please try again in a moment.";
                 conversation.appendChild(errorDiv);
                 conversation.scrollTop = conversation.scrollHeight;
+                console.error('Chat error:', error);
             }
         }
+
+        // ============================================
+        // AUTO-FOCUS ON LOAD
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('chat-user-text');
+            if (input) input.focus();
+            console.log('🌙 Noor Assistant loaded successfully!');
+        });
     </script>
 </body>
 </html>
