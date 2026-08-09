@@ -1,414 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House of Guidance | Home</title>
-    <!-- Google Fonts Framework Integration -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* Core System Pacing Rules */
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body {
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            background-color: #070a13;
-            color: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-        main { flex-grow: 1; padding-bottom: 6rem; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House of Guidance | Qur'an, Arabic, Tajweed &amp; Islamic Learning</title>
+  <meta name="description" content="House of Guidance offers structured Qur'an, Arabic, Tajweed, Hifzh, Yassarna, and Islamic education for our community, with live prayer times and the Noor learning assistant.">
+  <link rel="canonical" href="https://example.org/">
 
-        /* THE STICKY GLASS NAVIGATION BAR STRIP */
-        .navbar {
-            background-color: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .nav-container { max-width: 600px; margin: 0 auto; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
-        .nav-top { display: flex; justify-content: space-between; align-items: center; }
-        .logo-group { display: flex; align-items: center; gap: 0.5rem; }
-        .logo-img { height: 38px; width: 38px; border-radius: 10px; object-fit: cover; border: 1.5px solid #38bdf8; }
-        .logo-text { font-size: 1.1rem; font-weight: 800; color: #38bdf8; letter-spacing: -0.01em; }
-        
-        /* HARD-LINK MENU ROUTING CHANNELS */
-        .nav-menu-bar { display: flex; justify-content: space-between; background-color: rgba(255,255,255,0.05); padding: 0.35rem; border-radius: 12px; margin-top: 0.25rem; gap: 4px; overflow-x: auto; }
-        .menu-btn { flex: 1; text-align: center; color: #94a3b8; text-decoration: none; font-size: 0.72rem; font-weight: 600; padding: 0.4rem 0.2rem; border-radius: 8px; white-space: nowrap; }
-        .menu-btn.active { background-color: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.05); }
+  <!-- Open Graph -->
+  <meta property="og:title" content="House of Guidance | Qur'an, Arabic, Tajweed & Islamic Learning">
+  <meta property="og:description" content="Structured Qur'an, Arabic, Tajweed, Hifzh, Yassarna, and Islamic education for our community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/media/og-share.jpg">
 
-        /* Part 2: Premium UI Element Containers & Avatar CSS */
-        .hero {
-            position: relative;
-            background: linear-gradient(135deg, rgba(7, 10, 19, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%), url('kaaba.jpg');
-            background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 4rem 1.25rem; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; border-bottom: 2px solid rgba(56, 189, 248, 0.15);
-        }
-        .hero h1 { font-size: 2.1rem; margin: 0 0 0.5rem; font-weight: 800; letter-spacing: -0.02em; }
-        .hero p { font-size: 0.95rem; color: #bae6fd; max-width: 450px; margin: 0 auto; line-height: 1.5; }
+  <link rel="icon" href="assets/media/favicon.png" type="image/png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1420">
+  <link rel="apple-touch-icon" href="assets/media/icon-192.png">
 
-        .ad-banner {
-            max-width: 560px; margin: -1.25rem auto 0; padding: 1.25rem; background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; color: #ffffff; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3); position: relative; z-index: 20; width: calc(100% - 2rem); display: flex; flex-direction: column; gap: 0.35rem;
-        }
-        .ad-title-bar { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; color: #67e8f9; }
-        .ad-body-text { font-size: 0.88rem; line-height: 1.5; font-weight: 500; color: #e2e8f0; margin: 0; }
-
-        .section-container { max-width: 600px; margin: 2rem auto 0; padding: 2.25rem 1.25rem; width: 100%; border-radius: 28px; background-color: rgba(30, 41, 59, 0.3); border: 1px solid rgba(255, 255, 255, 0.02); }
-        .section-header { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .section-header h2 { font-size: 1.25rem; font-weight: 800; color: #ffffff; margin: 0; }
-        .pulse-dot { width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
-        
-        .grid { display: flex; flex-direction: column; gap: 1.25rem; }
-        .card { background-color: #161e2e; padding: 1.5rem; border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.04); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.2); }
-        .card-tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: #38bdf8; display: inline-block; margin-bottom: 0.6rem; background-color: rgba(56, 189, 248, 0.08); padding: 0.25rem 0.6rem; border-radius: 8px; }
-        .card-title { font-size: 1.15rem; margin: 0 0 0.5rem; color: #ffffff; font-weight: 700; }
-        .card-text { color: #94a3b8; font-size: 0.92rem; line-height: 1.5; margin: 0; }
-
-        /* THE ANIMATED MOON AND SUN BOX */
-        .celestial-box { display: flex; justify-content: center; gap: 2rem; padding: 1.25rem; background: #0f172a; border-radius: 20px; border: 1px solid rgba(255,255,255,0.03); margin-bottom: 0.5rem; }
-        .celestial-sun { width: 45px; height: 45px; background: radial-gradient(circle, #f59e0b 0%, #d97706 100%); border-radius: 50%; box-shadow: 0 0 20px #f59e0b; position: relative; animation: floatSun 4s ease-in-out infinite alternate; }
-        .celestial-sun::after { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 50%; border: 2px dashed rgba(245, 158, 11, 0.4); animation: rotateSun 20s linear infinite; }
-        .celestial-moon { width: 45px; height: 45px; background-color: transparent; border-radius: 50%; box-shadow: -12px 12px 0 0 #38bdf8; position: relative; transform: rotate(-20deg); animation: floatMoon 4s ease-in-out infinite alternate-reverse; margin-left: 10px; }
-
-        .prayer-row { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.03); font-weight: 600; font-size: 0.95rem; color: #e2e8f0; }
-        .active-prayer { background-color: rgba(56, 189, 248, 0.06); border-radius: 12px; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.8rem; }
-        .countdown-display { font-size: 1.35rem; font-weight: 800; color: #38bdf8; text-align: center; padding: 0.25rem 0; font-family: monospace; }
-
-        /* BRIP AVATAR TRIGGER STYLES */
-        .chat-trigger { position: fixed; bottom: 5.25rem; right: 1.25rem; width: 3.75rem; height: 3.75rem; background: #0f172a; border-radius: 50%; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35); display: flex; align-items: center; justify-content: center; border: 2px solid #38bdf8; cursor: pointer; z-index: 120; animation: bounceChat 3s ease-in-out infinite; }
-        .chat-trigger-label { position: absolute; bottom: -14px; white-space: nowrap; font-size: 0.52rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; background: #070a13; padding: 1px 4px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.2); }
-        
-        .muslim-avatar { width: 40px; height: 42px; position: relative; margin-top: 4px; }
-        .muslim-cap { position: absolute; top: 0; left: 7px; width: 26px; height: 11px; background: #ffffff; border-radius: 12px 12px 0 0; border: 1px solid #e2e8f0; z-index: 3; }
-        .muslim-cap-lines { position: absolute; top: 4px; left: 11px; width: 18px; height: 1px; background: rgba(56,189,248,0.2); box-shadow: 0 3px 0 rgba(56,189,248,0.2); }
-        .muslim-face { position: absolute; top: 10px; left: 7px; width: 26px; height: 20px; background: #fbcfe8; border-radius: 0 0 12px 12px; z-index: 2; overflow: hidden; }
-        .muslim-eyes { position: absolute; top: 5px; left: 4px; width: 3px; height: 3px; background: #0f172a; border-radius: 50%; box-shadow: 14px 0 0 #0f172a; }
-        .muslim-beard { position: absolute; bottom: 0; left: 4px; width: 32px; height: 16px; background: #1e293b; border-radius: 0 0 16px 16px; z-index: 1; }
-
-        .chat-box-widget { position: fixed; bottom: 9.5rem; right: 1.25rem; width: 310px; height: 420px; background-color: #161e2e; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 130; display: none; flex-direction: column; overflow: hidden; }
-        .chat-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; }
-        .chat-title { font-size: 0.9rem; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 0.5rem; }
-        .chat-close { color: #94a3b8; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
-        .chat-logs { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; flex-grow: 1; font-size: 0.85rem; background-color: #0d131f; }
-        .chat-msg { padding: 0.65rem 0.85rem; border-radius: 14px; max-width: 85%; line-height: 1.4; word-wrap: break-word; position: relative; }
-        .msg-bot { background-color: #1f293d; color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; }
-        .msg-user { background-color: #0284c7; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-inputs { display: flex; gap: 0.4rem; padding: 0.75rem; background-color: #0f172a; border-top: 1px solid rgba(255,255,255,0.04); }
-        .chat-text-input { flex: 1; background-color: #161e2e; border: 1px solid #334155; border-radius: 10px; color: white; padding: 0.5rem 0.75rem; font-size: 0.85rem; outline: none; }
-        .chat-send-btn { background-color: #0284c7; border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
-        
-        .speaking-wave { display: inline-block; width: 6px; height: 6px; background-color: #38bdf8; border-radius: 50%; margin-left: 6px; animation: soundPulse 0.8s infinite alternate; }
-        .social-dock { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; z-index: 110; }
-        .social-icon { height: 3.5rem; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 0.85rem; font-weight: 700; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
-        .social-icon span { font-size: 0.65rem; opacity: 0.85; }
-        .wa { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
-        .tt { background: linear-gradient(135deg, #1e293b 0%, #000000 100%); border: 1px solid rgba(255,255,255,0.05); }
-        .footer { background-color: #05070d; color: #475569; text-align: center; padding: 2.5rem 1rem; font-size: 0.8rem; margin-top: 4rem; }
-
-        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); } 70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); } }
-        @keyframes floatSun { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
-        @keyframes floatMoon { 0% { transform: rotate(-20deg) translateY(0); } 100% { transform: rotate(-20deg) translateY(-4px); } }
-        @keyframes rotateSun { 100% { transform: rotate(360deg); } }
-        @keyframes bounceChat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes soundPulse { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 1; } }
-    </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <!-- BOTTOM FLOATING ACTION SHORTCUT DOCKS -->
-    <div class="social-dock">
-        <a href="https://wa.me" target="_blank" class="social-icon wa">WhatsApp<br><span>Tap to Chat</span></a>
-        <a href="https://tiktok.com" target="_blank" class="social-icon tt">TikTok<br><span>Tap to Follow</span></a>
+  <!-- Social dock -->
+  <div class="social-dock">
+    <a id="social-whatsapp" href="#" target="_blank" rel="noopener" class="social-icon wa">
+      <span class="social-shine" aria-hidden="true"></span>
+      <svg class="social-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.55 22 22 17.52 22 12S17.55 2 12.02 2zm0 18.06c-1.6 0-3.09-.44-4.37-1.2l-.31-.19-3 .79.8-2.93-.2-.3a8.03 8.03 0 0 1-1.24-4.23c0-4.44 3.6-8.05 8.32-8.05 4.71 0 8.31 3.6 8.31 8.05 0 4.44-3.6 8.06-8.31 8.06zm4.53-6.02c-.25-.12-1.47-.72-1.7-.8-.23-.08-.39-.12-.56.12-.17.25-.64.8-.79.96-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.21-.73-.65-1.23-1.45-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.58.12.17 1.75 2.68 4.25 3.75.6.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+      <span class="social-label">WhatsApp<span class="social-sub">Tap to chat</span></span>
+    </a>
+    <a id="social-tiktok" href="#" target="_blank" rel="noopener" class="social-icon tt">
+      <span class="social-shine" aria-hidden="true"></span>
+      <svg class="social-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82c-.9-.99-1.4-2.28-1.4-3.66h-3.1v13.85c0 1.53-1.24 2.77-2.77 2.77a2.77 2.77 0 0 1-2.77-2.77 2.77 2.77 0 0 1 2.77-2.77c.28 0 .55.04.8.12V10.2a5.9 5.9 0 0 0-.8-.06A5.89 5.89 0 0 0 3.44 16a5.89 5.89 0 0 0 5.89 5.89A5.89 5.89 0 0 0 15.22 16V8.94a7.36 7.36 0 0 0 4.34 1.4V7.24c-1.07 0-2.06-.36-2.86-.97a4.4 4.4 0 0 1-.1-.45z"/></svg>
+      <span class="social-label">TikTok<span class="social-sub">Tap to follow</span></span>
+    </a>
+  </div>
+
+  <!-- Noor chat trigger -->
+  <button id="chat-trigger" class="chat-trigger" aria-haspopup="dialog" aria-controls="guidance-chatbot" aria-label="Open Noor, the House of Guidance assistant">
+    <span class="chat-online-dot" aria-hidden="true"></span>
+    <span class="muslim-avatar" aria-hidden="true">
+      <span class="muslim-cap"><span class="muslim-cap-lines"></span></span>
+      <span class="muslim-face"><span class="muslim-eyes"></span></span>
+      <span class="muslim-beard"></span>
+    </span>
+    <span class="chat-trigger-label">Ask Noor</span>
+  </button>
+
+  <!-- Noor chat window -->
+  <section id="guidance-chatbot" class="chat-box-widget" role="dialog" aria-label="Noor, the House of Guidance assistant" aria-modal="false">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">
+          <span style="width:8px;height:8px;background-color:#2FA187;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+          Noor
+        </div>
+        <div class="chat-subtitle">House of Guidance assistant · not a substitute for a scholar</div>
+      </div>
+      <button id="chat-close" class="chat-close" aria-label="Close chat">&times;</button>
     </div>
 
-    <!-- GLOWING CUSTOM MUSLIM HEAD AVATAR TRIGGER ICON -->
-    <div class="chat-trigger" onclick="toggleChatWindow()">
-        <div class="muslim-avatar">
-            <div class="muslim-cap"><div class="muslim-cap-lines"></div></div>
-            <div class="muslim-face"><div class="muslim-eyes"></div></div>
-            <div class="muslim-beard"></div>
-        </div>
-        <div class="chat-trigger-label">Assistant</div>
+    <div id="chat-conversation" class="chat-logs" aria-live="polite">
+      <div class="chat-msg msg-bot">
+        Assalamu Alaikum! 🌙 I'm <strong>Noor</strong>. Ask me about the Qur'an, Salah, du'a, Tajweed, or daily guidance — in English, Luganda, or Arabic.
+      </div>
+      <div class="msg-disclaimer">Noor gives general educational answers, not religious rulings. For fatwas or personal legal questions, please consult a qualified scholar.</div>
     </div>
 
-    <!-- VOICE-ACTIVATED CHAT TERMINAL GRID BOX -->
-    <div id="guidance-chatbot" class="chat-box-widget">
-        <div class="chat-header">
-            <div class="chat-title">
-                <span style="width:8px; height:8px; background-color:#22c55e; border-radius:50%; display:inline-block;"></span>
-                House of Guidance Assistant
-            </div>
-            <div class="chat-close" onclick="toggleChatWindow()">&times;</div>
-        </div>
-        <div id="chat-conversation" class="chat-logs">
-            <div class="chat-msg msg-bot">
-                Assalamu Alaikum! 🌙 I am <strong>Noor</strong>, your House of Guidance Assistant. Ask me any question about Islam, Quran, du'a, or daily guidance in English or Luganda!
-            </div>
-        </div>
-        <div class="chat-inputs">
-            <input type="text" id="chat-user-text" placeholder="Type a message..." class="chat-text-input" onkeypress="handleChatEnter(event)">
-            <button class="chat-send-btn" onclick="processUserChat()">Send</button>
-        </div>
+    <div class="chat-quick-replies">
+      <button class="quick-reply-btn">Ask about Quran</button>
+      <button class="quick-reply-btn">Ask about Salah</button>
+      <button class="quick-reply-btn">Ask about Dua</button>
+      <button class="quick-reply-btn">Ask in Luganda</button>
+      <button class="quick-reply-btn">Learn Tajweed</button>
     </div>
 
-    <!-- MAIN MULTI-PAGE TOP NAVIGATION NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-top">
-                <div class="logo-group">
-                    <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none';">
-                    <div class="logo-text">HOUSE OF GUIDANCE</div>
-                </div>
-            </div>
-            <div class="nav-menu-bar">
-                <a href="index.html" class="menu-btn active">Home</a>
-                <a href="portal.html" class="menu-btn">Registration</a>
-                <a href="gallery.html" class="menu-btn">Gallery</a>
-                <a href="khutbahs.html" class="menu-btn">Khutbahs</a>
-            </div>
+    <div class="chat-inputs">
+      <button id="chat-mic-btn" class="chat-icon-btn" aria-label="Speak your question" title="Speak your question">🎙️</button>
+      <input type="text" id="chat-user-text" placeholder="Type a message…" class="chat-text-input" aria-label="Message Noor">
+      <button id="chat-speech-toggle" class="chat-icon-btn is-active" aria-pressed="true" aria-label="Toggle reading replies aloud" title="Toggle voice replies">🔊</button>
+      <button id="chat-send-btn" class="chat-send-btn">Send</button>
+    </div>
+  </section>
+
+  <!-- Nav -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-top">
+        <div class="logo-group">
+          <img id="site-logo" src="" alt="" class="logo-img" style="display:none">
+          <div id="site-logo-fallback" class="logo-fallback" style="display:flex">HG</div>
+          <div id="site-name-text" class="logo-text">HOUSE OF GUIDANCE</div>
         </div>
-    </nav>
+      </div>
+      <div id="nav-menu-bar" class="nav-menu-bar" role="navigation" aria-label="Main"></div>
+    </div>
+  </nav>
 
-    <main>
-        <!-- MASTER ZONE IMAGE BANNER HOOK -->
-        <section class="hero">
-            <h1>Welcome to House of Guidance</h1>
-            <p>Your premier online destination for structured learning, growth, and daily Islamic development.</p>
-        </section>
-
-        <!-- FREE CLASSES REAL-TIME TICKER -->
-        <div class="ad-banner">
-            <div class="ad-title-bar"><span>📢</span> Ongoing Free Lessons</div>
-            <p class="ad-body-text"><strong>Free Yassarna Lessons Are Ongoing!</strong> We are actively conducting completely free introductory Arabic recitation classes. Click the Registration tab above to sign up immediately.</p>
+  <main>
+    <!-- Hero -->
+    <section id="hero-section" class="hero">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">Qur'an · Arabic · Tajweed · Hifzh</span>
+        <h1 id="hero-title">House of Guidance</h1>
+        <p id="hero-tagline" class="hero-tagline">Seeking Knowledge. Growing in Faith. Living with Guidance.</p>
+        <p id="hero-desc" class="hero-desc"></p>
+        <div class="hero-ctas">
+          <a href="portal.html" class="btn btn-primary">Start Learning</a>
+          <a href="portal.html" class="btn btn-gold">Register Now</a>
+          <a href="#programs" class="btn btn-ghost">Explore Programs</a>
         </div>
+      </div>
+    </section>
 
-        <!-- SALAH ROSTER TRACKER PANEL WITH CELESTIAL ELEMENTS -->
-        <section id="prayer-hub" class="section-container">
-            <div class="section-header">
-                <div class="pulse-dot"></div>
-                <h2>Prayer Hub & Celestial Dial</h2>
-            </div>
-            
-            <div class="celestial-box">
-                <div class="celestial-sun" title="Day Cycle"></div>
-                <div class="celestial-moon" title="Night Cycle"></div>
-            </div>
+    <!-- Announcement -->
+    <div id="announcement-banner" class="ad-banner"></div>
 
-            <div class="grid">
-                <div class="card" style="border-top: 4px solid #38bdf8; background: rgba(56, 189, 248, 0.01);">
-                    <span class="card-tag">Salah Timer</span>
-                    <div id="countdown-timer" class="countdown-display">Calculating...</div>
-                </div>
-                <div class="card">
-                    <div id="p-fajr" class="prayer-row"><span>Fajr</span> <span>05:15 AM</span></div>
-                    <div id="p-dhuhr" class="prayer-row"><span>Dhuhr</span> <span>12:45 PM</span></div>
-                    <div id="p-asr" class="prayer-row"><span>Asr</span> <span>04:05 PM</span></div>
-                    <div id="p-maghrib" class="prayer-row"><span>Maghrib</span> <span>06:50 PM</span></div>
-                    <div id="p-isha" class="prayer-row"><span>Isha</span> <span>08:00 PM</span></div>
-                </div>
-            </div>
-        </section>
+    <!-- Trust strip -->
+    <section class="section-container">
+      <div class="section-header">
+        <h2 class="visually-hidden">What we teach</h2>
+      </div>
+      <div id="trust-grid" class="grid grid-2"></div>
+    </section>
 
-        <!-- DAILY MOTIVATIONAL SLIDER SECTION -->
-        <section class="section-container">
-            <div class="section-header"><h2>Daily Motivation</h2></div>
-            <div class="grid">
-                <div class="card" style="border-top: 4px solid #34d399;">
-                    <span class="card-tag">Niyyah</span>
-                    <h3 class="card-title">Renew Your Intentions</h3>
-                    <p class="card-text">"Every action is judged by its intention. Before studying or teaching, dedicate your efforts purely for the sake of Allah."</p>
-                </div>
-            </div>
-        </section>
-    </main>
+    <!-- Programs -->
+    <section id="programs" class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Our Programs</p>
+        <h2>Structured Islamic education</h2>
+        <p class="section-sub">Choose a path — every program is taught with clear structure and steady progress in mind.</p>
+      </div>
+      <div id="programs-grid" class="grid grid-2" style="margin-top:1.25rem"></div>
+    </section>
 
-    <footer class="footer"><p>&copy; 2026 House of Guidance. All rights reserved.</p></footer>
+    <!-- Prayer Hub -->
+    <section id="prayer-hub" class="section-container panel">
+      <div class="section-header">
+        <div class="pulse-dot"></div>
+        <h2>Prayer Hub</h2>
+      </div>
+      <p id="celestial-date" class="celestial-date" style="margin-bottom:0.75rem"></p>
 
-    <!-- ============================================ -->
-    <!-- NOOR AI ASSISTANT - Complete JavaScript      -->
-    <!-- ============================================ -->
-    <script>
-        // ============================================
-        // PRAYER TIMES CALCULATOR
-        // ============================================
-        const prayerTimes = [
-            { name: "Fajr", time: "05:15" },
-            { name: "Dhuhr", time: "12:45" },
-            { name: "Asr", time: "16:05" },
-            { name: "Maghrib", time: "18:50" },
-            { name: "Isha", time: "20:00" }
-        ];
+      <div class="celestial-box">
+        <div class="celestial-sun" title="Day"></div>
+        <div class="celestial-moon" title="Night"></div>
+      </div>
 
-        function updatePrayerCountdown() {
-            const now = new Date();
-            let nextPrayer = null;
-            let timeDiff = Infinity;
-            for (let prayer of prayerTimes) {
-                const [hours, minutes] = prayer.time.split(':').map(Number);
-                const prayerDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
-                let diff = prayerDate - now;
-                if (diff > 0 && diff < timeDiff) {
-                    timeDiff = diff;
-                    nextPrayer = prayer;
-                }
-            }
-            if (!nextPrayer) {
-                const [hours, minutes] = prayerTimes[0].time.split(':').map(Number);
-                const tomorrowFajr = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, hours, minutes, 0);
-                timeDiff = tomorrowFajr - now;
-                nextPrayer = prayerTimes[0];
-            }
-            prayerTimes.forEach(p => {
-                const row = document.getElementById('p-' + p.name.toLowerCase());
-                if (row) row.classList.remove('active-prayer');
-            });
-            const totalSeconds = Math.floor(timeDiff / 1000);
-            const hrs = Math.floor(totalSeconds / 3600);
-            const mins = Math.floor((totalSeconds % 3600) / 60);
-            const secs = totalSeconds % 60;
-            const timer = document.getElementById('countdown-timer');
-            if (timer) {
-                timer.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} left for ${nextPrayer.name}`;
-            }
-            const activeRow = document.getElementById('p-' + nextPrayer.name.toLowerCase());
-            if (activeRow) activeRow.classList.add('active-prayer');
-        }
-        setInterval(updatePrayerCountdown, 1000);
-        updatePrayerCountdown();
+      <div class="grid">
+        <div class="card" style="border-top:3px solid var(--gold)">
+          <span class="card-tag">Next Prayer</span>
+          <p class="countdown-label" id="countdown-label">Calculating…</p>
+          <div id="countdown-timer" class="countdown-display">--:--:--</div>
+        </div>
+        <div class="card">
+          <div id="p-fajr" class="prayer-row"><span>Fajr</span><span class="prayer-time">--:--</span></div>
+          <div id="p-dhuhr" class="prayer-row"><span>Dhuhr</span><span class="prayer-time">--:--</span></div>
+          <div id="p-asr" class="prayer-row"><span>Asr</span><span class="prayer-time">--:--</span></div>
+          <div id="p-maghrib" class="prayer-row"><span>Maghrib</span><span class="prayer-time">--:--</span></div>
+          <div id="p-isha" class="prayer-row"><span>Isha</span><span class="prayer-time">--:--</span></div>
+        </div>
+      </div>
 
-        // ============================================
-        // CHAT TOGGLE FUNCTIONS
-        // ============================================
-        function toggleChatWindow() {
-            const chatBox = document.getElementById('guidance-chatbot');
-            if (chatBox) {
-                chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
-                if (chatBox.style.display === 'flex') {
-                    document.getElementById('chat-user-text').focus();
-                }
-            }
-        }
+      <div class="notify-toggle">
+        <button id="notify-toggle-btn" class="btn btn-ghost">🔕 Turn on prayer notifications</button>
+      </div>
+      <p id="prayer-source-note" class="prayer-source-note"></p>
 
-        function handleChatEnter(e) {
-            if (e.key === 'Enter') {
-                processUserChat();
-            }
-        }
+      <div class="card qibla-card" style="margin-top:1rem; text-align:center;">
+        <span class="card-tag">Qibla Direction</span>
+        <div class="qibla-compass" aria-hidden="true">
+          <span id="qibla-arrow" class="qibla-arrow">↑</span>
+        </div>
+        <p id="qibla-value" class="qibla-value">Calculating…</p>
+        <p class="card-text">Degrees measured clockwise from true North. Use a compass app to align — this is not a live compass.</p>
+      </div>
+    </section>
 
-        // ============================================
-        // TEXT-TO-SPEECH
-        // ============================================
-        function speakAssistantReply(text) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const cleanText = text.replace(/<\/?[^>]+(>|$)/g, "").replace(/\*+/g, "");
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                if (text.match(/\b(Oli otya|Gyebale|Asalamu|Mwebale|Kale|Otyanno)\b/i)) {
-                    utterance.lang = 'en-ZA';
-                    utterance.rate = 0.85;
-                } else {
-                    utterance.lang = 'en-US';
-                    utterance.rate = 0.95;
-                }
-                window.speechSynthesis.speak(utterance);
-            }
-        }
+    <!-- Daily Ayah -->
+    <section class="section-container panel">
+      <div class="section-header">
+        <p class="section-eyebrow" style="margin:0">Daily Reminder</p>
+      </div>
+      <div id="ayah-card" class="card ayah-card">
+        <p class="card-text">Loading today's ayah…</p>
+      </div>
+    </section>
 
-        // ============================================
-        // NOOR AI ASSISTANT - Calls Netlify Function
-        // ============================================
-        async function processUserChat() {
-            const inputField = document.getElementById('chat-user-text');
-            const userMsg = inputField.value.trim();
-            if (!userMsg) return;
+    <!-- Sakinah: breathing + verses of comfort -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">A Moment of Calm</p>
+        <h2>Sakinah</h2>
+        <p class="section-sub">When your heart feels heavy, pause. Breathe slowly, and remember Allah — <span style="direction:rtl; display:inline-block">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</span> — "verily, in the remembrance of Allah do hearts find rest."</p>
+      </div>
 
-            const conversation = document.getElementById('chat-conversation');
+      <div id="sakinah-widget" class="sakinah-widget" style="margin-top:1.25rem">
+        <div class="breathing-wrap">
+          <div id="sakinah-circle" class="breathing-circle"></div>
+        </div>
+        <p id="sakinah-phase" class="sakinah-phase">Tap begin when you're ready</p>
+        <p id="sakinah-cycle" class="sakinah-cycle"></p>
+        <button id="sakinah-start-btn" class="btn btn-primary">Begin breathing</button>
 
-            // Add user message
-            const userDiv = document.createElement('div');
-            userDiv.className = "chat-msg msg-user";
-            userDiv.innerText = userMsg;
-            conversation.appendChild(userDiv);
-            inputField.value = "";
-            conversation.scrollTop = conversation.scrollHeight;
+        <div class="section-header" style="margin-top:2rem">
+          <p class="section-eyebrow" style="margin:0">Verse of Comfort</p>
+        </div>
+        <div id="sakinah-verse-card" class="card ayah-card"></div>
+        <button id="sakinah-new-verse-btn" class="btn btn-ghost" style="margin-top:0.9rem; width:100%">Show me another verse</button>
+      </div>
+    </section>
 
-            // Add thinking indicator
-            const thinkingDiv = document.createElement('div');
-            thinkingDiv.className = "chat-msg msg-bot";
-            thinkingDiv.style.fontStyle = "italic";
-            thinkingDiv.style.opacity = "0.6";
-            thinkingDiv.innerText = "Thinking... 🤔";
-            conversation.appendChild(thinkingDiv);
-            conversation.scrollTop = conversation.scrollHeight;
+    <!-- Daily Motivation -->
+    <section class="section-container panel">
+      <div class="section-header"><h2>Daily Motivation</h2></div>
+      <div id="motivation-card" class="card"></div>
+    </section>
 
-            try {
-                // Call Netlify function (this is the backend)
-                const response = await fetch('/.netlify/functions/noor-gemini', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ message: userMsg })
-                });
+    <!-- Dhikr Counter -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Remembrance</p>
+        <h2>Dhikr Counter</h2>
+        <p class="section-sub">Tap the circle to count. Pick a dhikr and a target below — your count is saved on this device.</p>
+      </div>
+      <div id="dhikr-counter" class="dhikr-counter" style="margin-top:1.25rem">
+        <div class="dhikr-controls-row">
+          <select id="dhikr-select" class="dhikr-select" aria-label="Choose dhikr"></select>
+          <select id="dhikr-target" class="dhikr-select" aria-label="Choose target count">
+            <option value="33">Target: 33</option>
+            <option value="99">Target: 99</option>
+            <option value="100">Target: 100</option>
+          </select>
+        </div>
+        <p id="dhikr-arabic" class="dhikr-arabic"></p>
+        <p id="dhikr-meaning" class="dhikr-meaning"></p>
 
-                const data = await response.json();
+        <button id="dhikr-tap-btn" class="dhikr-tap-btn" aria-label="Tap to count">
+          <span id="dhikr-ring" class="dhikr-ring">
+            <span id="dhikr-count" class="dhikr-count">0</span>
+          </span>
+        </button>
 
-                // Remove thinking indicator
-                if (thinkingDiv.parentNode) {
-                    conversation.removeChild(thinkingDiv);
-                }
+        <button id="dhikr-reset-btn" class="btn btn-ghost" style="margin-top:1.25rem">Reset count</button>
+      </div>
+    </section>
 
-                const botDiv = document.createElement('div');
-                botDiv.className = "chat-msg msg-bot";
+    <!-- Halal Quiz -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Test Yourself</p>
+        <h2>Halal Quiz</h2>
+        <p class="section-sub">A light quiz on Islamic basics — no pressure, just a fun way to check what you know.</p>
+      </div>
+      <div id="quiz-widget" class="quiz-widget" style="margin-top:1.25rem">
+        <p id="quiz-progress" class="quiz-progress"></p>
+        <div id="quiz-stage" class="card quiz-stage"></div>
+      </div>
+    </section>
 
-                if (data.reply) {
-                    let aiReply = data.reply;
-                    // Convert markdown to HTML
-                    aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                     .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                                     .replace(/\n/g, '<br>');
-                    botDiv.innerHTML = aiReply + ' <span class="speaking-wave"></span>';
-                    conversation.appendChild(botDiv);
-                    conversation.scrollTop = conversation.scrollHeight;
-                    speakAssistantReply(aiReply);
-                } else {
-                    botDiv.innerHTML = "SubhanAllah! I had a small glitch. Could you please ask again?";
-                    conversation.appendChild(botDiv);
-                    conversation.scrollTop = conversation.scrollHeight;
-                }
+    <!-- Khutbahs -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Listen &amp; Learn</p>
+        <h2>Recent Khutbahs</h2>
+      </div>
+      <div id="khutbahs-list" class="grid" style="margin-top:1rem"></div>
+    </section>
 
-            } catch (error) {
-                // Remove thinking indicator
-                if (thinkingDiv.parentNode) {
-                    conversation.removeChild(thinkingDiv);
-                }
+    <!-- Events -->
+    <section class="section-container panel">
+      <div class="section-header"><h2>Upcoming Events</h2></div>
+      <div id="events-list" class="grid"></div>
+    </section>
 
-                const errorDiv = document.createElement('div');
-                errorDiv.className = "chat-msg msg-bot";
-                errorDiv.innerHTML = "😅 SubhanAllah! I'm having trouble connecting. Please try again in a moment.";
-                conversation.appendChild(errorDiv);
-                conversation.scrollTop = conversation.scrollHeight;
-                console.error('Chat error:', error);
-            }
-        }
+    <!-- Gallery -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Community</p>
+        <h2>Gallery</h2>
+      </div>
+      <div id="gallery-grid" class="gallery-grid" style="margin-top:1rem"></div>
+      <a href="gallery.html" class="btn btn-ghost" style="margin-top:1.25rem; width:100%">View full gallery</a>
+    </section>
+  </main>
 
-        // ============================================
-        // AUTO-FOCUS ON LOAD
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const input = document.getElementById('chat-user-text');
-            if (input) input.focus();
-            console.log('🌙 Noor Assistant loaded successfully!');
-        });
-    </script>
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <button id="lightbox-close" class="lightbox-close" aria-label="Close image">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div id="footer-brand-name" class="footer-brand">House of Guidance</div>
+      <p class="footer-desc">A community for Qur'an, Arabic, Tajweed, Hifzh, and Islamic guidance — online and in person.</p>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="#programs">Programs</a>
+          <a href="khutbahs.html">Khutbahs</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <a href="portal.html">Registration</a>
+          <a href="#prayer-hub">Prayer Times</a>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; <span id="footer-year"></span> House of Guidance. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
