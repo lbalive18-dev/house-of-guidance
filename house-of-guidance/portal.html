@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | House of Guidance</title>
+  <meta name="description" content="Register for Qur'an, Arabic, Tajweed, Hifzh, or Yassarna classes at House of Guidance.">
+  <link rel="icon" href="assets/media/favicon.png" type="image/png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0A1420">
+  <link rel="apple-touch-icon" href="assets/media/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <div class="social-dock">
+    <a id="social-whatsapp" href="#" target="_blank" rel="noopener" class="social-icon wa">
+      <span class="social-shine" aria-hidden="true"></span>
+      <svg class="social-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.55 22 22 17.52 22 12S17.55 2 12.02 2zm0 18.06c-1.6 0-3.09-.44-4.37-1.2l-.31-.19-3 .79.8-2.93-.2-.3a8.03 8.03 0 0 1-1.24-4.23c0-4.44 3.6-8.05 8.32-8.05 4.71 0 8.31 3.6 8.31 8.05 0 4.44-3.6 8.06-8.31 8.06zm4.53-6.02c-.25-.12-1.47-.72-1.7-.8-.23-.08-.39-.12-.56.12-.17.25-.64.8-.79.96-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.21-.73-.65-1.23-1.45-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.14.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.58.12.17 1.75 2.68 4.25 3.75.6.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+      <span class="social-label">WhatsApp<span class="social-sub">Tap to chat</span></span>
+    </a>
+    <a id="social-tiktok" href="#" target="_blank" rel="noopener" class="social-icon tt">
+      <span class="social-shine" aria-hidden="true"></span>
+      <svg class="social-icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82c-.9-.99-1.4-2.28-1.4-3.66h-3.1v13.85c0 1.53-1.24 2.77-2.77 2.77a2.77 2.77 0 0 1-2.77-2.77 2.77 2.77 0 0 1 2.77-2.77c.28 0 .55.04.8.12V10.2a5.9 5.9 0 0 0-.8-.06A5.89 5.89 0 0 0 3.44 16a5.89 5.89 0 0 0 5.89 5.89A5.89 5.89 0 0 0 15.22 16V8.94a7.36 7.36 0 0 0 4.34 1.4V7.24c-1.07 0-2.06-.36-2.86-.97a4.4 4.4 0 0 1-.1-.45z"/></svg>
+      <span class="social-label">TikTok<span class="social-sub">Tap to follow</span></span>
+    </a>
+  </div>
+
+  <button id="chat-trigger" class="chat-trigger" aria-haspopup="dialog" aria-controls="guidance-chatbot" aria-label="Open Noor, the House of Guidance assistant">
+    <span class="chat-online-dot" aria-hidden="true"></span>
+    <span class="muslim-avatar" aria-hidden="true">
+      <span class="muslim-cap"><span class="muslim-cap-lines"></span></span>
+      <span class="muslim-face"><span class="muslim-eyes"></span></span>
+      <span class="muslim-beard"></span>
+    </span>
+    <span class="chat-trigger-label">Ask Noor</span>
+  </button>
+
+  <section id="guidance-chatbot" class="chat-box-widget" role="dialog" aria-label="Noor, the House of Guidance assistant" aria-modal="false">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">
+          <span style="width:8px;height:8px;background-color:#2FA187;border-radius:50%;display:inline-block;" aria-hidden="true"></span>
+          Noor
+        </div>
+        <div class="chat-subtitle">House of Guidance assistant · not a substitute for a scholar</div>
+      </div>
+      <button id="chat-close" class="chat-close" aria-label="Close chat">&times;</button>
+    </div>
+    <div id="chat-conversation" class="chat-logs" aria-live="polite">
+      <div class="chat-msg msg-bot">Assalamu Alaikum! 🌙 I'm <strong>Noor</strong>. Ask me about the Qur'an, Salah, du'a, Tajweed, or daily guidance — in English, Luganda, or Arabic.</div>
+      <div class="msg-disclaimer">Noor gives general educational answers, not religious rulings. For fatwas or personal legal questions, please consult a qualified scholar.</div>
+    </div>
+    <div class="chat-quick-replies">
+      <button class="quick-reply-btn">Ask about Quran</button>
+      <button class="quick-reply-btn">Ask about Salah</button>
+      <button class="quick-reply-btn">Ask about Dua</button>
+      <button class="quick-reply-btn">Ask in Luganda</button>
+      <button class="quick-reply-btn">Learn Tajweed</button>
+    </div>
+    <div class="chat-inputs">
+      <button id="chat-mic-btn" class="chat-icon-btn" aria-label="Speak your question" title="Speak your question">🎙️</button>
+      <input type="text" id="chat-user-text" placeholder="Type a message…" class="chat-text-input" aria-label="Message Noor">
+      <button id="chat-speech-toggle" class="chat-icon-btn is-active" aria-pressed="true" aria-label="Toggle reading replies aloud" title="Toggle voice replies">🔊</button>
+      <button id="chat-send-btn" class="chat-send-btn">Send</button>
+    </div>
+  </section>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-top">
+        <div class="logo-group">
+          <img id="site-logo" src="" alt="" class="logo-img" style="display:none">
+          <div id="site-logo-fallback" class="logo-fallback" style="display:flex">HG</div>
+          <div id="site-name-text" class="logo-text">HOUSE OF GUIDANCE</div>
+        </div>
+      </div>
+      <div id="nav-menu-bar" class="nav-menu-bar" role="navigation" aria-label="Main"></div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <p class="section-eyebrow">Join Us</p>
+      <h1>Register for classes</h1>
+      <p>Fill in your details and we'll be in touch to confirm your program and schedule. We only ask for what we need to place you correctly.</p>
+    </div>
+
+    <section class="section-container panel">
+      <form id="registration-form" name="registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <!-- Netlify Forms requires this hidden field to detect the form at deploy time -->
+        <input type="hidden" name="form-name" value="registration">
+        <p class="honeypot-field"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+
+        <div class="form-field">
+          <label for="field-name">Full name</label>
+          <input type="text" id="field-name" name="Full Name" required>
+          <span class="form-error">Please enter your full name.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="field-phone">Phone number</label>
+          <input type="tel" id="field-phone" name="Phone Number" placeholder="e.g. +256 700 000000" required>
+          <span class="form-error">Please enter a valid phone number.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-field">
+            <label for="field-age">Age</label>
+            <input type="number" id="field-age" name="Age" min="3" max="100" required>
+            <span class="form-error">Enter a valid age.</span>
+          </div>
+          <div class="form-field">
+            <label for="field-gender">Gender</label>
+            <select id="field-gender" name="Gender" required>
+              <option value="" disabled selected>Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <span class="form-error">Please select an option.</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="field-program">Program</label>
+          <select id="field-program" name="Program" required>
+            <option value="" disabled selected>Choose a program</option>
+          </select>
+          <span class="form-error">Please choose a program.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="field-language">Preferred language</label>
+          <select id="field-language" name="Preferred Language" required>
+            <option value="" disabled selected>Select</option>
+            <option value="English">English</option>
+            <option value="Luganda">Luganda</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="form-error">Please select a language.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="field-experience">Previous Qur'an experience</label>
+          <select id="field-experience" name="Previous Quran Experience">
+            <option value="None">None — starting from the beginning</option>
+            <option value="Some">Some — can read with help</option>
+            <option value="Experienced">Experienced — reads independently</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="field-schedule">Preferred learning schedule</label>
+          <select id="field-schedule" name="Preferred Schedule" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Weekday mornings">Weekday mornings</option>
+            <option value="Weekday evenings">Weekday evenings</option>
+            <option value="Weekends">Weekends</option>
+            <option value="Flexible">Flexible</option>
+          </select>
+          <span class="form-error">Please select a schedule.</span>
+        </div>
+
+        <div class="form-submit-row">
+          <button type="submit" id="registration-submit" class="btn btn-primary" style="width:100%">Submit Registration</button>
+        </div>
+        <p class="form-note">Submissions go directly to your Netlify dashboard under Forms — no extra setup needed once this is deployed.</p>
+      </form>
+
+      <div id="registration-success" class="form-success" style="display:none">
+        <span class="card-icon">✅</span>
+        <h2 class="card-title">JazakAllah khair!</h2>
+        <p class="card-text">Your registration has been received. We'll contact you soon to confirm your class.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div id="footer-brand-name" class="footer-brand">House of Guidance</div>
+      <p class="footer-desc">A community for Qur'an, Arabic, Tajweed, Hifzh, and Islamic guidance — online and in person.</p>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="index.html#programs">Programs</a>
+          <a href="khutbahs.html">Khutbahs</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <a href="portal.html">Registration</a>
+          <a href="index.html#prayer-hub">Prayer Times</a>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; <span id="footer-year"></span> House of Guidance. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
