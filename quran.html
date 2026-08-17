@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery | House of Guidance</title>
-  <meta name="description" content="Photos from House of Guidance classes and community activities.">
+  <title>Qur'an | House of Guidance</title>
+  <meta name="description" content="Read the full Qur'an — browse every surah, search, bookmark ayat, and track your reading, with Arabic text, translation, and audio.">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1002,21 +1002,30 @@ a.contact-value:hover { color: var(--gold); }
 
   <main>
     <div class="page-header">
-      <p class="section-eyebrow">Community</p>
-      <h1>Gallery</h1>
-      <p>Moments from our classes, seminars, and community activities.</p>
+      <p class="section-eyebrow">Learn</p>
+      <h1>The Qur'an</h1>
+      <p>Browse all 114 surahs with Arabic text, translation, and audio — search, bookmark ayat, and pick up where you left off.</p>
     </div>
 
     <section class="section-container panel">
-      <div id="gallery-tabs" class="gallery-tabs"></div>
-      <div id="gallery-grid" class="gallery-grid"></div>
+      <div id="quran-continue-card" class="card quran-continue-card" style="display:none"></div>
+
+      <div class="filter-bar">
+        <input type="text" id="quran-search" class="filter-search" placeholder="Search surah by name or number...">
+        <button id="quran-bookmarks-toggle" class="btn btn-ghost">🔖 My Bookmarks</button>
+      </div>
+
+      <div id="quran-bookmarks-panel" class="quran-bookmarks-panel" style="display:none"></div>
+
+      <div id="surah-grid" class="surah-grid"></div>
+    </section>
+
+    <section id="surah-reader" class="section-container panel" style="display:none">
+      <button id="surah-back-btn" class="btn btn-ghost" style="margin-bottom:1rem">← Back to all surahs</button>
+      <div id="surah-reader-header" class="surah-reader-header"></div>
+      <div id="surah-ayahs" class="surah-ayahs"></div>
     </section>
   </main>
-
-  <div id="lightbox" class="lightbox">
-    <button id="lightbox-close" class="lightbox-close" aria-label="Close image">&times;</button>
-    <img id="lightbox-img" src="" alt="">
-  </div>
 
   <footer class="footer">
     <div class="footer-inner">

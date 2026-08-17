@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery | House of Guidance</title>
-  <meta name="description" content="Photos from House of Guidance classes and community activities.">
+  <title>Hadith Books | House of Guidance</title>
+  <meta name="description" content="Read authentic hadith collections — Forty Hadith of an-Nawawi, Forty Hadith Qudsi, Sahih al-Bukhari, and Sahih Muslim — in Arabic and English.">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1002,21 +1002,29 @@ a.contact-value:hover { color: var(--gold); }
 
   <main>
     <div class="page-header">
-      <p class="section-eyebrow">Community</p>
-      <h1>Gallery</h1>
-      <p>Moments from our classes, seminars, and community activities.</p>
+      <p class="section-eyebrow">Learn</p>
+      <h1>Hadith Books</h1>
+      <p>Authentic hadith collections in Arabic and English, sourced live from an established open hadith database.</p>
     </div>
 
     <section class="section-container panel">
-      <div id="gallery-tabs" class="gallery-tabs"></div>
-      <div id="gallery-grid" class="gallery-grid"></div>
+      <div class="filter-bar">
+        <button id="hadith-bookmarks-toggle" class="btn btn-ghost">🔖 My Bookmarks</button>
+      </div>
+      <div id="hadith-bookmarks-panel" class="quran-bookmarks-panel" style="display:none"></div>
+      <div id="hadith-book-grid" class="hadith-book-grid"></div>
+    </section>
+
+    <section id="hadith-reader" class="section-container panel" style="display:none">
+      <button id="hadith-back-btn" class="btn btn-ghost" style="margin-bottom:1rem">← Back to all books</button>
+      <div id="hadith-reader-header" class="surah-reader-header"></div>
+      <div class="filter-bar">
+        <input type="text" id="hadith-search" class="filter-search" placeholder="Search by hadith number or keyword...">
+      </div>
+      <div id="hadith-list" class="hadith-list"></div>
+      <div id="hadith-pagination" class="hadith-pagination"></div>
     </section>
   </main>
-
-  <div id="lightbox" class="lightbox">
-    <button id="lightbox-close" class="lightbox-close" aria-label="Close image">&times;</button>
-    <img id="lightbox-img" src="" alt="">
-  </div>
 
   <footer class="footer">
     <div class="footer-inner">
