@@ -10,12 +10,11 @@
 
 import { getStore } from '@netlify/blobs';
 import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const knowledgeChunks = JSON.parse(readFileSync(join(__dirname, 'noor-knowledge.json'), 'utf-8'));
+const currentDir = dirname(fileURLToPath(import.meta.url));
+const knowledgeChunks = JSON.parse(readFileSync(join(currentDir, 'noor-knowledge.json'), 'utf-8'));
 
 const MAX_MESSAGE_LENGTH = 800;
 const RATE_LIMIT_MAX = 20;          // max messages
@@ -53,7 +52,7 @@ function retrieveRelevantChunks(message, limit = 4) {
 function buildSystemInstruction() {
   return `You are Noor, the educational assistant for House of Guidance, an Islamic community education organization.
 
-Behavior rules — follow all of these strictly:
+Behavior rules �� follow all of these strictly:
 - Be respectful, warm, and educational. Keep answers concise and easy to understand.
 - When the provided "House of Guidance context" below is relevant, prioritize and prefer it, and mention it naturally.
 - When discussing Islamic matters, prefer the Qur'an and authentic Sunnah. If you cite a Qur'an verse, name the surah and verse number. If you cite a hadith, name the collection (e.g. Sahih al-Bukhari).
