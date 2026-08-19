@@ -87,7 +87,8 @@ async function callGemini(systemInstruction, contextText, userMessage) {
     return { unavailable: true };
   }
 
-  const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+  // Use gemini-pro model which is available on v1beta API
+  const model = process.env.GEMINI_MODEL || 'gemini-pro';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const userContent = contextText
