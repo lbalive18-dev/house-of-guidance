@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nasheeds & Audio | House of Guidance</title>
-  <meta name="description" content="Nasheeds, Qur'an recitations, and Islamic reminders from House of Guidance.">
-  <link rel="canonical" href="https://houseofguidance.netlify.app/nasheeds.html">
+  <title>Admin — House of Guidance</title>
+  <meta name="description" content="Content editor for House of Guidance.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1123,21 +1123,147 @@ a.contact-value:hover { color: var(--gold); }
 
   <main>
     <div class="page-header">
-      <p class="section-eyebrow">Listen &amp; Learn</p>
-      <h1>Nasheeds &amp; Audio</h1>
-      <p>Nasheeds, Qur'an recitations, lectures, and short reminders — only original, public-domain, or properly licensed audio.</p>
+      <p class="section-eyebrow">Private</p>
+      <h1>Admin — Content Editor</h1>
+      <p>Fill in the forms below, then download an updated <code>content.js</code> to upload to GitHub. Nothing here publishes automatically — this only prepares the file for you.</p>
     </div>
 
     <section class="section-container panel">
-      <div id="nasheed-player-bar" class="nasheed-player-bar" style="display:none"></div>
-
-      <div class="filter-bar">
-        <input type="text" id="nasheed-search" class="filter-search" placeholder="Search by title or artist...">
-        <select id="nasheed-category" class="filter-select"></select>
+      <div class="admin-note-card">
+        <p class="card-text"><strong>Important — this is not a login.</strong> There is no real password protection here (this is a plain website with no server to check a password against) — anyone who finds this exact page URL and views the page source could bypass the gate below. It exists only to stop casual browsing, not to secure private data. Don't put anything here you wouldn't want potentially visible, and don't link to this page from your public navigation (it isn't).</p>
       </div>
-
-      <div id="nasheed-list" class="grid"></div>
     </section>
+
+    <div id="admin-gate" class="section-container panel">
+      <div class="section-header-block">
+        <h2>Enter to Continue</h2>
+      </div>
+      <div class="form-field" style="margin-top:1rem">
+        <label for="admin-passphrase">Passphrase</label>
+        <input type="password" id="admin-passphrase" placeholder="Enter passphrase">
+      </div>
+      <button id="admin-unlock-btn" class="btn btn-primary" style="width:100%">Unlock</button>
+      <p class="form-note">Default passphrase is <code>houseofguidance</code> — change it by editing <code>ADMIN_PASSPHRASE</code> near the top of this file's script.</p>
+    </div>
+
+    <div id="admin-panel" style="display:none">
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Team</p>
+          <h2>Our Team</h2>
+        </div>
+        <div id="admin-team-list" style="margin-top:1rem"></div>
+        <button id="admin-team-add" class="btn btn-ghost" style="margin-top:0.75rem">+ Add team member</button>
+        <p class="form-note">Photo filename only (e.g. <code>sheikh-lukman.jpg</code>) — upload the actual photo separately, same folder as index.html.</p>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Contact & Social</p>
+          <h2>Contact Details</h2>
+        </div>
+        <div class="grid-2" style="margin-top:1rem">
+          <div class="form-field"><label>Phone</label><input type="text" id="admin-contact-phone"></div>
+          <div class="form-field"><label>Email</label><input type="text" id="admin-contact-email"></div>
+        </div>
+        <div class="form-field"><label>Location</label><input type="text" id="admin-contact-location"></div>
+        <div class="grid-2">
+          <div class="form-field"><label>WhatsApp link</label><input type="text" id="admin-social-whatsapp" placeholder="https://wa.me/2567..."></div>
+          <div class="form-field"><label>TikTok link</label><input type="text" id="admin-social-tiktok"></div>
+        </div>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Giving</p>
+          <h2>Support / Mobile Money</h2>
+        </div>
+        <div class="grid-2" style="margin-top:1rem">
+          <div class="form-field"><label>Provider</label><input type="text" id="admin-mm-provider"></div>
+          <div class="form-field"><label>Number</label><input type="text" id="admin-mm-number"></div>
+        </div>
+        <div class="form-field"><label>USSD code</label><input type="text" id="admin-mm-ussd"></div>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Homepage Banner</p>
+          <h2>Announcement</h2>
+        </div>
+        <label class="interest-chip" style="margin:1rem 0"><input type="checkbox" id="admin-announcement-show"><span>Show announcement banner</span></label>
+        <div class="form-field"><label>Label</label><input type="text" id="admin-announcement-label"></div>
+        <div class="form-field"><label>Title</label><input type="text" id="admin-announcement-title"></div>
+        <div class="form-field"><label>Text</label><textarea id="admin-announcement-text"></textarea></div>
+        <div class="grid-2">
+          <div class="form-field"><label>Button text</label><input type="text" id="admin-announcement-linktext"></div>
+          <div class="form-field"><label>Button link</label><input type="text" id="admin-announcement-linkhref"></div>
+        </div>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Events</p>
+          <h2>Upcoming Events</h2>
+        </div>
+        <div id="admin-events-list" style="margin-top:1rem"></div>
+        <button id="admin-events-add" class="btn btn-ghost" style="margin-top:0.75rem">+ Add event</button>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Khutbahs</p>
+          <h2>Khutbah Library</h2>
+        </div>
+        <div id="admin-khutbahs-list" style="margin-top:1rem"></div>
+        <button id="admin-khutbahs-add" class="btn btn-ghost" style="margin-top:0.75rem">+ Add khutbah</button>
+        <p class="form-note">Audio filename only — upload the actual .mp3 separately.</p>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Gallery</p>
+          <h2>Gallery Photos</h2>
+        </div>
+        <div id="admin-gallery-list" style="margin-top:1rem"></div>
+        <button id="admin-gallery-add" class="btn btn-ghost" style="margin-top:0.75rem">+ Add photo entry</button>
+        <p class="form-note">Photo filename only — upload the actual image separately. Category should match one of: <span id="admin-gallery-categories"></span></p>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Audio</p>
+          <h2>Nasheeds & Audio</h2>
+        </div>
+        <div id="admin-nasheeds-list" style="margin-top:1rem"></div>
+        <button id="admin-nasheeds-add" class="btn btn-ghost" style="margin-top:0.75rem">+ Add track</button>
+        <p class="form-note">Only original, public-domain, or properly licensed audio. Filename only — upload the actual file separately.</p>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <p class="section-eyebrow">Community Chat</p>
+          <h2>Chat Moderation</h2>
+          <p class="section-sub">This section talks directly to your live chat data — not part of the content.js download below.</p>
+        </div>
+        <div class="form-field" style="margin-top:1rem">
+          <label for="chat-mod-secret">Moderation secret</label>
+          <input type="password" id="chat-mod-secret" placeholder="Enter CHAT_MODERATION_SECRET">
+        </div>
+        <button id="chat-mod-load-btn" class="btn btn-primary" style="width:100%">Load Reported Messages</button>
+        <div id="chat-mod-reports" style="margin-top:1rem"></div>
+      </section>
+
+      <section class="section-container panel">
+        <div class="section-header-block">
+          <h2>Done editing?</h2>
+          <p class="section-sub">This downloads a complete, ready-to-upload <code>content.js</code> — replace the one in your repo with it, same as any other update.</p>
+        </div>
+        <button id="admin-download-btn" class="btn btn-primary" style="width:100%; margin-top:1rem">⬇ Download Updated content.js</button>
+        <p class="form-note" id="admin-download-status"></p>
+      </section>
+
+    </div>
   </main>
 
   <footer class="footer">
@@ -4886,6 +5012,224 @@ window.SITE_CONTENT = {
   });
 })();
 
+  </script>
+  <script>
+  (function () {
+    'use strict';
+
+    // Change this to anything you like. Remember: this is NOT real security
+    // (see the notice on the page) — it just deters casual browsing.
+    const ADMIN_PASSPHRASE = 'houseofguidance';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const $ = (id) => document.getElementById(id);
+      let draft = null;
+
+      $('admin-unlock-btn').addEventListener('click', () => {
+        const entered = $('admin-passphrase').value;
+        if (entered !== ADMIN_PASSPHRASE) {
+          alert('Incorrect passphrase.');
+          return;
+        }
+        $('admin-gate').style.display = 'none';
+        $('admin-panel').style.display = 'block';
+        initAdminPanel();
+      });
+
+      function initAdminPanel() {
+        draft = JSON.parse(JSON.stringify(window.SITE_CONTENT)); // deep clone — never edit the live object directly
+        initChatModeration();
+
+        // --- Simple scalar fields ---
+        $('admin-contact-phone').value = draft.contact.phone || '';
+        $('admin-contact-email').value = draft.contact.email || '';
+        $('admin-contact-location').value = draft.contact.location || '';
+        $('admin-social-whatsapp').value = draft.social.whatsapp || '';
+        $('admin-social-tiktok').value = draft.social.tiktok || '';
+        $('admin-mm-provider').value = draft.support.mobileMoney.provider || '';
+        $('admin-mm-number').value = draft.support.mobileMoney.number || '';
+        $('admin-mm-ussd').value = draft.support.mobileMoney.ussdCode || '';
+        $('admin-announcement-show').checked = !!draft.announcement.show;
+        $('admin-announcement-label').value = draft.announcement.label || '';
+        $('admin-announcement-title').value = draft.announcement.title || '';
+        $('admin-announcement-text').value = draft.announcement.text || '';
+        $('admin-announcement-linktext').value = draft.announcement.linkText || '';
+        $('admin-announcement-linkhref').value = draft.announcement.linkHref || '';
+        $('admin-gallery-categories').textContent = draft.galleryCategories.join(', ');
+
+        // --- Generic list editor ---
+        function renderListEditor(containerId, list, fields) {
+          const wrap = $(containerId);
+          function render() {
+            if (!list.length) {
+              wrap.innerHTML = '<p class="empty-state">None yet.</p>';
+              return;
+            }
+            wrap.innerHTML = list.map((item, i) => `
+              <div class="admin-item-card" data-index="${i}">
+                ${fields.map(f => `
+                  <div class="form-field">
+                    <label>${f.label}</label>
+                    ${f.type === 'textarea'
+                      ? `<textarea data-key="${f.key}">${(item[f.key] || '').replace(/</g, '&lt;')}</textarea>`
+                      : `<input type="text" data-key="${f.key}" value="${(item[f.key] || '').toString().replace(/"/g, '&quot;')}">`}
+                  </div>
+                `).join('')}
+                <button type="button" class="btn btn-ghost admin-remove-btn" data-index="${i}">🗑 Remove this entry</button>
+              </div>
+            `).join('');
+
+            wrap.querySelectorAll('input,textarea').forEach(input => {
+              input.addEventListener('input', () => {
+                const idx = Number(input.closest('.admin-item-card').dataset.index);
+                list[idx][input.dataset.key] = input.value;
+              });
+            });
+            wrap.querySelectorAll('.admin-remove-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                list.splice(Number(btn.dataset.index), 1);
+                render();
+              });
+            });
+          }
+          render();
+        }
+
+        renderListEditor('admin-team-list', draft.team,
+          [{ key: 'name', label: 'Name' }, { key: 'role', label: 'Role' }, { key: 'photo', label: 'Photo filename' }, { key: 'bio', label: 'Short bio', type: 'textarea' }]);
+        $('admin-team-add').addEventListener('click', () => {
+          draft.team.push({ name: '', role: '', photo: '', bio: '' });
+          renderListEditor('admin-team-list', draft.team,
+            [{ key: 'name', label: 'Name' }, { key: 'role', label: 'Role' }, { key: 'photo', label: 'Photo filename' }, { key: 'bio', label: 'Short bio', type: 'textarea' }]);
+        });
+
+        renderListEditor('admin-events-list', draft.events,
+          [{ key: 'title', label: 'Title' }, { key: 'date', label: 'Date (YYYY-MM-DD)' }, { key: 'description', label: 'Description', type: 'textarea' }, { key: 'registerHref', label: 'Register link' }]);
+        $('admin-events-add').addEventListener('click', () => {
+          draft.events.push({ title: '', date: '', description: '', registerHref: 'portal.html' });
+          renderListEditor('admin-events-list', draft.events,
+            [{ key: 'title', label: 'Title' }, { key: 'date', label: 'Date (YYYY-MM-DD)' }, { key: 'description', label: 'Description', type: 'textarea' }, { key: 'registerHref', label: 'Register link' }]);
+        });
+
+        renderListEditor('admin-khutbahs-list', draft.khutbahs,
+          [{ key: 'title', label: 'Title' }, { key: 'speaker', label: 'Speaker' }, { key: 'date', label: 'Date (YYYY-MM-DD)' }, { key: 'category', label: 'Category' }, { key: 'audio', label: 'Audio filename' }, { key: 'fullText', label: 'Full text (optional)', type: 'textarea' }]);
+        $('admin-khutbahs-add').addEventListener('click', () => {
+          draft.khutbahs.push({ title: '', speaker: '', date: '', category: '', audio: '', fullText: '' });
+          renderListEditor('admin-khutbahs-list', draft.khutbahs,
+            [{ key: 'title', label: 'Title' }, { key: 'speaker', label: 'Speaker' }, { key: 'date', label: 'Date (YYYY-MM-DD)' }, { key: 'category', label: 'Category' }, { key: 'audio', label: 'Audio filename' }, { key: 'fullText', label: 'Full text (optional)', type: 'textarea' }]);
+        });
+
+        renderListEditor('admin-gallery-list', draft.gallery,
+          [{ key: 'path', label: 'Photo filename' }, { key: 'caption', label: 'Caption' }, { key: 'category', label: 'Category' }]);
+        $('admin-gallery-add').addEventListener('click', () => {
+          draft.gallery.push({ path: '', caption: '', category: '' });
+          renderListEditor('admin-gallery-list', draft.gallery,
+            [{ key: 'path', label: 'Photo filename' }, { key: 'caption', label: 'Caption' }, { key: 'category', label: 'Category' }]);
+        });
+
+        renderListEditor('admin-nasheeds-list', draft.nasheeds,
+          [{ key: 'title', label: 'Title' }, { key: 'artist', label: 'Artist' }, { key: 'category', label: 'Category' }, { key: 'path', label: 'Audio filename' }]);
+        $('admin-nasheeds-add').addEventListener('click', () => {
+          draft.nasheeds.push({ title: '', artist: '', category: '', path: '' });
+          renderListEditor('admin-nasheeds-list', draft.nasheeds,
+            [{ key: 'title', label: 'Title' }, { key: 'artist', label: 'Artist' }, { key: 'category', label: 'Category' }, { key: 'path', label: 'Audio filename' }]);
+        });
+
+        // --- Download ---
+        $('admin-download-btn').addEventListener('click', () => {
+          draft.contact.phone = $('admin-contact-phone').value;
+          draft.contact.email = $('admin-contact-email').value;
+          draft.contact.location = $('admin-contact-location').value;
+          draft.social.whatsapp = $('admin-social-whatsapp').value;
+          draft.social.tiktok = $('admin-social-tiktok').value;
+          draft.support.mobileMoney.provider = $('admin-mm-provider').value;
+          draft.support.mobileMoney.number = $('admin-mm-number').value;
+          draft.support.mobileMoney.ussdCode = $('admin-mm-ussd').value;
+          draft.announcement.show = $('admin-announcement-show').checked;
+          draft.announcement.label = $('admin-announcement-label').value;
+          draft.announcement.title = $('admin-announcement-title').value;
+          draft.announcement.text = $('admin-announcement-text').value;
+          draft.announcement.linkText = $('admin-announcement-linktext').value;
+          draft.announcement.linkHref = $('admin-announcement-linkhref').value;
+
+          const fileText = 'window.SITE_CONTENT = ' + JSON.stringify(draft, null, 2) + ';\n';
+          const blob = new Blob([fileText], { type: 'text/javascript' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'content.js';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          $('admin-download-status').textContent = 'Downloaded — upload this content.js to your repo the same way as any other update. Note: original code comments are not preserved in the regenerated file, but everything still works exactly the same.';
+        });
+      }
+
+      function escapeForDisplay(str) {
+        const div = document.createElement('div');
+        div.textContent = str || '';
+        return div.innerHTML;
+      }
+
+      function initChatModeration() {
+        const loadBtn = $('chat-mod-load-btn');
+        const reportsWrap = $('chat-mod-reports');
+        if (!loadBtn || !reportsWrap) return;
+
+        async function callModerate(action, extra) {
+          const secret = $('chat-mod-secret').value;
+          if (!secret) { alert('Enter the moderation secret first.'); return null; }
+          const res = await fetch('/.netlify/functions/chat-moderate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-admin-secret': secret },
+            body: JSON.stringify({ action, ...extra })
+          });
+          if (res.status === 401) { alert('Incorrect moderation secret.'); return null; }
+          return res.json();
+        }
+
+        function renderReports(reports) {
+          if (!reports.length) {
+            reportsWrap.innerHTML = '<div class="empty-state">No pending reports right now.</div>';
+            return;
+          }
+          reportsWrap.innerHTML = reports.map(r => `
+            <div class="admin-item-card">
+              <p class="card-tag">${escapeForDisplay(r.room)} · reported ${new Date(r.reportedAt).toLocaleString()}</p>
+              <p class="card-title">${escapeForDisplay(r.snapshot ? r.snapshot.name : 'Unknown')}</p>
+              <p class="card-text">${escapeForDisplay(r.snapshot ? r.snapshot.text : '(message no longer available)')}</p>
+              <div style="display:flex; gap:0.6rem; margin-top:0.75rem">
+                <button class="btn btn-primary chat-mod-delete-btn" data-room="${escapeForDisplay(r.room)}" data-id="${escapeForDisplay(r.messageId)}">Delete Message</button>
+                <button class="btn btn-ghost chat-mod-dismiss-btn" data-room="${escapeForDisplay(r.room)}" data-id="${escapeForDisplay(r.messageId)}">Dismiss Report</button>
+              </div>
+            </div>
+          `).join('');
+
+          reportsWrap.querySelectorAll('.chat-mod-delete-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              await callModerate('delete', { room: btn.dataset.room, messageId: btn.dataset.id });
+              loadBtn.click();
+            });
+          });
+          reportsWrap.querySelectorAll('.chat-mod-dismiss-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              await callModerate('dismiss', { room: btn.dataset.room, messageId: btn.dataset.id });
+              loadBtn.click();
+            });
+          });
+        }
+
+        loadBtn.addEventListener('click', async () => {
+          reportsWrap.innerHTML = '<p class="card-text">Loading…</p>';
+          const data = await callModerate('list');
+          if (data && data.ok) renderReports(data.reports || []);
+          else if (data) reportsWrap.innerHTML = '<div class="empty-state">Could not load reports.</div>';
+        });
+      }
+    });
+  })();
   </script>
 </body>
 </html>

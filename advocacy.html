@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nasheeds & Audio | House of Guidance</title>
-  <meta name="description" content="Nasheeds, Qur'an recitations, and Islamic reminders from House of Guidance.">
-  <link rel="canonical" href="https://houseofguidance.netlify.app/nasheeds.html">
+  <title>Voices from the Village | House of Guidance</title>
+  <meta name="description" content="House of Guidance stands with grassroots village Imams — supporting their work directly and listening when they face unfair treatment.">
+  <link rel="canonical" href="https://houseofguidance.netlify.app/advocacy.html">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1122,21 +1122,103 @@ a.contact-value:hover { color: var(--gold); }
   <div id="nav-panel" class="nav-panel" role="navigation" aria-label="All sections"></div>
 
   <main>
-    <div class="page-header">
-      <p class="section-eyebrow">Listen &amp; Learn</p>
-      <h1>Nasheeds &amp; Audio</h1>
-      <p>Nasheeds, Qur'an recitations, lectures, and short reminders — only original, public-domain, or properly licensed audio.</p>
+    <div class="page-header advocacy-header">
+      <p class="section-eyebrow">🕌 Standing With Our Imams</p>
+      <h1>Voices from the Village</h1>
+      <p id="advocacy-intro"></p>
     </div>
 
+    <!-- Imam Directory -->
     <section class="section-container panel">
-      <div id="nasheed-player-bar" class="nasheed-player-bar" style="display:none"></div>
+      <div class="section-header-block">
+        <p class="section-eyebrow">Grassroots Work</p>
+        <h2>Village Imams We Support</h2>
+        <p class="section-sub">Every entry here is shared with the Imam's own consent.</p>
+      </div>
+      <div class="filter-bar" style="margin-top:1rem">
+        <input type="text" id="imam-search" class="filter-search" placeholder="Search by name or village...">
+        <select id="imam-district" class="filter-select"></select>
+      </div>
+      <div id="imam-grid" class="grid grid-2"></div>
+    </section>
 
-      <div class="filter-bar">
-        <input type="text" id="nasheed-search" class="filter-search" placeholder="Search by title or artist...">
-        <select id="nasheed-category" class="filter-select"></select>
+    <!-- Resource Hub -->
+    <section class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Support Their Work</p>
+        <h2>Resources for Village Imams</h2>
+        <p class="section-sub">Free to use, built into House of Guidance already — no separate download needed.</p>
+      </div>
+      <div class="grid grid-2" style="margin-top:1.1rem">
+        <a href="learn-arabic.html" class="card admin-item-card" style="display:block; text-decoration:none">
+          <span class="card-tag">Arabic Learning</span>
+          <h3 class="card-title">Reading Course</h3>
+          <p class="card-text">The alphabet, harakat, and reading practice — free to use or teach from directly.</p>
+        </a>
+        <a href="tajweed.html" class="card admin-item-card" style="display:block; text-decoration:none">
+          <span class="card-tag">Tajweed</span>
+          <h3 class="card-title">Tajweed Course</h3>
+          <p class="card-text">Core recitation rules, explained plainly — a ready reference for teaching.</p>
+        </a>
+        <a href="khutbahs.html" class="card admin-item-card" style="display:block; text-decoration:none">
+          <span class="card-tag">Khutbah Support</span>
+          <h3 class="card-title">Khutbah Library</h3>
+          <p class="card-text">Browse existing khutbahs by topic for reference and inspiration.</p>
+        </a>
+        <a href="quran.html" class="card admin-item-card" style="display:block; text-decoration:none">
+          <span class="card-tag">Qur'an</span>
+          <h3 class="card-title">Full Qur'an, Free</h3>
+          <p class="card-text">Every surah, Arabic and English, with audio — for you and your students.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Advocacy & Grievance Form -->
+    <section id="advocacy-form-section" class="section-container panel">
+      <div class="section-header-block">
+        <p class="section-eyebrow">Private &amp; Confidential</p>
+        <h2>Tell Us What's Happening</h2>
+        <p class="section-sub" id="advocacy-form-intro"></p>
       </div>
 
-      <div id="nasheed-list" class="grid"></div>
+      <div class="admin-note-card" style="margin-top:1.1rem">
+        <p class="card-text" id="advocacy-safety-note"></p>
+      </div>
+
+      <form id="advocacy-form" style="margin-top:1.25rem">
+        <label class="interest-chip" style="margin-bottom:1rem">
+          <input type="checkbox" id="advocacy-anonymous">
+          <span>I prefer to remain anonymous (leave name blank below)</span>
+        </label>
+
+        <div class="form-field">
+          <label for="advocacy-name">Name (optional)</label>
+          <input type="text" id="advocacy-name">
+        </div>
+
+        <div class="form-field">
+          <label for="advocacy-contact">Contact info (so we can respond, if you'd like)</label>
+          <input type="text" id="advocacy-contact" placeholder="Phone or email">
+        </div>
+
+        <div class="form-field">
+          <label for="advocacy-location">Village / District</label>
+          <input type="text" id="advocacy-location">
+        </div>
+
+        <div class="form-field">
+          <label for="advocacy-detail">Tell us what's happening</label>
+          <textarea id="advocacy-detail" required style="min-height:140px"></textarea>
+          <span class="form-error">Please share at least a brief description.</span>
+        </div>
+
+        <button type="submit" id="advocacy-submit" class="btn btn-primary" style="width:100%">Submit Privately</button>
+      </form>
+      <div id="advocacy-success" class="form-success" style="display:none">
+        <span class="card-icon">✅</span>
+        <h3 class="card-title">Received</h3>
+        <p class="card-text">JazakAllah khair for trusting us with this. House of Guidance will follow up with care.</p>
+      </div>
     </section>
   </main>
 

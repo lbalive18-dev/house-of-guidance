@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khutbahs | House of Guidance</title>
   <meta name="description" content="Listen to khutbah recordings from House of Guidance.">
+  <link rel="canonical" href="https://houseofguidance.netlify.app/khutbahs.html">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -64,6 +65,11 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Every in-page link (nav menu, footer, etc.) jumps to a section by id.
+   Without this, the sticky navbar covers the top of whatever you jump to,
+   making it look like nothing happened until you scroll a bit more
+   yourself. This reserves space above every anchor target automatically. */
+[id] { scroll-margin-top: 100px; }
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -127,14 +133,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 /* Hamburger + slide-in grouped nav panel */
 .nav-toggle {
-  width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05);
-  border: 1px solid var(--surface-border); display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 4px; cursor: pointer; flex-shrink: 0;
+  display: flex; flex-direction: row; align-items: center; gap: 0.45rem;
+  width: auto; height: 44px; padding: 0 0.75rem; border-radius: 12px; background: var(--gold-soft);
+  border: 1.5px solid rgba(212, 175, 55, 0.4); cursor: pointer; flex-shrink: 0; transition: background-color 0.15s, transform 0.15s;
 }
-.nav-toggle span { width: 18px; height: 2px; background: var(--ivory); border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
-.nav-toggle.is-active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.nav-toggle.is-active span:nth-child(2) { opacity: 0; }
-.nav-toggle.is-active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-toggle:hover { background: rgba(212, 175, 55, 0.24); }
+.nav-toggle:active { transform: scale(0.95); }
+.nav-toggle-icon { display: flex; flex-direction: column; gap: 5px; }
+.nav-toggle-icon span { width: 20px; height: 2.5px; background: var(--gold); border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
+.nav-toggle.is-active .nav-toggle-icon span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.nav-toggle.is-active .nav-toggle-icon span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-active .nav-toggle-icon span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.nav-toggle-label { font-size: 0.68rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.03em; }
 
 .nav-panel {
   position: fixed; top: 0; right: 0; height: 100%; width: min(320px, 85vw);
@@ -155,7 +165,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
    ========================================================================= */
 .hero {
   position: relative;
-  background: linear-gradient(180deg, rgba(6,13,22,0.55) 0%, rgba(6,13,22,0.92) 100%), var(--ink-deep);
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(212,175,55,0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 15% 100%, rgba(47,161,135,0.28), transparent 65%),
+    radial-gradient(ellipse 70% 50% at 85% 100%, rgba(212,175,55,0.14), transparent 65%),
+    linear-gradient(180deg, #060D16 0%, #0A1420 55%, #0E1F1A 100%);
   background-size: cover;
   background-position: center;
   color: var(--ivory);
@@ -166,11 +180,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   border-bottom: 1px solid var(--surface-border);
   overflow: hidden;
 }
-.hero.has-image { background-image: linear-gradient(180deg, rgba(6,13,22,0.55) 0%, rgba(6,13,22,0.92) 100%), var(--hero-image, none); }
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.16'%3E%3Cpath d='M42 4 L74 24 L74 60 L42 80 L10 60 L10 24 Z'/%3E%3Ccircle cx='42' cy='42' r='16'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 84px 84px;
+  opacity: 0.55;
+  animation: heroPatternDrift 60s linear infinite;
+  pointer-events: none;
+}
+@keyframes heroPatternDrift { 0% { background-position: 0 0; } 100% { background-position: 168px 168px; } }
+.hero.has-image {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(212,175,55,0.18), transparent 60%),
+    linear-gradient(180deg, rgba(6,13,22,0.62) 0%, rgba(6,13,22,0.93) 100%),
+    var(--hero-image, none);
+}
 .hero-star {
   position: absolute; top: -40px; right: -40px; width: 180px; height: 180px;
   opacity: 0.08; animation: spinSlow 60s linear infinite;
 }
+.hero-inner { position: relative; z-index: 1; }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold);
@@ -455,30 +485,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 /* =========================================================================
    SOCIAL DOCK
    ========================================================================= */
-.social-dock { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; z-index: 110; }
+.social-dock { position: fixed; bottom: 1.25rem; left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; z-index: 110; }
 .social-icon {
-  position: relative; overflow: hidden; height: 3.6rem; border-radius: 16px;
-  display: flex; align-items: center; justify-content: center; gap: 0.55rem;
-  color: white; text-decoration: none; box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  position: relative; overflow: hidden; width: 3.4rem; height: 3.4rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; text-decoration: none; box-shadow: 0 10px 24px rgba(0,0,0,0.45);
   animation: socialPopIn 0.5s ease both, socialFloat 3.2s ease-in-out infinite;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .social-icon:nth-of-type(1) { animation-delay: 0s, 0.15s; }
 .social-icon:nth-of-type(2) { animation-delay: 0.08s, 0.45s; }
-.social-icon:hover { transform: translateY(-3px) scale(1.02); }
-.social-icon:active { transform: translateY(0) scale(0.98); }
-.social-icon-svg { width: 22px; height: 22px; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
-.social-label { font-size: 0.85rem; font-weight: 800; text-align: left; line-height: 1.2; }
-.social-sub { display: block; font-size: 0.62rem; font-weight: 600; opacity: 0.85; }
+.social-icon:hover { transform: translateY(-3px) scale(1.05); }
+.social-icon:active { transform: translateY(0) scale(0.95); }
+.social-icon-svg { width: 26px; height: 26px; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
+/* Text labels are kept for screen readers, just not shown visually —
+   icon-only buttons take up far less space, so they stop visually
+   colliding with page content (like the Team photos) as you scroll. */
+.social-label {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.social-sub { display: none; }
 .social-shine {
   position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
   background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
   transform: skewX(-20deg); animation: socialShine 3.4s ease-in-out infinite;
 }
-.wa { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.35); }
-.wa:hover { box-shadow: 0 16px 34px rgba(37, 211, 102, 0.5); }
-.tt { background: linear-gradient(135deg, #2b2f36 0%, #000000 100%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 12px 28px rgba(0,0,0,0.55); }
-.tt:hover { box-shadow: 0 16px 34px rgba(212, 175, 55, 0.3); }
+.wa { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); box-shadow: 0 10px 24px rgba(37, 211, 102, 0.4); }
+.wa:hover { box-shadow: 0 14px 30px rgba(37, 211, 102, 0.55); }
+.tt { background: linear-gradient(135deg, #2b2f36 0%, #000000 100%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 24px rgba(0,0,0,0.6); }
+.tt:hover { box-shadow: 0 14px 30px rgba(212, 175, 55, 0.35); }
 .social-icon.is-disabled { pointer-events: none; opacity: 0.4; filter: grayscale(0.5); animation: none; }
 .social-icon.is-disabled .social-shine { display: none; }
 
@@ -549,12 +585,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 .team-card { text-align: center; padding-top: 1.75rem; }
 .team-photo {
-  width: 108px; height: 108px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem;
-  border: 3px solid var(--gold); box-shadow: 0 0 0 4px rgba(212,175,55,0.12), 0 10px 24px rgba(0,0,0,0.35);
+  width: 100%; max-width: 150px; aspect-ratio: 150 / 190; height: auto;
+  border-radius: 20px; object-fit: cover; object-position: top center;
+  margin: 0 auto 1rem; border: 3px solid var(--gold);
+  box-shadow: 0 0 0 4px rgba(212,175,55,0.12), 0 12px 28px rgba(0,0,0,0.4);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.team-card:hover .team-photo { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(212,175,55,0.2), 0 14px 30px rgba(0,0,0,0.4); }
+.team-card:hover .team-photo { transform: scale(1.03); box-shadow: 0 0 0 6px rgba(212,175,55,0.2), 0 16px 34px rgba(0,0,0,0.45); }
 .team-photo-fallback {
+  width: 100%; max-width: 150px; aspect-ratio: 150 / 190; border-radius: 20px; margin: 0 auto 1rem;
   display: flex; align-items: center; justify-content: center; font-family: var(--font-display);
   font-size: 1.9rem; font-weight: 700; color: var(--gold);
   background: radial-gradient(circle at 35% 30%, var(--emerald-bright), var(--emerald) 55%, var(--ink-deep));
@@ -675,7 +714,7 @@ a.contact-value:hover { color: var(--gold); }
   .max-w { max-width: 960px; }
   .section-container { max-width: 960px; }
   .nav-container { max-width: 960px; }
-  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
 }
 
 /* =========================================================================
@@ -903,7 +942,11 @@ a.contact-value:hover { color: var(--gold); }
 .letter-card {
   background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
   padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  position: relative; cursor: pointer; font-family: var(--font-body); transition: border-color 0.15s, transform 0.15s;
 }
+.letter-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-2px); }
+.letter-card:active { transform: translateY(0) scale(0.97); }
+.letter-speaker { position: absolute; top: 0.5rem; right: 0.5rem; font-size: 0.85rem; opacity: 0.6; }
 .letter-big { font-family: var(--font-display); font-size: 2.2rem; color: var(--gold); line-height: 1; }
 .letter-name { font-weight: 700; color: var(--ivory); font-size: 0.82rem; }
 .letter-sound { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
@@ -914,13 +957,90 @@ a.contact-value:hover { color: var(--gold); }
 .harakat-card {
   background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
   padding: 1.1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  position: relative; cursor: pointer; font-family: var(--font-body); transition: border-color 0.15s, transform 0.15s;
 }
+.harakat-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-2px); }
+.harakat-card:active { transform: translateY(0) scale(0.97); }
+.harakat-card .letter-speaker { position: absolute; top: 0.5rem; right: 0.5rem; font-size: 0.85rem; opacity: 0.6; }
 
 /* =========================================================================
    TAJWEED COURSE (tajweed.html)
    ========================================================================= */
 .tajweed-rule-card { border-top: 3px solid var(--gold); }
 .tajweed-letters { font-family: var(--font-display); font-size: 1.4rem; color: var(--emerald-bright); direction: rtl; margin: 0.4rem 0; }
+
+/* =========================================================================
+   RAMADAN MODE
+   ========================================================================= */
+.ramadan-wrap { max-width: var(--max-w); margin: 1.5rem auto 0; padding: 0 1.25rem; }
+@media (min-width: 1024px) { .ramadan-wrap { max-width: 960px; } }
+.ramadan-banner {
+  text-align: center; padding: 1.75rem 1.5rem; border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(31,111,92,0.35) 0%, rgba(212,175,55,0.18) 100%);
+  border: 1px solid rgba(212,175,55,0.4); box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
+.ramadan-icon { font-size: 2rem; display: block; margin-bottom: 0.4rem; animation: floatMoon 4s ease-in-out infinite alternate; }
+.ramadan-countdown { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; color: var(--gold); margin: 0.5rem 0; }
+
+/* Qur'an reading mode toggle + book-style flowing text */
+.quran-mode-toggle { display: flex; gap: 0.5rem; margin-top: 1rem; }
+.quran-mode-btn {
+  flex: 1; font-size: 0.78rem; font-weight: 700; padding: 0.55rem 0.7rem; border-radius: var(--radius-sm);
+  background: var(--surface-2); border: 1px solid #2A3B54; color: var(--muted); cursor: pointer;
+}
+.quran-mode-btn.active { background: var(--gold-soft); border-color: rgba(212,175,55,0.4); color: var(--gold); }
+.reading-mode-audio-bar { margin-bottom: 1.5rem; padding: 1rem; background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--surface-border); }
+.reading-mode-page {
+  background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
+  padding: 2rem 1.5rem; direction: rtl; text-align: justify; font-family: var(--font-display);
+  font-size: 1.6rem; line-height: 2.6; color: var(--ivory);
+}
+.reading-ayah-marker { color: var(--gold); font-size: 1rem; font-family: var(--font-mono); }
+
+/* =========================================================================
+   ADMIN PANEL (admin.html)
+   ========================================================================= */
+.admin-note-card { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-radius: var(--radius-md); padding: 1.25rem; }
+.admin-item-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; }
+
+/* =========================================================================
+   COMMUNITY CHAT (chat.html)
+   ========================================================================= */
+.chat-room-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.3rem; }
+.chat-room-tab {
+  flex-shrink: 0; font-size: 0.78rem; font-weight: 700; color: var(--muted); background: var(--surface-2);
+  border: 1px solid #2A3B54; border-radius: 999px; padding: 0.45rem 0.9rem; cursor: pointer; white-space: nowrap;
+}
+.chat-room-tab.active { color: var(--gold); background: var(--gold-soft); border-color: rgba(212,175,55,0.35); }
+
+.chat-message-list {
+  height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem;
+  background: var(--ink-deep); border-radius: var(--radius-md); border: 1px solid var(--surface-border);
+  padding: 1rem; margin: 1rem 0;
+}
+.chat-message-row { background: var(--surface); border-radius: var(--radius-sm); padding: 0.75rem 0.9rem; position: relative; }
+.chat-message-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem; }
+.chat-message-name { font-weight: 700; color: var(--gold); font-size: 0.82rem; }
+.chat-message-time { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted); }
+.chat-message-text { font-size: 0.9rem; color: var(--text); line-height: 1.5; margin: 0; word-wrap: break-word; }
+.chat-report-btn {
+  background: none; border: none; color: var(--muted); font-size: 0.68rem; cursor: pointer; padding: 0;
+  margin-top: 0.4rem; opacity: 0.6;
+}
+.chat-report-btn:hover { opacity: 1; color: var(--danger); }
+.chat-report-btn:disabled { opacity: 0.4; cursor: default; }
+
+.chat-send-form { display: flex; gap: 0.6rem; }
+.chat-send-form input { flex: 1; }
+.chat-inline-link { background: none; border: none; color: var(--gold); text-decoration: underline; cursor: pointer; padding: 0; font-size: inherit; }
+
+/* Noor's friendly "choose a topic" menu (offered when she can't answer freely) */
+.chat-menu-options { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+.chat-menu-option-btn {
+  font-size: 0.72rem; font-weight: 700; color: var(--gold); background: var(--gold-soft);
+  border: 1px solid rgba(212,175,55,0.35); border-radius: 999px; padding: 0.4rem 0.75rem; cursor: pointer;
+}
+.chat-menu-option-btn:hover { background: rgba(212,175,55,0.28); }
 
   </style>
 </head>
@@ -991,7 +1111,8 @@ a.contact-value:hover { color: var(--gold); }
           <div id="site-name-text" class="logo-text">HOUSE OF GUIDANCE</div>
         </div>
         <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
-          <span></span><span></span><span></span>
+          <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+          <span class="nav-toggle-label">Menu</span>
         </button>
       </div>
       <div id="nav-menu-bar" class="nav-menu-bar" role="navigation" aria-label="Quick links"></div>
@@ -1024,6 +1145,8 @@ a.contact-value:hover { color: var(--gold); }
         <div class="footer-col">
           <h4>Explore</h4>
           <a href="index.html">Home</a>
+          <a href="advocacy.html">Voices from the Village</a>
+          <a href="chat.html">Community Chat</a>
           <a href="index.html#about">About</a>
           <a href="quran.html">Qur'an</a>
           <a href="hadith.html">Hadith</a>
@@ -1285,6 +1408,57 @@ window.SITE_CONTENT = {
     location: "House of Guidance"
   },
 
+  // Ramadan mode — dates are calculated live via the Aladhan Hijri
+  // calendar API, never hardcoded (Ramadan's Gregorian start date shifts
+  // every year). This just holds display text.
+  ramadan: {
+    beforeTitle: "Ramadan is Coming",
+    duringTitle: "Ramadan Mubarak",
+    duringNote: "May this month bring ease, forgiveness, and closeness to Allah."
+  },
+
+  // ---------------------------------------------------------------------
+  // VOICES FROM THE VILLAGE — House of Guidance's own solidarity and
+  // support initiative for grassroots village Imams. Not a referral to
+  // any outside organization — House of Guidance listens, documents, and
+  // supports directly.
+  //
+  // IMPORTANT — real people, real safety: only add an Imam here with
+  // their clear, informed consent, since this is public. Never list
+  // someone facing an active threat without first confirming with them
+  // that public visibility is safe for their situation. When in doubt,
+  // leave a name off and just describe the work.
+  // ---------------------------------------------------------------------
+  advocacy: {
+    intro: "Village Imams carry enormous responsibility — teaching, leading prayer, supporting orphans and the vulnerable — often with little recognition or support. House of Guidance stands with them directly: we listen, we document, and we work to support and advocate for our local Imams and their communities ourselves.",
+    formIntro: "If you are a village Imam or community member facing unfair treatment, mistreatment of your mosque, or lack of support, you can tell us privately below. This goes only to House of Guidance — nothing here is ever displayed publicly.",
+    safetyNote: "Your safety matters more than any detail. Share only what you're comfortable sharing. You may leave your name off entirely if you prefer — just tell us what's happening and how to reach you if you'd like a response."
+  },
+
+  imamDistricts: ["Butambala", "Mpigi", "Kampala", "Wakiso", "Mityana", "Gomba"],
+
+  // Add an entry only with the Imam's clear consent. photo is optional —
+  // filename only, uploaded same folder as index.html, same as team photos.
+  imamDirectory: [
+    // { name: "", village: "", district: "Butambala", photo: "", bio: "Describe their grassroots work — teaching, orphan support, etc.", waysToSupport: "What would genuinely help them, e.g. 'Qur'an learning materials for 12 students'" }
+  ],
+
+  // ---------------------------------------------------------------------
+  // COMMUNITY CHAT — topic rooms, not one open free-for-all. Messages
+  // refresh every few seconds (not instant like WhatsApp — true real-time
+  // messaging needs a different kind of backend service; this is the
+  // honest version buildable on this static site's existing foundation).
+  // Anyone can pick any display name — there's no real login system, so
+  // this is a light deterrent against spam, not a secure identity check.
+  // ---------------------------------------------------------------------
+  chatRooms: [
+    { key: "general", label: "General", description: "General conversation for the community." },
+    { key: "quran-discussion", label: "Qur'an Discussion", description: "Reflections, questions, and discussion about the Qur'an." },
+    { key: "yassarna-students", label: "Yassarna Students", description: "A space for current Yassarna learners." },
+    { key: "ask-a-question", label: "Ask a Question", description: "General Islamic questions — for personal rulings, please still consult a qualified scholar." },
+    { key: "sisters-corner", label: "Sisters' Corner", description: "A space for sisters in the community." }
+  ],
+
   // Rotates automatically, one per day, based on today's date —
   // add as many as you like, no need to change any code.
   dailyMotivations: [
@@ -1481,6 +1655,8 @@ window.SITE_CONTENT = {
     {
       label: "Community",
       items: [
+        { label: "🕌 Voices from the Village", href: "advocacy.html" },
+        { label: "💬 Community Chat", href: "chat.html" },
         { label: "About Us", href: "index.html#about" },
         { label: "Our Team", href: "index.html#team" },
         { label: "Beautiful Stories", href: "index.html#stories" },
@@ -1724,6 +1900,40 @@ window.SITE_CONTENT = {
       .replace(/\n/g, '<br>');
   }
 
+  // Shared, reliable form submission — sends via our own email function
+  // (fully within our control) rather than depending solely on Netlify's
+  // form auto-detection. Also fires a best-effort classic Netlify Forms
+  // submission in parallel (harmless if it fails, a bonus if it works).
+  async function submitFormReliably(form, formType) {
+    const formData = new FormData(form);
+    const fields = {};
+    formData.forEach((value, key) => { fields[key] = value; });
+
+    // Best-effort classic Netlify Forms submission — don't await, don't
+    // let its failure affect the real result.
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(fields).toString()
+    }).catch(() => {});
+
+    const res = await fetch('/.netlify/functions/send-form-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ formType, fields })
+    });
+    if (!res.ok) throw new Error('send-form-email request failed');
+    const data = await res.json();
+    if (data.unavailable) {
+      const err = new Error('Email delivery not yet configured');
+      err.unavailable = true;
+      throw err;
+    }
+    if (!data.ok) throw new Error('Email delivery failed');
+    return true;
+  }
+
+
   /* ---------------------------------------------------------------------
      1. HEADER / NAV / LOGO / MEDIA FALLBACKS
      --------------------------------------------------------------------- */
@@ -1856,7 +2066,6 @@ window.SITE_CONTENT = {
     if (!wrap) return;
     const c = C.contact;
     const rows = [
-      c.phone ? { label: 'Phone', value: c.phone, href: `tel:${c.phone.replace(/\s+/g, '')}` } : null,
       c.email ? { label: 'Email', value: c.email, href: `mailto:${c.email}` } : null,
       c.location ? { label: 'Location', value: c.location, href: null } : null,
       C.social.whatsapp ? { label: 'WhatsApp', value: 'Chat with us', href: C.social.whatsapp } : null
@@ -1888,15 +2097,11 @@ window.SITE_CONTENT = {
           </div>
         `).join('')}
       </div>
-      ${mm ? `
+      ${C.social.whatsapp ? `
         <div class="card mobile-money-card" style="margin-top:1.1rem">
-          <span class="card-tag">Give via ${escapeHTML(mm.provider)}</span>
-          <p class="mobile-money-number" id="mm-number-display">${escapeHTML(mm.number)}</p>
-          <p class="card-text" style="margin-bottom:1rem">Tap to open your dialer with ${escapeHTML(mm.ussdCode)} ready — then choose "Send Money", paste in the number below, and enter your amount.</p>
-          <div class="mobile-money-actions">
-            <a class="btn btn-gold" href="tel:${encodeURIComponent(mm.ussdCode)}">📞 Open Airtel Money (${escapeHTML(mm.ussdCode)})</a>
-            <button class="btn btn-ghost" id="mm-copy-btn" type="button" data-number="${escapeHTML(mm.number)}">📋 Copy number</button>
-          </div>
+          <span class="card-tag">Give or Ask About Supporting Us</span>
+          <p class="card-text" style="margin-bottom:1rem">Message us on WhatsApp to arrange your contribution — we'll guide you from there.</p>
+          <a class="btn btn-gold" href="${C.social.whatsapp}" target="_blank" rel="noopener" style="width:100%">💬 Message Us on WhatsApp</a>
         </div>
       ` : ''}
       ${s.paymentMethods.length ? `
@@ -1904,22 +2109,8 @@ window.SITE_CONTENT = {
           <span class="card-tag">Ways to Give</span>
           ${s.paymentMethods.map(p => `<p class="card-text"><strong>${escapeHTML(p.method)}:</strong> ${escapeHTML(p.detail)}</p>`).join('')}
         </div>
-      ` : `<div class="empty-state" style="margin-top:1.1rem">Payment details coming soon. For now, reach out via WhatsApp to arrange support.</div>`}
+      ` : ''}
     `;
-
-    const copyBtn = $('mm-copy-btn');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', async () => {
-        const number = copyBtn.dataset.number;
-        try {
-          await navigator.clipboard.writeText(number);
-          copyBtn.textContent = '✅ Copied!';
-          setTimeout(() => { copyBtn.textContent = '📋 Copy number'; }, 1800);
-        } catch (e) {
-          alert(`Copy this number manually: ${number}`);
-        }
-      });
-    }
   }
 
   function initVolunteerForm() {
@@ -1944,24 +2135,271 @@ window.SITE_CONTENT = {
       }
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';
-      const formData = new FormData(form);
-      const encoded = new URLSearchParams(formData).toString();
       try {
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encoded
-        });
-        if (!res.ok) throw new Error('Submission failed');
+        await submitFormReliably(form, 'volunteer');
         form.style.display = 'none';
         $('volunteer-success').style.display = 'block';
       } catch (err) {
-        alert("We couldn't submit that. Please check your connection and try again, or reach us on WhatsApp.");
+        if (err.unavailable) {
+          alert("This form isn't fully connected yet — please reach us directly on WhatsApp for now.");
+        } else {
+          alert("We couldn't submit that. Please check your connection and try again, or reach us on WhatsApp.");
+        }
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
         console.error('Volunteer submit error:', err);
       }
     });
+  }
+
+  /* ---------------------------------------------------------------------
+     VOICES FROM THE VILLAGE (advocacy.html) — Imam directory + private
+     advocacy/grievance form, using the same reliable submission path.
+     --------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------
+     COMMUNITY CHAT (chat.html) — topic rooms, polling every few seconds.
+     Not true instant messaging (that needs a different kind of backend
+     service) — this is the honest version buildable on this site's
+     existing foundation (Netlify Blobs), with real moderation support.
+     --------------------------------------------------------------------- */
+  const CHAT_NAME_KEY = 'hog_chat_display_name_v1';
+  let chatCurrentRoom = null;
+  let chatPollTimer = null;
+  let chatLastMessageId = null;
+
+  function initChatPage() {
+    const nameGate = $('chat-name-gate');
+    if (!nameGate) return; // not on this page
+
+    const roomArea = $('chat-room-area');
+    const savedName = localStorage.getItem(CHAT_NAME_KEY);
+
+    function showRoomArea(name) {
+      nameGate.style.display = 'none';
+      roomArea.style.display = 'block';
+      $('chat-current-name').textContent = name;
+      renderRoomTabs();
+      openChatRoom(C.chatRooms[0].key);
+    }
+
+    $('chat-name-join-btn').addEventListener('click', () => {
+      const name = $('chat-display-name').value.trim().slice(0, 30);
+      if (!name) { alert('Please enter a display name.'); return; }
+      localStorage.setItem(CHAT_NAME_KEY, name);
+      showRoomArea(name);
+    });
+
+    $('chat-change-name-btn')?.addEventListener('click', () => {
+      if (chatPollTimer) clearInterval(chatPollTimer);
+      roomArea.style.display = 'none';
+      nameGate.style.display = 'block';
+      $('chat-display-name').value = localStorage.getItem(CHAT_NAME_KEY) || '';
+    });
+
+    if (savedName) {
+      $('chat-display-name').value = savedName;
+      showRoomArea(savedName);
+    }
+
+    function renderRoomTabs() {
+      const tabsWrap = $('chat-room-tabs');
+      tabsWrap.innerHTML = C.chatRooms.map(r =>
+        `<button class="chat-room-tab${r.key === chatCurrentRoom ? ' active' : ''}" data-room="${r.key}">${escapeHTML(r.label)}</button>`
+      ).join('');
+      tabsWrap.querySelectorAll('.chat-room-tab').forEach(btn => {
+        btn.addEventListener('click', () => openChatRoom(btn.dataset.room));
+      });
+    }
+
+    function openChatRoom(roomKey) {
+      chatCurrentRoom = roomKey;
+      chatLastMessageId = null;
+      renderRoomTabs();
+      const room = C.chatRooms.find(r => r.key === roomKey);
+      if ($('chat-room-description')) $('chat-room-description').textContent = room ? room.description : '';
+      $('chat-message-list').innerHTML = `<p class="card-text">Loading messages…</p>`;
+
+      if (chatPollTimer) clearInterval(chatPollTimer);
+      pollChatMessages();
+      chatPollTimer = setInterval(pollChatMessages, 5000);
+    }
+
+    async function pollChatMessages() {
+      if (!chatCurrentRoom) return;
+      try {
+        const res = await fetch(`/.netlify/functions/chat-messages?room=${encodeURIComponent(chatCurrentRoom)}`);
+        if (!res.ok) throw new Error('Request failed');
+        const data = await res.json();
+        renderMessages(data.messages || []);
+      } catch (e) {
+        // Silent on poll failures — don't spam the user with errors every 5s.
+        // If this is the very first load, show a gentle message once.
+        const list = $('chat-message-list');
+        if (list.innerHTML.includes('Loading messages')) {
+          list.innerHTML = `<div class="empty-state">Couldn't load messages right now — will keep trying.</div>`;
+        }
+      }
+    }
+
+    function renderMessages(messages) {
+      const list = $('chat-message-list');
+      const newestId = messages.length ? messages[messages.length - 1].id : null;
+      if (newestId === chatLastMessageId && list.dataset.rendered) return; // nothing new, skip re-render
+      chatLastMessageId = newestId;
+      list.dataset.rendered = '1';
+
+      if (!messages.length) {
+        list.innerHTML = `<div class="empty-state">No messages yet in this room — be the first to say Assalamu Alaikum!</div>`;
+        return;
+      }
+
+      const wasScrolledToBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 20;
+      list.innerHTML = messages.map(m => `
+        <div class="chat-message-row">
+          <div class="chat-message-head">
+            <span class="chat-message-name">${escapeHTML(m.name)}</span>
+            <span class="chat-message-time">${new Date(m.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          </div>
+          <p class="chat-message-text">${escapeHTML(m.text)}</p>
+          <button class="chat-report-btn" data-id="${escapeHTML(m.id)}" title="Report this message">🚩 Report</button>
+        </div>
+      `).join('');
+
+      list.querySelectorAll('.chat-report-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Report this message to a moderator?')) return;
+          btn.disabled = true;
+          btn.textContent = 'Reported';
+          try {
+            await fetch('/.netlify/functions/chat-report', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ room: chatCurrentRoom, messageId: btn.dataset.id })
+            });
+          } catch (e) { /* best-effort */ }
+        });
+      });
+
+      if (wasScrolledToBottom) list.scrollTop = list.scrollHeight;
+    }
+
+    $('chat-send-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = $('chat-message-input');
+      const text = input.value.trim();
+      if (!text || !chatCurrentRoom) return;
+      const name = localStorage.getItem(CHAT_NAME_KEY);
+      input.value = '';
+      try {
+        const res = await fetch('/.netlify/functions/chat-send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ room: chatCurrentRoom, name, text })
+        });
+        const data = await res.json();
+        if (data.error === 'rate_limited') {
+          alert(data.message || "You're sending messages too quickly.");
+        }
+        pollChatMessages();
+      } catch (e) {
+        alert("Couldn't send that message — please check your connection.");
+        input.value = text;
+      }
+    });
+  }
+
+  function initAdvocacyPage() {
+    const introEl = $('advocacy-intro');
+    if (!introEl) return; // not on this page
+
+    introEl.textContent = C.advocacy.intro;
+    if ($('advocacy-form-intro')) $('advocacy-form-intro').textContent = C.advocacy.formIntro;
+    if ($('advocacy-safety-note')) $('advocacy-safety-note').textContent = C.advocacy.safetyNote;
+
+    // Imam directory
+    const grid = $('imam-grid');
+    const districtSelect = $('imam-district');
+    const searchInput = $('imam-search');
+    if (grid) {
+      if (districtSelect) {
+        districtSelect.innerHTML = '<option value="">All districts</option>' +
+          C.imamDistricts.map(d => `<option value="${escapeHTML(d)}">${escapeHTML(d)}</option>`).join('');
+      }
+
+      function renderImams() {
+        const q = (searchInput?.value || '').trim().toLowerCase();
+        const district = districtSelect?.value || '';
+        const filtered = C.imamDirectory.filter(imam => {
+          const matchesQ = !q || imam.name.toLowerCase().includes(q) || imam.village.toLowerCase().includes(q);
+          const matchesDistrict = !district || imam.district === district;
+          return matchesQ && matchesDistrict;
+        });
+
+        if (!C.imamDirectory.length) {
+          grid.innerHTML = `<div class="empty-state">No profiles shared publicly yet — added only with each Imam's own consent. Check back soon.</div>`;
+          return;
+        }
+        if (!filtered.length) {
+          grid.innerHTML = `<div class="empty-state">No profiles match that search.</div>`;
+          return;
+        }
+        grid.innerHTML = filtered.map((imam, i) => `
+          <div class="card team-card reveal" style="animation-delay:${i * 0.05}s">
+            ${imam.photo
+              ? `<img class="team-photo" src="${imam.photo}" alt="${escapeHTML(imam.name)}" loading="lazy">`
+              : `<div class="team-photo team-photo-fallback">${escapeHTML((imam.name || '?').split(' ').map(s => s[0]).slice(0,2).join(''))}</div>`}
+            <h3 class="card-title">${escapeHTML(imam.name)}</h3>
+            <p class="card-tag team-role-tag">${escapeHTML(imam.village)}, ${escapeHTML(imam.district)}</p>
+            <p class="card-text">${escapeHTML(imam.bio)}</p>
+            ${imam.waysToSupport ? `<p class="card-text" style="margin-top:0.6rem"><strong>Ways to support:</strong> ${escapeHTML(imam.waysToSupport)}</p>` : ''}
+          </div>
+        `).join('');
+      }
+
+      searchInput?.addEventListener('input', renderImams);
+      districtSelect?.addEventListener('change', renderImams);
+      renderImams();
+    }
+
+    // Advocacy / grievance form
+    const form = $('advocacy-form');
+    if (!form) return;
+
+    $('advocacy-anonymous')?.addEventListener('change', (e) => {
+      const nameField = $('advocacy-name');
+      if (e.target.checked) { nameField.value = ''; nameField.disabled = true; }
+      else { nameField.disabled = false; }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const detailField = $('advocacy-detail');
+      if (!detailField.value.trim()) {
+        detailField.closest('.form-field').classList.add('has-error');
+        detailField.focus();
+        return;
+      }
+      const submitBtn = $('advocacy-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      try {
+        await submitFormReliably(form, 'village-advocacy');
+        form.style.display = 'none';
+        $('advocacy-success').style.display = 'block';
+      } catch (err) {
+        if (err.unavailable) {
+          alert("This form isn't fully connected yet — please reach House of Guidance directly on WhatsApp for now.");
+        } else {
+          alert("We couldn't submit that. Please check your connection and try again, or reach us on WhatsApp.");
+        }
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Privately';
+        console.error('Advocacy form submit error:', err);
+      }
+    });
+
+    $('advocacy-detail')?.addEventListener('input', () => $('advocacy-detail').closest('.form-field').classList.remove('has-error'));
   }
 
   function initMarriageForm() {
@@ -1994,19 +2432,16 @@ window.SITE_CONTENT = {
       }
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';
-      const formData = new FormData(form);
-      const encoded = new URLSearchParams(formData).toString();
       try {
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encoded
-        });
-        if (!res.ok) throw new Error('Submission failed');
+        await submitFormReliably(form, 'marriage-interest');
         form.style.display = 'none';
         $('marriage-success').style.display = 'block';
       } catch (err) {
-        alert("We couldn't submit that. Please check your connection and try again, or reach us privately on WhatsApp.");
+        if (err.unavailable) {
+          alert("This form isn't fully connected yet — please reach us directly on WhatsApp for now.");
+        } else {
+          alert("We couldn't submit that. Please check your connection and try again, or reach us privately on WhatsApp.");
+        }
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Privately';
         console.error('Marriage form submit error:', err);
@@ -2263,6 +2698,71 @@ window.SITE_CONTENT = {
     if (lastSent === todayKey) return;
     sendNotification('🕌 Jumu\'ah Reminder', "Jumu'ah is tomorrow. Prepare yourself, increase your Ṣalawāt upon the Prophet ﷺ, and attend the Friday prayer.");
     try { localStorage.setItem(JUMUAH_NOTIFY_KEY, todayKey); } catch (e) {}
+  }
+
+  /* ---- Ramadan mode — live-calculated, never hardcoded ---- */
+  function formatDateForAladhan(d) {
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    return `${dd}-${mm}-${d.getFullYear()}`;
+  }
+
+  async function initRamadanMode() {
+    const wrap = $('ramadan-card');
+    if (!wrap) return;
+
+    try {
+      const today = new Date();
+      const gToHRes = await fetch(`https://api.aladhan.com/v1/gToH/${formatDateForAladhan(today)}`);
+      if (!gToHRes.ok) throw new Error('gToH failed');
+      const gToHData = await gToHRes.json();
+      const hijri = gToHData.data.hijri;
+      const currentMonth = hijri.month.number;
+      const currentYear = Number(hijri.year);
+
+      if (currentMonth === 9) {
+        // Currently in Ramadan — show day count + countdown to Eid (1 Shawwal)
+        const eidRes = await fetch(`https://api.aladhan.com/v1/hToG/01-10-${currentYear}`);
+        if (!eidRes.ok) throw new Error('hToG failed');
+        const eidData = await eidRes.json();
+        const [ed, em, ey] = eidData.data.gregorian.date.split('-').map(Number);
+        const eidDate = new Date(ey, em - 1, ed);
+        const daysLeft = Math.ceil((eidDate - today) / 86400000);
+
+        wrap.innerHTML = `
+          <div class="ramadan-banner">
+            <span class="ramadan-icon">🌙</span>
+            <h3 class="card-title">${escapeHTML(C.ramadan.duringTitle)} — Day ${hijri.day}</h3>
+            <p class="card-text">${escapeHTML(C.ramadan.duringNote)}</p>
+            <p class="ramadan-countdown">${daysLeft > 0 ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} until Eid al-Fitr` : 'Eid al-Fitr is near'}</p>
+          </div>
+        `;
+      } else {
+        // Not yet Ramadan — countdown to next Ramadan's start (1 Ramadan)
+        const targetYear = currentMonth < 9 ? currentYear : currentYear + 1;
+        const ramadanRes = await fetch(`https://api.aladhan.com/v1/hToG/01-09-${targetYear}`);
+        if (!ramadanRes.ok) throw new Error('hToG failed');
+        const ramadanData = await ramadanRes.json();
+        const [rd, rm, ry] = ramadanData.data.gregorian.date.split('-').map(Number);
+        const ramadanDate = new Date(ry, rm - 1, rd);
+        const daysLeft = Math.ceil((ramadanDate - today) / 86400000);
+
+        if (daysLeft > 0) {
+          wrap.innerHTML = `
+            <div class="ramadan-banner">
+              <span class="ramadan-icon">🌙</span>
+              <h3 class="card-title">${escapeHTML(C.ramadan.beforeTitle)}</h3>
+              <p class="ramadan-countdown">${daysLeft} day${daysLeft === 1 ? '' : 's'} until Ramadan</p>
+              <p class="card-text">Expected to begin around ${ramadanDate.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })} — exact date depends on moon sighting.</p>
+            </div>
+          `;
+        } else {
+          wrap.style.display = 'none';
+        }
+      }
+    } catch (e) {
+      wrap.style.display = 'none'; // fail gracefully — no Ramadan widget rather than wrong info
+    }
   }
 
   function renderJumuahCard() {
@@ -2769,6 +3269,9 @@ window.SITE_CONTENT = {
     });
   }
 
+  let currentSurahData = null; // { surah, arAyahs, enAyahs } — cached so toggling modes doesn't re-fetch
+  let quranViewMode = 'cards'; // 'cards' or 'reading'
+
   async function openSurahReader(surahNumber, scrollToAyah) {
     const gridSection = $('surah-grid')?.closest('.section-container');
     const readerSection = $('surah-reader');
@@ -2792,56 +3295,102 @@ window.SITE_CONTENT = {
       const surah = enData.data;
       const arAyahs = arData.data.ayahs;
       const enAyahs = surah.ayahs;
+      currentSurahData = { surah, arAyahs, enAyahs };
 
       headerWrap.innerHTML = `
         <p class="section-eyebrow">Surah ${surah.number}</p>
         <h2>${escapeHTML(surah.englishName)} <span class="surah-reader-arabic">${escapeHTML(surah.name)}</span></h2>
         <p class="section-sub">${escapeHTML(surah.englishNameTranslation)} · ${surah.numberOfAyahs} ayat · ${escapeHTML(surah.revelationType)}</p>
+        <div class="quran-mode-toggle">
+          <button class="quran-mode-btn${quranViewMode === 'cards' ? ' active' : ''}" data-mode="cards">🎴 Verse Cards</button>
+          <button class="quran-mode-btn${quranViewMode === 'reading' ? ' active' : ''}" data-mode="reading">📖 Reading Mode</button>
+        </div>
       `;
-
-      ayahsWrap.innerHTML = enAyahs.map((enA, i) => {
-        const arA = arAyahs[i];
-        const marked = isBookmarked(surah.number, enA.numberInSurah);
-        const audioUrl = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${enA.number}.mp3`;
-        const snippet = enA.text.length > 90 ? enA.text.slice(0, 90) + '…' : enA.text;
-        return `
-          <div class="ayah-row" id="ayah-${surah.number}-${enA.numberInSurah}">
-            <div class="ayah-row-top">
-              <span class="ayah-number-badge">${enA.numberInSurah}</span>
-              <div class="ayah-row-actions">
-                <button class="ayah-icon-btn quran-bookmark-btn${marked ? ' is-active' : ''}" data-surah="${surah.number}" data-ayah="${enA.numberInSurah}" data-name="${escapeHTML(surah.englishName)}" data-snippet="${escapeHTML(snippet)}" aria-label="Bookmark this ayah" title="Bookmark">🔖</button>
-                <button class="ayah-icon-btn quran-progress-btn" data-surah="${surah.number}" data-ayah="${enA.numberInSurah}" data-name="${escapeHTML(surah.englishName)}" aria-label="Mark as last read here" title="Continue from here">📍</button>
-              </div>
-            </div>
-            <p class="ayah-arabic">${escapeHTML(arA.text)}</p>
-            <p class="ayah-translation">${escapeHTML(enA.text)}</p>
-            <audio class="ayah-audio" controls preload="none" src="${audioUrl}"></audio>
-          </div>
-        `;
-      }).join('');
-
-      ayahsWrap.querySelectorAll('.quran-bookmark-btn').forEach(btn => {
+      headerWrap.querySelectorAll('.quran-mode-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          toggleBookmark(Number(btn.dataset.surah), Number(btn.dataset.ayah), btn.dataset.name, btn.dataset.snippet);
-          btn.classList.toggle('is-active');
+          quranViewMode = btn.dataset.mode;
+          headerWrap.querySelectorAll('.quran-mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+          renderCurrentSurahView();
         });
       });
-      ayahsWrap.querySelectorAll('.quran-progress-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          saveProgress(Number(btn.dataset.surah), Number(btn.dataset.ayah), btn.dataset.name);
-          renderContinueCard();
-          btn.textContent = '✅';
-          setTimeout(() => { btn.textContent = '📍'; }, 1200);
-        });
-      });
+
+      renderCurrentSurahView();
 
       if (scrollToAyah) {
-        const target = $(`ayah-${surah.number}-${scrollToAyah}`);
-        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+        setTimeout(() => {
+          const target = $(`ayah-${surah.number}-${scrollToAyah}`);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 250);
       }
     } catch (e) {
       ayahsWrap.innerHTML = `<div class="empty-state">Couldn't load this surah right now — please check your connection and try again.</div>`;
     }
+  }
+
+  function renderCurrentSurahView() {
+    if (quranViewMode === 'reading') renderSurahReadingMode();
+    else renderSurahCardMode();
+  }
+
+  function renderSurahCardMode() {
+    const ayahsWrap = $('surah-ayahs');
+    if (!ayahsWrap || !currentSurahData) return;
+    const { surah, arAyahs, enAyahs } = currentSurahData;
+
+    ayahsWrap.innerHTML = enAyahs.map((enA, i) => {
+      const arA = arAyahs[i];
+      const marked = isBookmarked(surah.number, enA.numberInSurah);
+      const audioUrl = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${enA.number}.mp3`;
+      const snippet = enA.text.length > 90 ? enA.text.slice(0, 90) + '…' : enA.text;
+      return `
+        <div class="ayah-row" id="ayah-${surah.number}-${enA.numberInSurah}">
+          <div class="ayah-row-top">
+            <span class="ayah-number-badge">${enA.numberInSurah}</span>
+            <div class="ayah-row-actions">
+              <button class="ayah-icon-btn quran-bookmark-btn${marked ? ' is-active' : ''}" data-surah="${surah.number}" data-ayah="${enA.numberInSurah}" data-name="${escapeHTML(surah.englishName)}" data-snippet="${escapeHTML(snippet)}" aria-label="Bookmark this ayah" title="Bookmark">🔖</button>
+              <button class="ayah-icon-btn quran-progress-btn" data-surah="${surah.number}" data-ayah="${enA.numberInSurah}" data-name="${escapeHTML(surah.englishName)}" aria-label="Mark as last read here" title="Continue from here">📍</button>
+            </div>
+          </div>
+          <p class="ayah-arabic">${escapeHTML(arA.text)}</p>
+          <p class="ayah-translation">${escapeHTML(enA.text)}</p>
+          <audio class="ayah-audio" controls preload="none" src="${audioUrl}"></audio>
+        </div>
+      `;
+    }).join('');
+
+    ayahsWrap.querySelectorAll('.quran-bookmark-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleBookmark(Number(btn.dataset.surah), Number(btn.dataset.ayah), btn.dataset.name, btn.dataset.snippet);
+        btn.classList.toggle('is-active');
+      });
+    });
+    ayahsWrap.querySelectorAll('.quran-progress-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        saveProgress(Number(btn.dataset.surah), Number(btn.dataset.ayah), btn.dataset.name);
+        renderContinueCard();
+        btn.textContent = '✅';
+        setTimeout(() => { btn.textContent = '📍'; }, 1200);
+      });
+    });
+  }
+
+  function renderSurahReadingMode() {
+    const ayahsWrap = $('surah-ayahs');
+    if (!ayahsWrap || !currentSurahData) return;
+    const { surah, arAyahs } = currentSurahData;
+    const fullAudioUrl = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surah.number}.mp3`;
+
+    const flowingText = arAyahs.map(a =>
+      `${escapeHTML(a.text)} <span class="reading-ayah-marker">﴿${a.numberInSurah}﴾</span>`
+    ).join(' ');
+
+    ayahsWrap.innerHTML = `
+      <div class="reading-mode-audio-bar">
+        <p class="field-hint" style="margin-bottom:0.5rem">🎧 Full surah, recited continuously — Mishary Alafasy</p>
+        <audio controls preload="none" src="${fullAudioUrl}" style="width:100%"></audio>
+      </div>
+      <div class="reading-mode-page">${flowingText}</div>
+    `;
   }
 
   function closeSurahReader() {
@@ -3065,10 +3614,10 @@ window.SITE_CONTENT = {
 
     const merged = engData.hadiths.map(h => ({
       hadithnumber: h.hadithnumber,
-      englishText: h.text,
+      englishText: h.text || '',
       arabicText: araByNumber[h.hadithnumber] || '',
       reference: h.reference
-    }));
+    })).filter(h => h.englishText.trim() || h.arabicText.trim()); // skip empty section-marker entries
 
     hadithCache[book.key] = merged;
     return merged;
@@ -3092,7 +3641,8 @@ window.SITE_CONTENT = {
 
     listWrap.innerHTML = pageItems.map(h => {
       const marked = isHadithBookmarked(currentHadithBook.key, h.hadithnumber);
-      const snippet = h.englishText.length > 90 ? h.englishText.slice(0, 90) + '…' : h.englishText;
+      const safeText = h.englishText || '';
+      const snippet = safeText.length > 90 ? safeText.slice(0, 90) + '…' : safeText;
       return `
         <div class="ayah-row">
           <div class="ayah-row-top">
@@ -3176,50 +3726,70 @@ window.SITE_CONTENT = {
      6g. LEARN ARABIC (learn-arabic.html) — original alphabet/harakat
      reading course, no external fetches needed.
      --------------------------------------------------------------------- */
+  function speakArabic(text) {
+    if (!('speechSynthesis' in window)) {
+      alert("Your browser doesn't support text-to-speech. Ask your teacher to demonstrate this one in class.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'ar-SA';
+    utter.rate = 0.75;
+    window.speechSynthesis.speak(utter);
+  }
+
   function initArabicCourse() {
     const alphaWrap = $('alphabet-grid');
     if (!alphaWrap) return;
 
-    alphaWrap.innerHTML = C.arabicAlphabet.map(l => `
-      <div class="letter-card">
+    alphaWrap.innerHTML = C.arabicAlphabet.map((l, i) => `
+      <button class="letter-card" data-speak="${escapeHTML(l.example)}" aria-label="Play pronunciation of ${escapeHTML(l.example)}">
+        <span class="letter-speaker" aria-hidden="true">🔊</span>
         <span class="letter-big">${escapeHTML(l.letter)}</span>
         <span class="letter-name">${escapeHTML(l.name)}</span>
         <span class="letter-sound">${escapeHTML(l.sound)}</span>
         <span class="letter-example">${escapeHTML(l.example)} <em>(${escapeHTML(l.exampleMeaning)})</em></span>
-      </div>
+      </button>
     `).join('');
 
     const harakatWrap = $('harakat-grid');
     if (harakatWrap) {
       harakatWrap.innerHTML = C.harakat.map(h => `
-        <div class="harakat-card">
+        <button class="harakat-card" data-speak="${escapeHTML(h.example)}" aria-label="Play pronunciation">
+          <span class="letter-speaker" aria-hidden="true">🔊</span>
           <span class="letter-big">${escapeHTML(h.example)}</span>
           <span class="letter-name">${escapeHTML(h.name)}</span>
           <span class="letter-sound">${escapeHTML(h.sound)}</span>
-        </div>
+        </button>
       `).join('');
     }
 
     const tanweenWrap = $('tanween-grid');
     if (tanweenWrap) {
       tanweenWrap.innerHTML = C.tanween.map(t => `
-        <div class="harakat-card">
+        <button class="harakat-card" data-speak="${escapeHTML(t.example)}" aria-label="Play pronunciation">
+          <span class="letter-speaker" aria-hidden="true">🔊</span>
           <span class="letter-big">${escapeHTML(t.example)}</span>
           <span class="letter-name">${escapeHTML(t.name)}</span>
           <span class="letter-sound">sounds like "${escapeHTML(t.sound)}"</span>
-        </div>
+        </button>
       `).join('');
     }
 
     const practiceWrap = $('practice-words-grid');
     if (practiceWrap) {
       practiceWrap.innerHTML = C.arabicPracticeWords.map(w => `
-        <div class="letter-card">
+        <button class="letter-card" data-speak="${escapeHTML(w.word)}" aria-label="Play pronunciation of ${escapeHTML(w.word)}">
+          <span class="letter-speaker" aria-hidden="true">🔊</span>
           <span class="letter-big">${escapeHTML(w.word)}</span>
           <span class="letter-example">${escapeHTML(w.meaning)}</span>
-        </div>
+        </button>
       `).join('');
     }
+
+    document.querySelectorAll('#alphabet-grid [data-speak], #harakat-grid [data-speak], #tanween-grid [data-speak], #practice-words-grid [data-speak]').forEach(btn => {
+      btn.addEventListener('click', () => speakArabic(btn.dataset.speak));
+    });
   }
 
   /* ---------------------------------------------------------------------
@@ -3859,20 +4429,16 @@ window.SITE_CONTENT = {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';
 
-      const formData = new FormData(form);
-      const encoded = new URLSearchParams(formData).toString();
-
       try {
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encoded
-        });
-        if (!res.ok) throw new Error('Submission failed');
+        await submitFormReliably(form, 'registration');
         form.style.display = 'none';
         $('registration-success').style.display = 'block';
       } catch (err) {
-        alert("We couldn't submit the form. Please check your connection and try again, or reach us directly on WhatsApp.");
+        if (err.unavailable) {
+          alert("This form isn't fully connected yet — please reach us directly on WhatsApp for now.");
+        } else {
+          alert("We couldn't submit the form. Please check your connection and try again, or reach us directly on WhatsApp.");
+        }
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Registration';
         console.error('Registration submit error:', err);
@@ -4125,7 +4691,7 @@ window.SITE_CONTENT = {
     return div;
   }
 
-  function appendBotMessage(rawText, sources) {
+  function appendBotMessage(rawText, sources, options) {
     const conv = $('chat-conversation');
     const div = document.createElement('div');
     div.className = 'chat-msg msg-bot';
@@ -4136,6 +4702,20 @@ window.SITE_CONTENT = {
         '</div>';
     }
     div.innerHTML = html;
+
+    if (options && options.length) {
+      const menuWrap = document.createElement('div');
+      menuWrap.className = 'chat-menu-options';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'chat-menu-option-btn';
+        btn.textContent = opt.label;
+        btn.addEventListener('click', () => processUserChat(opt.query));
+        menuWrap.appendChild(btn);
+      });
+      div.appendChild(menuWrap);
+    }
+
     conv.appendChild(div);
     conv.scrollTop = conv.scrollHeight;
     speakAssistantReply(rawText);
@@ -4176,7 +4756,7 @@ window.SITE_CONTENT = {
       const data = await response.json();
       typing.remove();
       if (data && typeof data.answer === 'string' && data.answer.trim()) {
-        appendBotMessage(data.answer, data.sources);
+        appendBotMessage(data.answer, data.sources, data.options);
       } else {
         appendErrorMessage("SubhanAllah, I had a small glitch. Could you ask that again?", () => processUserChat(userMsg));
       }
@@ -4270,11 +4850,14 @@ window.SITE_CONTENT = {
     initSupport();
     initVolunteerForm();
     initMarriageForm();
+    initAdvocacyPage();
+    initChatPage();
     initAnnouncement();
     initTrust();
     initPrograms();
     initDailyMotivation();
     initPrayerHub();
+    initRamadanMode();
     initDailyAyah();
     initSakinah();
     initGarden();

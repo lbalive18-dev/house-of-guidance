@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nasheeds & Audio | House of Guidance</title>
-  <meta name="description" content="Nasheeds, Qur'an recitations, and Islamic reminders from House of Guidance.">
-  <link rel="canonical" href="https://houseofguidance.netlify.app/nasheeds.html">
+  <title>Community Chat | House of Guidance</title>
+  <meta name="description" content="Chat with the House of Guidance community in topic rooms.">
+  <link rel="canonical" href="https://houseofguidance.netlify.app/chat.html">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1123,20 +1123,33 @@ a.contact-value:hover { color: var(--gold); }
 
   <main>
     <div class="page-header">
-      <p class="section-eyebrow">Listen &amp; Learn</p>
-      <h1>Nasheeds &amp; Audio</h1>
-      <p>Nasheeds, Qur'an recitations, lectures, and short reminders — only original, public-domain, or properly licensed audio.</p>
+      <p class="section-eyebrow">Community</p>
+      <h1>Community Chat</h1>
+      <p>Topic rooms for the House of Guidance community. Messages refresh every few seconds — please keep discussions respectful; every message can be reported to a moderator.</p>
     </div>
 
     <section class="section-container panel">
-      <div id="nasheed-player-bar" class="nasheed-player-bar" style="display:none"></div>
-
-      <div class="filter-bar">
-        <input type="text" id="nasheed-search" class="filter-search" placeholder="Search by title or artist...">
-        <select id="nasheed-category" class="filter-select"></select>
+      <div id="chat-name-gate">
+        <div class="form-field">
+          <label for="chat-display-name">Choose a display name to join</label>
+          <input type="text" id="chat-display-name" placeholder="e.g. Ahmad K." maxlength="30">
+        </div>
+        <button id="chat-name-join-btn" class="btn btn-primary" style="width:100%">Join Chat</button>
+        <p class="form-note">Anyone can pick any name — this isn't a secure login, just a simple way to tell people apart. Please be respectful; messages can be reported to a moderator.</p>
       </div>
 
-      <div id="nasheed-list" class="grid"></div>
+      <div id="chat-room-area" style="display:none">
+        <div id="chat-room-tabs" class="chat-room-tabs"></div>
+        <p id="chat-room-description" class="section-sub" style="margin:0.75rem 0"></p>
+
+        <div id="chat-message-list" class="chat-message-list"></div>
+
+        <form id="chat-send-form" class="chat-send-form">
+          <input type="text" id="chat-message-input" class="filter-search" placeholder="Type a message..." maxlength="500" required>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        <p class="form-note">Posting as <strong id="chat-current-name"></strong> · <button id="chat-change-name-btn" class="chat-inline-link" type="button">change name</button></p>
+      </div>
     </section>
   </main>
 
