@@ -237,6 +237,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .btn[disabled], .btn.is-disabled { opacity: 0.45; pointer-events: none; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes revealUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes spinSlow { to { transform: rotate(360deg); } }
 
 /* =========================================================================
@@ -4123,12 +4124,22 @@ window.SITE_CONTENT = {
     return voicesReadyPromise;
   }
   function speakWithArabicVoice(utter) {
+    utter.onerror = () => alert("Audio could not play. Please check your device volume and try again.");
     ensureVoicesLoaded().then((voices) => {
       if (!cachedArabicVoice) {
         cachedArabicVoice = voices.find(v => (v.lang || '').toLowerCase().startsWith('ar')) || null;
       }
-      if (cachedArabicVoice) utter.voice = cachedArabicVoice;
-      window.speechSynthesis.speak(utter);
+      if (cachedArabicVoice) {
+        utter.voice = cachedArabicVoice;
+      } else if (!speakWithArabicVoice._warned) {
+        speakWithArabicVoice._warned = true;
+        alert("No Arabic voice found on this device. Audio may sound incorrect. To fix: install an Arabic text-to-speech voice in your device settings, then reload.");
+      }
+      try {
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        alert("Audio could not play on this browser. Please try Chrome on Android or another device.");
+      }
     });
   }
 
@@ -4481,7 +4492,10 @@ window.SITE_CONTENT = {
     }
 
     function speakYassarna(text) {
-      if (!('speechSynthesis' in window)) return;
+      if (!('speechSynthesis' in window)) {
+        alert("Your browser doesn't support text-to-speech. Ask your teacher to demonstrate this one in class.");
+        return;
+      }
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = 'ar-SA'; utter.rate = 0.75;
@@ -4673,11 +4687,11 @@ window.SITE_CONTENT = {
   function extractArray(raw) {
     if (Array.isArray(raw)) return raw;
     if (raw && typeof raw === 'object') {
-      for (const key of ['names', 'data', 'items', 'list', 'results']) {
+      for (const key of ['names', 'duas', 'data', 'items', 'list', 'results']) {
         if (Array.isArray(raw[key])) return raw[key];
       }
-      const firstArray = Object.values(raw).find(v => Array.isArray(v));
-      if (firstArray) return firstArray;
+      const arrays = Object.values(raw).filter(v => Array.isArray(v));
+      if (arrays.length) return arrays.sort((a, b) => b.length - a.length)[0];
     }
     return [];
   }
@@ -4721,7 +4735,10 @@ window.SITE_CONTENT = {
     `).join('');
     grid.querySelectorAll('[data-speak]').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (!('speechSynthesis' in window)) return;
+        if (!('speechSynthesis' in window)) {
+          alert("Your browser doesn't support text-to-speech for the Names. Please try Chrome or another modern browser.");
+          return;
+        }
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(btn.dataset.speak);
         utter.lang = 'ar-SA'; utter.rate = 0.7;
@@ -4759,7 +4776,7 @@ window.SITE_CONTENT = {
       const res = await fetch('https://ummahapi.com/api/duas');
       if (!res.ok) throw new Error('Request failed');
       const data = await res.json();
-      duasCache = extractArray(data.data).map(normalizeDuaItem).filter(Boolean);
+      duasCache = extractArray(data.data).map(normalizeDuaItem).filter(d => d && (d.arabic || d.translation || d.title));
       if (!duasCache.length) throw new Error('Empty response');
 
       const categories = [...new Set(duasCache.map(d => d.category).filter(Boolean))].sort();

@@ -204,6 +204,7 @@ async function callGemini(systemInstruction, contextText, userMessage) {
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
     console.error('Gemini API error:', res.status, errText.slice(0, 500));
+    if (res.status === 429) return { quota: true };
     return { error: true };
   }
 
@@ -256,6 +257,13 @@ export default async (req) => {
   if (result.unavailable) {
     const fallback = getFallbackReply(message) || getFriendlyMenuResponse();
     return new Response(JSON.stringify(fallback), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
+  if (result.quota) {
+    return new Response(JSON.stringify({
+      answer: "Noor is very busy right now (free-tier limit reached) — please wait a minute and try again. Meanwhile you can explore the Qur'an, Tajweed course, or Prayer Hub.",
+      sources: [],
+      quota: true
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   if (result.error || !result.text) {
     const fallback = getFallbackReply(message) || getFriendlyMenuResponse();

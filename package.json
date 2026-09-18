@@ -4,6 +4,7 @@
   "description": "Islamic website with Noor AI",
   "dependencies": {
     "@google/generative-ai": "^0.1.0",
-    "@netlify/blobs": "^7.3.0"
+    "@netlify/blobs": "^7.3.0",
+    "web-push": "^3.6.7"
   }
 }
