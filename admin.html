@@ -2373,12 +2373,22 @@ window.SITE_CONTENT = {
   function initMedia() {
     const logoImg = $('site-logo');
     if (logoImg) {
-      logoImg.src = C.media.logo;
       logoImg.addEventListener('error', function () {
         this.style.display = 'none';
         const fallback = $('site-logo-fallback');
         if (fallback) fallback.style.display = 'flex';
       });
+      logoImg.addEventListener('load', function () {
+        this.style.display = 'block';
+        const fallback = $('site-logo-fallback');
+        if (fallback) fallback.style.display = 'none';
+      });
+      logoImg.src = C.media.logo;
+      if (logoImg.complete && logoImg.naturalWidth > 0) {
+        logoImg.style.display = 'block';
+        const fallback = $('site-logo-fallback');
+        if (fallback) fallback.style.display = 'none';
+      }
     }
 
     const hero = $('hero-section');

@@ -144,6 +144,15 @@ function getFriendlyMenuResponse() {
   };
 }
 
+function getLocalKnowledgeReply(chunks) {
+  if (!chunks || !chunks.length) return null;
+  const answer = "Based on House of Guidance materials (offline mode — AI unavailable right now):\n\n" +
+    chunks.map(c => `### ${c.title}\n${c.text.slice(0, 600)}`).join('\n\n') +
+    "\n\nFor personal religious rulings, please consult a qualified scholar.";
+  const sources = chunks.map(c => ({ title: c.title, url: c.url }));
+  return { answer, sources };
+}
+
 function buildSystemInstruction() {
   return `You are Noor, the educational assistant for House of Guidance, an Islamic community education organization.
 
@@ -255,10 +264,19 @@ export default async (req) => {
   const result = await callGemini(buildSystemInstruction(), contextText, message).catch(() => ({ error: true }));
 
   if (result.unavailable) {
-    const fallback = getFallbackReply(message) || getFriendlyMenuResponse();
+    const local = getLocalKnowledgeReply(relevantChunks);
+    const fallback = getFallbackReply(message) || local || getFriendlyMenuResponse();
     return new Response(JSON.stringify(fallback), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   if (result.quota) {
+    const local = getLocalKnowledgeReply(relevantChunks);
+    if (local) {
+      return new Response(JSON.stringify({
+        answer: local.answer + "\n\n(Note: live AI is temporarily at its free limit — showing site materials for now.)",
+        sources: local.sources,
+        quota: true
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
     return new Response(JSON.stringify({
       answer: "Noor is very busy right now (free-tier limit reached) — please wait a minute and try again. Meanwhile you can explore the Qur'an, Tajweed course, or Prayer Hub.",
       sources: [],
@@ -266,7 +284,8 @@ export default async (req) => {
     }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   if (result.error || !result.text) {
-    const fallback = getFallbackReply(message) || getFriendlyMenuResponse();
+    const local = getLocalKnowledgeReply(relevantChunks);
+    const fallback = getFallbackReply(message) || local || getFriendlyMenuResponse();
     return new Response(JSON.stringify(fallback), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 

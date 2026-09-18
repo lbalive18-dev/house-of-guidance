@@ -6,6 +6,14 @@
   <title>Yassarnal Qur'an | House of Guidance</title>
   <meta name="description" content="Learn to read Arabic and the Qur'an, step by step — 10 levels, from the alphabet to fluent reading. Original House of Guidance course.">
   <link rel="canonical" href="https://houseofguidance.netlify.app/yassarna.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="House of Guidance | Qur'an, Arabic, Tajweed & Islamic Learning">
+  <meta property="og:description" content="Structured Qur'an, Arabic, Tajweed, Hifzh, Yassarna, and Islamic education for our community.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://houseofguidance.netlify.app/yassarna.html">
+  <meta property="og:image" content="https://houseofguidance.netlify.app/og-share.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://houseofguidance.netlify.app/og-share.jpg">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -2232,12 +2240,22 @@ window.SITE_CONTENT = {
   function initMedia() {
     const logoImg = $('site-logo');
     if (logoImg) {
-      logoImg.src = C.media.logo;
       logoImg.addEventListener('error', function () {
         this.style.display = 'none';
         const fallback = $('site-logo-fallback');
         if (fallback) fallback.style.display = 'flex';
       });
+      logoImg.addEventListener('load', function () {
+        this.style.display = 'block';
+        const fallback = $('site-logo-fallback');
+        if (fallback) fallback.style.display = 'none';
+      });
+      logoImg.src = C.media.logo;
+      if (logoImg.complete && logoImg.naturalWidth > 0) {
+        logoImg.style.display = 'block';
+        const fallback = $('site-logo-fallback');
+        if (fallback) fallback.style.display = 'none';
+      }
     }
 
     const hero = $('hero-section');
