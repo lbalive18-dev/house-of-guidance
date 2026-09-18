@@ -1018,6 +1018,7 @@ a.contact-value:hover { color: var(--gold); }
   background: var(--ink-deep); border-radius: var(--radius-md); border: 1px solid var(--surface-border);
   padding: 1rem; margin: 1rem 0;
 }
+@media (min-width: 768px) { .chat-message-list { height: 560px; } }
 .chat-message-row { background: var(--surface); border-radius: var(--radius-sm); padding: 0.75rem 0.9rem; position: relative; }
 .chat-message-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem; }
 .chat-message-name { font-weight: 700; color: var(--gold); font-size: 0.82rem; }
@@ -1041,6 +1042,168 @@ a.contact-value:hover { color: var(--gold); }
   border: 1px solid rgba(212,175,55,0.35); border-radius: 999px; padding: 0.4rem 0.75rem; cursor: pointer;
 }
 .chat-menu-option-btn:hover { background: rgba(212,175,55,0.28); }
+
+/* =========================================================================
+   YASSARNAL QUR'AN COURSE (yassarna.html)
+   ========================================================================= */
+
+/* Smooth transition every time the view switches */
+#yassarna-root > * { animation: yassarnaFadeIn 0.35s ease both; }
+@keyframes yassarnaFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---- Hero ---- */
+.yassarna-hero {
+  position: relative; overflow: hidden; text-align: center; padding: 2.25rem 1.25rem; margin: -1.25rem -1.25rem 1.5rem;
+  border-radius: 0 0 24px 24px;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(212,175,55,0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 15% 100%, rgba(47,161,135,0.24), transparent 65%),
+    linear-gradient(180deg, #060D16 0%, #0A1420 60%, #0E1F1A 100%);
+}
+.yassarna-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.6' opacity='0.16'%3E%3Cpath d='M42 4 L74 24 L74 60 L42 80 L10 60 L10 24 Z'/%3E%3Ccircle cx='42' cy='42' r='16'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 84px 84px; animation: heroPatternDrift 60s linear infinite;
+}
+.yassarna-hero > * { position: relative; z-index: 1; }
+.yassarna-hero h1 { font-size: 1.7rem; margin: 0.3rem 0 0.2rem; }
+.yassarna-hero .section-eyebrow { color: var(--gold); }
+
+/* ---- Continue card ---- */
+.yassarna-continue-card {
+  border: 1px solid rgba(212,175,55,0.35); background: linear-gradient(160deg, rgba(212,175,55,0.1), var(--surface) 55%);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.35); position: relative; overflow: hidden;
+}
+.yassarna-continue-card::before { content: '📖'; position: absolute; top: -0.5rem; right: -0.25rem; font-size: 4.5rem; opacity: 0.08; transform: rotate(-8deg); }
+#yassarna-continue-btn { box-shadow: 0 10px 24px rgba(212,175,55,0.28); }
+
+/* ---- Stats: circular progress ring + boxes ---- */
+.yassarna-stats-grid { display: grid; grid-template-columns: auto 1fr 1fr; gap: 0.7rem; margin-top: 1.1rem; align-items: stretch; }
+.yassarna-ring-box {
+  background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; padding: 0.6rem;
+}
+.yassarna-ring {
+  width: 74px; height: 74px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: conic-gradient(var(--gold) calc(var(--pct) * 1%), rgba(255,255,255,0.08) 0);
+  transition: background 0.6s ease;
+}
+.yassarna-ring::after {
+  content: attr(data-pct) '%'; width: 58px; height: 58px; border-radius: 50%; background: var(--ink-deep);
+  display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.92rem; color: var(--gold);
+}
+.yassarna-stat-box {
+  background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
+  padding: 1rem 0.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 0.3rem;
+}
+.yassarna-stat-num { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+.yassarna-stat-label { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+/* ---- Achievements ---- */
+.yassarna-achievements { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.yassarna-badge {
+  font-size: 0.72rem; font-weight: 700; color: var(--gold); background: var(--gold-soft);
+  border: 1px solid rgba(212,175,55,0.3); border-radius: 999px; padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+  display: inline-flex; align-items: center; gap: 0.35rem; animation: socialPopIn 0.4s ease both;
+}
+.yassarna-achievements .yassarna-badge:nth-child(1) { animation-delay: 0s; }
+.yassarna-achievements .yassarna-badge:nth-child(2) { animation-delay: 0.06s; }
+.yassarna-achievements .yassarna-badge:nth-child(3) { animation-delay: 0.12s; }
+.yassarna-achievements .yassarna-badge:nth-child(4) { animation-delay: 0.18s; }
+
+.yassarna-completion-banner {
+  text-align: center; padding: 2.25rem 1.5rem; border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(31,111,92,0.35) 0%, rgba(212,175,55,0.18) 100%);
+  border: 1px solid rgba(212,175,55,0.4); box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
+.yassarna-completion-banner .card-icon { font-size: 2.6rem; display: block; margin-bottom: 0.5rem; animation: floatMoon 4s ease-in-out infinite alternate; }
+.yassarna-score { font-family: var(--font-mono); font-size: 2.6rem; font-weight: 800; color: var(--gold); margin: 0.5rem 0; }
+
+/* ---- Learning path: connected timeline ---- */
+.yassarna-path { position: relative; display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1rem; padding-left: 1.6rem; }
+.yassarna-path::before { content: ''; position: absolute; left: 0.85rem; top: 1.5rem; bottom: 1.5rem; width: 2px; background: linear-gradient(180deg, rgba(212,175,55,0.4), rgba(212,175,55,0.05)); }
+.yassarna-path-node {
+  position: relative; display: flex; align-items: center; gap: 0.9rem; text-align: left; padding: 1rem 1rem 1rem 0.5rem;
+  background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md); cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.yassarna-path-node::before { content: ''; position: absolute; left: -1.6rem; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--ink-deep); border: 2px solid var(--surface-border); }
+.yassarna-path-node.is-passed { border-color: rgba(47,161,135,0.4); }
+.yassarna-path-node.is-passed::before { background: var(--emerald-bright); border-color: var(--emerald-bright); }
+.yassarna-path-node.is-active { border-color: rgba(212,175,55,0.5); box-shadow: 0 10px 24px rgba(212,175,55,0.15); }
+.yassarna-path-node.is-active::before { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212,175,55,0.2); }
+.yassarna-path-node.is-locked { opacity: 0.5; cursor: not-allowed; }
+.yassarna-path-node:not([disabled]):active { transform: scale(0.98); }
+.yassarna-path-icon { font-size: 1.3rem; flex-shrink: 0; }
+.yassarna-path-title { display: block; font-weight: 700; color: var(--ivory); font-size: 0.88rem; }
+.yassarna-path-sub { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* ---- Lesson list ---- */
+.yassarna-lesson-list { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 0.5rem; }
+.yassarna-lesson-row {
+  text-align: left; padding: 0.9rem 1.1rem; background: var(--surface-2); border: 1px solid #2A3B54;
+  border-radius: var(--radius-sm); color: var(--text); font-size: 0.85rem; cursor: pointer; transition: border-color 0.15s, transform 0.15s;
+}
+.yassarna-lesson-row:not(:disabled):hover { border-color: rgba(212,175,55,0.35); transform: translateX(2px); }
+.yassarna-lesson-row.is-done { border-color: rgba(47,161,135,0.4); color: var(--emerald-bright); }
+.yassarna-lesson-row:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ---- Quiz: real progress bar + celebratory feedback ---- */
+.yassarna-quiz-progress-bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 1rem; }
+.yassarna-quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--emerald-bright)); transition: width 0.4s ease; }
+.yassarna-quiz-header { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+.yassarna-quiz-prompt { text-align: center; margin-bottom: 1.4rem; }
+.yassarna-quiz-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; max-width: 520px; margin: 0 auto; }
+@media (min-width: 640px) { .yassarna-quiz-options { grid-template-columns: repeat(4, 1fr); max-width: 720px; } }
+.yassarna-quiz-option {
+  font-family: var(--font-display); font-size: 1.8rem; padding: 1.4rem 0.5rem; text-align: center;
+  background: var(--surface); border: 2px solid var(--surface-border); border-radius: var(--radius-md); color: var(--ivory); cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.yassarna-quiz-option:not(:disabled):hover { border-color: rgba(212,175,55,0.4); transform: translateY(-2px); }
+.yassarna-quiz-option:not(:disabled):active { transform: scale(0.96); }
+.yassarna-quiz-option:disabled { cursor: default; }
+.yassarna-quiz-option.is-correct { border-color: var(--emerald-bright); background: rgba(47,161,135,0.22); animation: yassarnaCorrectPop 0.35s ease; }
+.yassarna-quiz-option.is-wrong { border-color: #E85D5D; background: rgba(232,93,93,0.15); animation: yassarnaShake 0.4s ease; }
+@keyframes yassarnaCorrectPop { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes yassarnaShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+
+/* =========================================================================
+   PROFESSIONALISM PASS — jargon clarifiers, Start Here paths, FAQ
+   ========================================================================= */
+.section-jargon-note { font-size: 0.62em; font-weight: 500; color: var(--muted); font-family: var(--font-body); }
+
+.start-here-grid {
+  max-width: var(--max-w); margin: 1.5rem auto 0; padding: 0 1.25rem;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem;
+}
+@media (min-width: 1024px) { .start-here-grid { max-width: 960px; grid-template-columns: repeat(4, 1fr); } }
+.start-here-card {
+  background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md);
+  padding: 1.1rem 0.9rem; text-decoration: none; display: flex; flex-direction: column; gap: 0.3rem;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.start-here-card:hover { border-color: rgba(212,175,55,0.35); transform: translateY(-2px); }
+.start-here-icon { font-size: 1.4rem; }
+.start-here-label { font-weight: 700; color: var(--ivory); font-size: 0.85rem; }
+.start-here-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+.faq-list { display: flex; flex-direction: column; gap: 1rem; }
+.faq-item { padding-bottom: 1rem; border-bottom: 1px solid var(--surface-border); }
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.faq-question { font-weight: 700; color: var(--gold); font-size: 0.9rem; margin-bottom: 0.35rem; }
+.faq-answer { color: var(--text); font-size: 0.85rem; line-height: 1.55; }
+
+/* =========================================================================
+   DAILY DUAS (duas.html)
+   ========================================================================= */
+.duas-list { display: flex; flex-direction: column; gap: 1rem; }
+.dua-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 1.25rem; }
+.dua-arabic { font-family: var(--font-display); font-size: 1.5rem; direction: rtl; text-align: right; color: var(--ivory); line-height: 1.9; margin: 0.75rem 0 0.5rem; }
+.dua-transliteration { font-style: italic; color: var(--gold); font-size: 0.85rem; margin-bottom: 0.4rem; }
+.dua-translation { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+.dua-reference { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); margin-top: 0.6rem; }
 
   </style>
 </head>
@@ -1149,11 +1312,13 @@ a.contact-value:hover { color: var(--gold); }
           <h4>Explore</h4>
           <a href="index.html">Home</a>
           <a href="advocacy.html">Voices from the Village</a>
+          <a href="yassarna.html">Yassarnal Qur'an</a>
+          <a href="names.html">99 Names of Allah</a>
+          <a href="duas.html">Daily Duas</a>
           <a href="chat.html">Community Chat</a>
           <a href="index.html#about">About</a>
           <a href="quran.html">Qur'an</a>
           <a href="hadith.html">Hadith</a>
-          <a href="learn-arabic.html">Learn Arabic</a>
           <a href="tajweed.html">Tajweed</a>
           <a href="index.html#programs">Programs</a>
           <a href="khutbahs.html">Khutbahs</a>
@@ -1165,6 +1330,13 @@ a.contact-value:hover { color: var(--gold); }
           <a href="index.html#volunteer">Volunteer</a>
           <a href="index.html#support">Support Us</a>
           <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="https://wa.me/256751703270" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://tiktok.com/@houseofguidance.ug" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://t.me/houseofguidance" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://www.youtube.com/@HOUSEOFGUIDANCE2" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
       <div class="footer-bottom">&copy; <span id="footer-year"></span> House of Guidance. All rights reserved.</div>
@@ -1184,7 +1356,7 @@ window.SITE_CONTENT = {
 
   siteName: "House of Guidance",
   tagline: "Seeking Knowledge. Growing in Faith. Living with Guidance.",
-  heroDescription: "House of Guidance offers structured Qur'an, Arabic, Tajweed, Hifzh, Yassarna, and Islamic education for our community.",
+  heroDescription: "A warm, welcoming place to learn the Qur'an, Arabic, and Islam — completely free, and open to everyone, whether you're Muslim, curious about Islam, or just starting out.",
 
   // ---------------------------------------------------------------------
   // MEDIA — nothing here is invented. Every path below is a placeholder.
@@ -1350,6 +1522,70 @@ window.SITE_CONTENT = {
     }
   ],
 
+  // ---------------------------------------------------------------------
+  // YASSARNAL QUR'AN — House of Guidance's own step-by-step Arabic reading
+  // course. Original content, not a reproduction of any published book.
+  //
+  // Data-driven by design: lesson content is generated at runtime in
+  // app.js from the SAME verified arrays already used elsewhere on the
+  // site (arabicAlphabet, harakat, tanween, arabicPracticeWords, and the
+  // Madd rule above) — nothing here is duplicated or hand-typed twice,
+  // so there's a single source of truth and no risk of the two drifting
+  // apart or disagreeing with each other.
+  //
+  // Progress is stored per-device in the browser (localStorage) — there
+  // is no account system, so it does not sync across devices. This is
+  // Phase 1 of a real learning platform; Phase 2 (real accounts, a
+  // database, teacher dashboards, certificates) would need a proper
+  // backend, which this static site does not have yet.
+  // ---------------------------------------------------------------------
+  yassarna: {
+    title: "Yassarnal Qur'an",
+    tagline: "Learn to Read the Qur'an, Step by Step",
+    passThreshold: 0.7, // 70% required to pass a level assessment
+    weakAreaThreshold: 0.75, // below this mastery ratio, a tag is flagged as "needs practice"
+    levels: [
+      { id: 1, title: "The Alphabet — Part 1", source: "alphabet", range: [0, 14], lessonSize: 4,
+        intro: "Every Qur'an reader starts here — learning to recognize the Arabic letters by sight and sound.",
+        objective: "Recognize and name the first 14 Arabic letters." },
+      { id: 2, title: "The Alphabet — Part 2", source: "alphabet", range: [14, 28], lessonSize: 4,
+        intro: "The second half of the alphabet — by the end of this level you'll know all 28 letters.",
+        objective: "Recognize and name the remaining 14 Arabic letters." },
+      { id: 3, title: "Letters in Words", source: "words", lessonSize: 3,
+        intro: "Letters look a little different once they're joined together in real words. Let's practice reading them in context.",
+        objective: "Read simple, complete Arabic words." },
+      { id: 4, title: "Fathah", source: "harakah", harakahIndex: 0, lessonSize: 7,
+        intro: "Fathah is the first short vowel mark — a small stroke above a letter, giving it an 'a' sound.",
+        objective: "Read any letter with a fathah." },
+      { id: 5, title: "Kasrah", source: "harakah", harakahIndex: 1, lessonSize: 7,
+        intro: "Kasrah sits below a letter and gives it an 'i' sound.",
+        objective: "Read any letter with a kasrah." },
+      { id: 6, title: "Dammah", source: "harakah", harakahIndex: 2, lessonSize: 7,
+        intro: "Dammah gives a letter a 'u' sound.",
+        objective: "Read any letter with a dammah." },
+      { id: 7, title: "Mixed Harakat Practice", source: "mixedHarakat", lessonSize: 7,
+        intro: "Now let's mix fathah, kasrah, and dammah together — real reading means recognizing all three instantly, not just one at a time.",
+        objective: "Instantly recognize fathah, kasrah, and dammah on any letter." },
+      { id: 8, title: "Sukoon & Shaddah", source: "sukoonShaddah", lessonSize: 7,
+        intro: "Sukoon means no vowel sound follows a letter. Shaddah doubles a letter. Both change how a word is read.",
+        objective: "Recognize sukoon and shaddah and read them correctly." },
+      { id: 9, title: "Tanwin & Madd", source: "tanwinMadd",
+        intro: "Tanwin adds an 'n' sound at the end of a word. Madd letters are held for an extra count. Both are essential for real Qur'an reading.",
+        objective: "Recognize tanwin and natural madd." },
+      { id: 10, title: "Reading Patterns & Fluency", source: "fluency",
+        intro: "The final stretch — putting everything together to read real words smoothly and confidently.",
+        objective: "Read complete words fluently, applying everything learned so far." }
+    ],
+    achievements: [
+      { id: "first-lesson", label: "First Lesson", description: "Completed your first lesson." },
+      { id: "first-quiz", label: "First Quiz", description: "Completed your first practice quiz." },
+      { id: "level-1", label: "Level 1 Complete", description: "Finished The Alphabet — Part 1." },
+      { id: "level-5", label: "Halfway There", description: "Reached Level 6." },
+      { id: "streak-7", label: "7-Day Streak", description: "Learned 7 days in a row." },
+      { id: "course-complete", label: "Yassarnal Qur'an Complete", description: "Finished the entire course. Ma sha Allah!" }
+    ]
+  },
+
   // Upcoming events — only add real, confirmed events. Leave the array empty
   // and the Events section will simply say "No events scheduled" rather than
   // showing a made-up one.
@@ -1437,6 +1673,26 @@ window.SITE_CONTENT = {
     formIntro: "If you are a village Imam or community member facing unfair treatment, mistreatment of your mosque, or lack of support, you can tell us privately below. This goes only to House of Guidance — nothing here is ever displayed publicly.",
     safetyNote: "Your safety matters more than any detail. Share only what you're comfortable sharing. You may leave your name off entirely if you prefer — just tell us what's happening and how to reach you if you'd like a response."
   },
+
+  // "Start Here" pathways — shown near the top of the homepage so a new
+  // visitor (Muslim or not) can find the most relevant page in one tap,
+  // without needing to explore the whole site first.
+  startHerePaths: [
+    { icon: "🌙", label: "New Here?", description: "A quick look at what House of Guidance offers.", href: "#about" },
+    { icon: "📖", label: "Learn to Read Qur'an", description: "Start from the very beginning — no experience needed.", href: "yassarna.html" },
+    { icon: "🕌", label: "I'm a Village Imam", description: "See how House of Guidance supports local Imams.", href: "advocacy.html" },
+    { icon: "🤝", label: "Volunteer or Give", description: "Support the community's work directly.", href: "#volunteer" }
+  ],
+
+  // Simple, honest answers to the questions a first-time visitor — Muslim
+  // or not — is most likely to have.
+  faq: [
+    { q: "Is House of Guidance only for Muslims?", a: "No. Everyone is welcome — to learn, ask questions, or simply explore. Many resources here are just as useful if you're curious about Islam or new to it." },
+    { q: "Do I need any experience to start?", a: "None at all. The Yassarnal Qur'an course and the Learn Arabic page both start from the very beginning — the alphabet, step by step." },
+    { q: "Is everything on this site really free?", a: "Yes — the Qur'an, Hadith collections, Tajweed and Arabic courses, and Khutbah library are all free to use." },
+    { q: "How is my information used if I fill out a form?", a: "Forms go privately to House of Guidance's own team — nothing you submit is ever displayed publicly on the site." },
+    { q: "Can I get involved beyond just reading the site?", a: "Yes — see the Volunteer and Support sections below, or reach out directly on WhatsApp." }
+  ],
 
   imamDistricts: ["Butambala", "Mpigi", "Kampala", "Wakiso", "Mityana", "Gomba"],
 
@@ -1645,7 +1901,6 @@ window.SITE_CONTENT = {
       items: [
         { label: "Read the Qur'an", href: "quran.html" },
         { label: "Hadith Books", href: "hadith.html" },
-        { label: "Learn Arabic (Yassarna)", href: "learn-arabic.html" },
         { label: "Tajweed Course", href: "tajweed.html" },
         { label: "Daily Reminder", href: "index.html#ayah" },
         { label: "Nasheeds & Audio", href: "nasheeds.html" },
@@ -1659,9 +1914,13 @@ window.SITE_CONTENT = {
       label: "Community",
       items: [
         { label: "🕌 Voices from the Village", href: "advocacy.html" },
+        { label: "📖 Yassarnal Qur'an", href: "yassarna.html" },
+        { label: "99 Names of Allah", href: "names.html" },
+        { label: "Daily Duas", href: "duas.html" },
         { label: "💬 Community Chat", href: "chat.html" },
         { label: "About Us", href: "index.html#about" },
-        { label: "Our Team", href: "index.html#team" },
+        { label: "FAQ", href: "index.html#faq" },
+
         { label: "Beautiful Stories", href: "index.html#stories" },
         { label: "Gallery", href: "gallery.html" },
         { label: "Events", href: "index.html#events" }
@@ -2768,6 +3027,29 @@ window.SITE_CONTENT = {
     }
   }
 
+  function renderStartHerePaths() {
+    const wrap = $('start-here-paths');
+    if (!wrap) return;
+    wrap.innerHTML = C.startHerePaths.map(p => `
+      <a href="${p.href}" class="start-here-card">
+        <span class="start-here-icon">${p.icon}</span>
+        <span class="start-here-label">${escapeHTML(p.label)}</span>
+        <span class="start-here-desc">${escapeHTML(p.description)}</span>
+      </a>
+    `).join('');
+  }
+
+  function renderFAQ() {
+    const wrap = $('faq-list');
+    if (!wrap) return;
+    wrap.innerHTML = C.faq.map(item => `
+      <div class="faq-item">
+        <p class="faq-question">${escapeHTML(item.q)}</p>
+        <p class="faq-answer">${escapeHTML(item.a)}</p>
+      </div>
+    `).join('');
+  }
+
   function renderJumuahCard() {
     const wrap = $('jumuah-card');
     if (!wrap) return;
@@ -3128,6 +3410,8 @@ window.SITE_CONTENT = {
     setInterval(checkJumuahReminder, 60000);
     checkJumuahReminder();
     renderJumuahCard();
+    renderStartHerePaths();
+    renderFAQ();
     await initPushOnLoad();
     renderNotificationPanel();
     initPushTestTrigger();
@@ -3494,7 +3778,7 @@ window.SITE_CONTENT = {
       });
 
       if (!C.nasheeds.length) {
-        listWrap.innerHTML = `<div class="empty-state">No audio uploaded yet. Add entries to <code>nasheeds</code> in content.js once you have original or properly licensed audio files.</div>`;
+        listWrap.innerHTML = `<div class="empty-state">No audio uploaded yet — check back soon!</div>`;
         return;
       }
       if (!filteredList.length) {
@@ -3798,6 +4082,442 @@ window.SITE_CONTENT = {
   /* ---------------------------------------------------------------------
      6h. TAJWEED COURSE (tajweed.html)
      --------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------
+     YASSARNAL QUR'AN COURSE ENGINE (yassarna.html)
+     Original, data-driven course built at runtime from the site's own
+     verified arrays (arabicAlphabet, harakat, tanween, arabicPracticeWords)
+     — not a reproduction of any published book. Progress is stored
+     per-device in localStorage; there is no account system, so it does
+     not sync across devices. "Audio" uses the browser's own text-to-speech
+     (same mechanism as learn-arabic.html) — genuinely real, not a fake
+     button, though quality depends on the device's available Arabic voice.
+     --------------------------------------------------------------------- */
+  const YASSARNA_PROGRESS_KEY = 'hog_yassarna_progress_v1';
+  let yassarnaLevelsCache = null;
+
+  function buildYassarnaLevels() {
+    if (yassarnaLevelsCache) return yassarnaLevelsCache;
+    const Y = C.yassarna;
+    const alphabet = C.arabicAlphabet;
+    const harakatList = C.harakat;
+    const tanweenList = C.tanween;
+    const words = C.arabicPracticeWords;
+
+    function chunk(arr, size) {
+      const out = [];
+      for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+      return out;
+    }
+    function lettersToItems(letters) {
+      return letters.map(l => ({ text: l.letter, label: l.name, meta: l.sound, example: l.example, exampleMeaning: l.exampleMeaning }));
+    }
+    function wordsToItems(list) {
+      return list.map(w => ({ text: w.word, label: w.meaning }));
+    }
+    function harakahComboItems(letters, harakah) {
+      return letters.map(l => ({ text: l.letter + harakah.symbol, label: `${l.name} + ${harakah.name}`, meta: harakah.sound }));
+    }
+
+    yassarnaLevelsCache = Y.levels.map(levelCfg => {
+      let lessons = [];
+      if (levelCfg.source === 'alphabet') {
+        const slice = alphabet.slice(levelCfg.range[0], levelCfg.range[1]);
+        chunk(slice, levelCfg.lessonSize).forEach((group, i) => {
+          lessons.push({ id: `${levelCfg.id}-${i}`, title: `Letters: ${group[0].name} to ${group[group.length - 1].name}`, items: lettersToItems(group) });
+        });
+      } else if (levelCfg.source === 'words') {
+        chunk(words, levelCfg.lessonSize).forEach((group, i) => {
+          lessons.push({ id: `${levelCfg.id}-${i}`, title: `Reading Words ${i + 1}`, items: wordsToItems(group) });
+        });
+      } else if (levelCfg.source === 'harakah') {
+        const harakah = harakatList[levelCfg.harakahIndex];
+        chunk(alphabet, levelCfg.lessonSize).forEach((group, i) => {
+          lessons.push({ id: `${levelCfg.id}-${i}`, title: `${harakah.name}: Letters ${i + 1}`, items: harakahComboItems(group, harakah) });
+        });
+      } else if (levelCfg.source === 'mixedHarakat') {
+        const three = [harakatList[0], harakatList[1], harakatList[2]];
+        const subset = alphabet.slice(0, 14);
+        let allCombos = subset.map((l, li) => ({ text: l.letter + three[li % 3].symbol, label: `${l.name} + ${three[li % 3].name}` }));
+        chunk(allCombos, levelCfg.lessonSize).forEach((group, i) => {
+          lessons.push({ id: `${levelCfg.id}-${i}`, title: `Mixed Practice ${i + 1}`, items: group });
+        });
+      } else if (levelCfg.source === 'sukoonShaddah') {
+        const sukoon = harakatList[3], shaddah = harakatList[4];
+        const subset = alphabet.slice(0, 10);
+        const combos = subset.map(l => ({ text: l.letter + sukoon.symbol, label: `${l.name} + Sukoon` }))
+          .concat(subset.map(l => ({ text: l.letter + shaddah.symbol, label: `${l.name} + Shaddah` })));
+        chunk(combos, levelCfg.lessonSize).forEach((group, i) => {
+          lessons.push({ id: `${levelCfg.id}-${i}`, title: `Sukoon & Shaddah ${i + 1}`, items: group });
+        });
+      } else if (levelCfg.source === 'tanwinMadd') {
+        const tanwinItems = tanweenList.flatMap(t => alphabet.slice(0, 4).map(l => ({ text: l.letter + t.symbol, label: `${l.name} + ${t.name}` })));
+        const maddItems = [
+          { text: 'ا', label: 'Madd letter: Alif' }, { text: 'و', label: 'Madd letter: Waw' }, { text: 'ي', label: 'Madd letter: Ya' }
+        ];
+        lessons.push({ id: `${levelCfg.id}-0`, title: 'Tanwin', items: tanwinItems });
+        lessons.push({ id: `${levelCfg.id}-1`, title: 'Madd', items: maddItems });
+      } else if (levelCfg.source === 'fluency') {
+        lessons.push({ id: `${levelCfg.id}-0`, title: 'Reading Review', items: wordsToItems(words) });
+      }
+      return { id: levelCfg.id, title: levelCfg.title, intro: levelCfg.intro, objective: levelCfg.objective, lessons };
+    });
+    return yassarnaLevelsCache;
+  }
+
+  function getDefaultYassarnaProgress() {
+    return {
+      currentLevelId: 1, currentLessonIndex: 0, completedLessons: {}, levelPassed: {},
+      levelScores: {}, mistakesByTag: {}, streak: { count: 0, lastActiveDate: null },
+      achievements: [], courseCompleted: false
+    };
+  }
+  function loadYassarnaProgress() {
+    try {
+      const raw = localStorage.getItem(YASSARNA_PROGRESS_KEY);
+      if (!raw) return getDefaultYassarnaProgress();
+      return Object.assign(getDefaultYassarnaProgress(), JSON.parse(raw));
+    } catch (e) { return getDefaultYassarnaProgress(); }
+  }
+  function saveYassarnaProgress(progress) {
+    try { localStorage.setItem(YASSARNA_PROGRESS_KEY, JSON.stringify(progress)); } catch (e) {}
+  }
+  function isYassarnaLevelUnlocked(progress, levelId) {
+    if (levelId === 1) return true;
+    return !!progress.levelPassed[levelId - 1];
+  }
+  function isYassarnaLessonComplete(progress, levelId, lessonId) {
+    return (progress.completedLessons[levelId] || []).includes(lessonId);
+  }
+  function markYassarnaLessonComplete(progress, levelId, lessonId) {
+    if (!progress.completedLessons[levelId]) progress.completedLessons[levelId] = [];
+    if (!progress.completedLessons[levelId].includes(lessonId)) progress.completedLessons[levelId].push(lessonId);
+    if (!progress.achievements.includes('first-lesson')) progress.achievements.push('first-lesson');
+  }
+  function recordYassarnaAnswer(progress, tag, correct) {
+    if (!progress.mistakesByTag[tag]) progress.mistakesByTag[tag] = { correct: 0, incorrect: 0 };
+    if (correct) progress.mistakesByTag[tag].correct++; else progress.mistakesByTag[tag].incorrect++;
+  }
+  function computeYassarnaWeakAreas(progress) {
+    const weak = [];
+    for (const [tag, stats] of Object.entries(progress.mistakesByTag)) {
+      const total = stats.correct + stats.incorrect;
+      if (total >= 3) {
+        const mastery = stats.correct / total;
+        if (mastery < C.yassarna.weakAreaThreshold) weak.push({ tag, mastery, total });
+      }
+    }
+    return weak.sort((a, b) => a.mastery - b.mastery);
+  }
+  function passYassarnaLevel(progress, levelId, score) {
+    progress.levelScores[levelId] = Math.max(progress.levelScores[levelId] || 0, score);
+    if (score >= C.yassarna.passThreshold) {
+      progress.levelPassed[levelId] = true;
+      if (levelId === 1 && !progress.achievements.includes('level-1')) progress.achievements.push('level-1');
+      if (levelId === 5 && !progress.achievements.includes('level-5')) progress.achievements.push('level-5');
+      const levels = buildYassarnaLevels();
+      if (levelId === levels[levels.length - 1].id && !progress.achievements.includes('course-complete')) {
+        progress.achievements.push('course-complete');
+        progress.courseCompleted = true;
+      }
+    }
+  }
+  function updateYassarnaStreak(progress) {
+    const now = new Date();
+    const todayStr = now.toISOString().slice(0, 10);
+    const yesterday = new Date(now); yesterday.setDate(now.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().slice(0, 10);
+    if (progress.streak.lastActiveDate === todayStr) { /* already counted */ }
+    else if (progress.streak.lastActiveDate === yesterdayStr) progress.streak.count += 1;
+    else progress.streak.count = 1;
+    progress.streak.lastActiveDate = todayStr;
+    if (progress.streak.count >= 7 && !progress.achievements.includes('streak-7')) progress.achievements.push('streak-7');
+  }
+  function pickYassarnaDistractors(pool, correctItem, n) {
+    const others = pool.filter(item => item.text !== correctItem.text);
+    return others.slice().sort(() => Math.random() - 0.5).slice(0, n);
+  }
+  function buildYassarnaQuestion(pool, correctItem) {
+    const distractors = pickYassarnaDistractors(pool, correctItem, Math.min(3, pool.length - 1));
+    const options = [correctItem, ...distractors].sort(() => Math.random() - 0.5);
+    return { correctText: correctItem.text, correctLabel: correctItem.label, options };
+  }
+
+  let yassarnaState = { view: 'dashboard', levelId: null, lessonIndex: null, quizQueue: [], quizIndex: 0, quizCorrect: 0, quizPool: [], quizTag: null };
+
+  function initYassarnaPage() {
+    const root = $('yassarna-root');
+    if (!root) return;
+    const levels = buildYassarnaLevels();
+    let progress = loadYassarnaProgress();
+
+    function save() { saveYassarnaProgress(progress); }
+
+    function findLevel(id) { return levels.find(l => l.id === id); }
+
+    function renderDashboard() {
+      yassarnaState.view = 'dashboard';
+      const weak = computeYassarnaWeakAreas(progress);
+      const totalLessons = levels.reduce((s, l) => s + l.lessons.length, 0);
+      const completedCount = Object.values(progress.completedLessons).reduce((s, arr) => s + arr.length, 0);
+      const overallPct = Math.round((completedCount / totalLessons) * 100);
+      const curLevel = findLevel(progress.currentLevelId) || levels[0];
+      const curLesson = curLevel.lessons[progress.currentLessonIndex] || curLevel.lessons[0];
+
+      root.innerHTML = `
+        <div class="yassarna-hero">
+          <p class="section-eyebrow">${escapeHTML(C.yassarna.tagline)}</p>
+          <h1>${escapeHTML(C.yassarna.title)}</h1>
+        </div>
+
+        ${progress.courseCompleted ? `
+          <div class="yassarna-completion-banner">
+            <span class="card-icon">🌙</span>
+            <h2 class="card-title">Ma sha Allah! Course Completed</h2>
+            <p class="card-text">You've completed every level of Yassarnal Qur'an. Keep reading and practicing to stay fluent!</p>
+          </div>
+        ` : `
+          <div class="card yassarna-continue-card">
+            <span class="card-tag">Continue Learning</span>
+            <h3 class="card-title">${escapeHTML(curLevel.title)}</h3>
+            <p class="card-text">${escapeHTML(curLesson.title)}</p>
+            <button class="btn btn-primary" id="yassarna-continue-btn" style="width:100%; margin-top:0.75rem">Continue →</button>
+          </div>
+        `}
+
+        <div class="yassarna-stats-grid">
+          <div class="yassarna-ring-box">
+            <div class="yassarna-ring" data-pct="${overallPct}" style="--pct:${overallPct}"></div>
+          </div>
+          <div class="yassarna-stat-box"><span class="yassarna-stat-num">${completedCount}</span><span class="yassarna-stat-label">Lessons Done</span></div>
+          <div class="yassarna-stat-box"><span class="yassarna-stat-num">🔥 ${progress.streak.count}</span><span class="yassarna-stat-label">Day Streak</span></div>
+        </div>
+
+        ${weak.length ? `
+          <div class="card" style="margin-top:1.1rem; border-top:3px solid #E8A33D">
+            <span class="card-tag">Needs Practice</span>
+            ${weak.slice(0, 3).map(w => `<p class="card-text">${escapeHTML(w.tag)} — ${Math.round(w.mastery * 100)}% mastery</p>`).join('')}
+            <button class="btn btn-ghost" id="yassarna-revise-btn" style="margin-top:0.6rem">Practice These Now</button>
+          </div>
+        ` : ''}
+
+        ${progress.achievements.length ? `
+          <div class="yassarna-achievements">
+            ${progress.achievements.map(id => {
+              const a = C.yassarna.achievements.find(x => x.id === id);
+              return a ? `<span class="yassarna-badge" title="${escapeHTML(a.description)}">🏅 ${escapeHTML(a.label)}</span>` : '';
+            }).join('')}
+          </div>
+        ` : ''}
+
+        <button class="btn btn-gold" id="yassarna-path-btn" style="width:100%; margin-top:1.25rem">View Learning Path</button>
+      `;
+
+      $('yassarna-continue-btn')?.addEventListener('click', () => openLesson(progress.currentLevelId, progress.currentLessonIndex));
+      $('yassarna-path-btn')?.addEventListener('click', renderLearningPath);
+      $('yassarna-revise-btn')?.addEventListener('click', () => startRevision(weak));
+    }
+
+    function renderLearningPath() {
+      yassarnaState.view = 'path';
+      root.innerHTML = `
+        <button class="btn btn-ghost" id="yassarna-back-dash">← Dashboard</button>
+        <div class="yassarna-path">
+          ${levels.map(lvl => {
+            const unlocked = isYassarnaLevelUnlocked(progress, lvl.id);
+            const passed = !!progress.levelPassed[lvl.id];
+            const doneCount = (progress.completedLessons[lvl.id] || []).length;
+            const icon = passed ? '✓' : unlocked ? '▶' : '🔒';
+            return `
+              <button class="yassarna-path-node ${passed ? 'is-passed' : unlocked ? 'is-active' : 'is-locked'}" data-level="${lvl.id}" ${unlocked ? '' : 'disabled'}>
+                <span class="yassarna-path-icon">${icon}</span>
+                <span class="yassarna-path-title">Level ${lvl.id}: ${escapeHTML(lvl.title)}</span>
+                <span class="yassarna-path-sub">${doneCount}/${lvl.lessons.length} lessons${passed ? ' · Passed' : ''}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
+      $('yassarna-back-dash').addEventListener('click', renderDashboard);
+      root.querySelectorAll('.yassarna-path-node:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', () => openLevel(Number(btn.dataset.level)));
+      });
+    }
+
+    function openLevel(levelId) {
+      const lvl = findLevel(levelId);
+      yassarnaState.view = 'level'; yassarnaState.levelId = levelId;
+      root.innerHTML = `
+        <button class="btn btn-ghost" id="yassarna-back-path">← Learning Path</button>
+        <div class="page-header" style="padding:1rem 0">
+          <p class="section-eyebrow">Level ${lvl.id}</p>
+          <h2>${escapeHTML(lvl.title)}</h2>
+          <p class="card-text">${escapeHTML(lvl.intro)}</p>
+        </div>
+        <div class="yassarna-lesson-list">
+          ${lvl.lessons.map((lesson, i) => {
+            const done = isYassarnaLessonComplete(progress, lvl.id, lesson.id);
+            const locked = i > 0 && !isYassarnaLessonComplete(progress, lvl.id, lvl.lessons[i - 1].id);
+            return `<button class="yassarna-lesson-row ${done ? 'is-done' : ''}" data-index="${i}" ${locked ? 'disabled' : ''}>
+              <span>${done ? '✓' : locked ? '🔒' : '▶'} ${escapeHTML(lesson.title)}</span>
+            </button>`;
+          }).join('')}
+        </div>
+        <button class="btn btn-primary" id="yassarna-assessment-btn" style="width:100%; margin-top:1.25rem">
+          ${progress.levelPassed[lvl.id] ? '✓ Level Assessment Passed — Retake' : 'Take Level Assessment'}
+        </button>
+      `;
+      $('yassarna-back-path').addEventListener('click', renderLearningPath);
+      root.querySelectorAll('.yassarna-lesson-row:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', () => openLesson(levelId, Number(btn.dataset.index)));
+      });
+      $('yassarna-assessment-btn').addEventListener('click', () => startLevelAssessment(levelId));
+    }
+
+    function speakYassarna(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ar-SA'; utter.rate = 0.75;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function openLesson(levelId, lessonIndex) {
+      const lvl = findLevel(levelId);
+      const lesson = lvl.lessons[lessonIndex];
+      progress.currentLevelId = levelId; progress.currentLessonIndex = lessonIndex; save();
+      yassarnaState.view = 'lesson'; yassarnaState.levelId = levelId; yassarnaState.lessonIndex = lessonIndex;
+
+      root.innerHTML = `
+        <button class="btn btn-ghost" id="yassarna-back-level">← ${escapeHTML(lvl.title)}</button>
+        <div class="page-header" style="padding:1rem 0">
+          <p class="section-eyebrow">Lesson</p>
+          <h2>${escapeHTML(lesson.title)}</h2>
+        </div>
+        <div class="alphabet-grid">
+          ${lesson.items.map(item => `
+            <button class="letter-card" data-speak="${escapeHTML(item.text)}">
+              <span class="letter-speaker" aria-hidden="true">🔊</span>
+              <span class="letter-big">${escapeHTML(item.text)}</span>
+              <span class="letter-name">${escapeHTML(item.label)}</span>
+              ${item.meta ? `<span class="letter-sound">${escapeHTML(item.meta)}</span>` : ''}
+              ${item.example ? `<span class="letter-example">${escapeHTML(item.example)} <em>(${escapeHTML(item.exampleMeaning)})</em></span>` : ''}
+            </button>
+          `).join('')}
+        </div>
+        <button class="btn btn-primary" id="yassarna-lesson-practice-btn" style="width:100%; margin-top:1.25rem">Practice This Lesson →</button>
+      `;
+      root.querySelectorAll('[data-speak]').forEach(btn => btn.addEventListener('click', () => speakYassarna(btn.dataset.speak)));
+      $('yassarna-back-level').addEventListener('click', () => openLevel(levelId));
+      $('yassarna-lesson-practice-btn').addEventListener('click', () => startPractice(lesson.items, levelId, lessonIndex));
+    }
+
+    function startPractice(items, levelId, lessonIndex) {
+      const lvl = findLevel(levelId);
+      const distractorPool = lvl.lessons.flatMap(l => l.items); // pull wrong answers from the whole level, not just this lesson — some lessons have too few items on their own for a real 4-option question
+      const count = Math.min(5, items.length);
+      const shuffled = items.slice().sort(() => Math.random() - 0.5).slice(0, count);
+      yassarnaState.quizQueue = shuffled.map(item => buildYassarnaQuestion(distractorPool, item));
+      yassarnaState.quizIndex = 0; yassarnaState.quizCorrect = 0;
+      yassarnaState.quizPool = items; yassarnaState.mode = 'practice';
+      yassarnaState.onComplete = () => {
+        markYassarnaLessonComplete(progress, levelId, lessonIndex);
+        if (!progress.achievements.includes('first-quiz')) progress.achievements.push('first-quiz');
+        updateYassarnaStreak(progress);
+        save();
+        openLevel(levelId);
+      };
+      renderQuizQuestion();
+    }
+
+    function startLevelAssessment(levelId) {
+      const lvl = findLevel(levelId);
+      const allItems = lvl.lessons.flatMap(l => l.items);
+      const count = Math.min(12, allItems.length);
+      const shuffled = allItems.slice().sort(() => Math.random() - 0.5).slice(0, count);
+      yassarnaState.quizQueue = shuffled.map(item => buildYassarnaQuestion(allItems, item));
+      yassarnaState.quizIndex = 0; yassarnaState.quizCorrect = 0;
+      yassarnaState.quizPool = allItems; yassarnaState.mode = 'assessment';
+      yassarnaState.onComplete = () => {
+        const score = yassarnaState.quizCorrect / yassarnaState.quizQueue.length;
+        passYassarnaLevel(progress, levelId, score);
+        updateYassarnaStreak(progress);
+        save();
+        renderAssessmentResult(levelId, score);
+      };
+      renderQuizQuestion();
+    }
+
+    function startRevision(weakAreas) {
+      const allItems = levels.flatMap(l => l.lessons.flatMap(les => les.items));
+      // Match weak tags loosely by label text
+      const targeted = allItems.filter(item => weakAreas.some(w => item.label.includes(w.tag) || w.tag.includes(item.label)));
+      const pool = targeted.length ? targeted : allItems;
+      const shuffled = pool.slice().sort(() => Math.random() - 0.5).slice(0, Math.min(8, pool.length));
+      yassarnaState.quizQueue = shuffled.map(item => buildYassarnaQuestion(allItems, item));
+      yassarnaState.quizIndex = 0; yassarnaState.quizCorrect = 0;
+      yassarnaState.quizPool = allItems; yassarnaState.mode = 'revision';
+      yassarnaState.onComplete = () => { updateYassarnaStreak(progress); save(); renderDashboard(); };
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const q = yassarnaState.quizQueue[yassarnaState.quizIndex];
+      if (!q) { yassarnaState.onComplete(); return; }
+      const pct = Math.round((yassarnaState.quizIndex / yassarnaState.quizQueue.length) * 100);
+      root.innerHTML = `
+        <div class="yassarna-quiz-progress-bar"><div class="yassarna-quiz-progress-fill" style="width:${pct}%"></div></div>
+        <div class="yassarna-quiz-header">
+          <span>${yassarnaState.quizIndex + 1} / ${yassarnaState.quizQueue.length}</span>
+          <span>Score: ${yassarnaState.quizCorrect}</span>
+        </div>
+        <div class="yassarna-quiz-prompt">
+          <p class="section-sub">Listen, then tap what you heard</p>
+          <button class="btn btn-gold" id="yassarna-play-btn">🔊 Play Again</button>
+        </div>
+        <div class="yassarna-quiz-options">
+          ${q.options.map((opt, i) => `<button class="yassarna-quiz-option" data-index="${i}">${escapeHTML(opt.text)}</button>`).join('')}
+        </div>
+        <div id="yassarna-quiz-feedback"></div>
+      `;
+      speakYassarna(q.correctText);
+      $('yassarna-play-btn').addEventListener('click', () => speakYassarna(q.correctText));
+      root.querySelectorAll('.yassarna-quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          root.querySelectorAll('.yassarna-quiz-option').forEach(b => b.disabled = true);
+          const chosen = q.options[Number(btn.dataset.index)];
+          const correct = chosen.text === q.correctText;
+          const tag = `${yassarnaState.levelId || 'general'}: ${q.correctLabel}`;
+          recordYassarnaAnswer(progress, tag, correct);
+          if (correct) { btn.classList.add('is-correct'); yassarnaState.quizCorrect++; }
+          else {
+            btn.classList.add('is-wrong');
+            root.querySelectorAll('.yassarna-quiz-option').forEach(b => { if (b.textContent.trim() === q.correctText) b.classList.add('is-correct'); });
+          }
+          $('yassarna-quiz-feedback').innerHTML = `<p class="card-text" style="margin-top:1rem">${correct ? '✓ Correct!' : `Not quite — that was ${escapeHTML(q.correctLabel)}.`}</p>
+            <button class="btn btn-primary" id="yassarna-next-q" style="width:100%; margin-top:0.75rem">Continue</button>`;
+          $('yassarna-next-q').addEventListener('click', () => { yassarnaState.quizIndex++; renderQuizQuestion(); });
+        });
+      });
+    }
+
+    function renderAssessmentResult(levelId, score) {
+      const pct = Math.round(score * 100);
+      const passed = score >= C.yassarna.passThreshold;
+      root.innerHTML = `
+        <div class="yassarna-completion-banner">
+          <span class="card-icon">${passed ? '✅' : '📘'}</span>
+          <h2 class="card-title">${passed ? 'Level Passed!' : 'Keep Practicing'}</h2>
+          <p class="yassarna-score">${pct}%</p>
+          <p class="card-text">${passed ? 'Well done — the next level is now unlocked.' : `You need ${Math.round(C.yassarna.passThreshold * 100)}% to pass. Review the lessons and try again — there's no penalty for retaking.`}</p>
+          <button class="btn btn-primary" id="yassarna-result-continue" style="width:100%; margin-top:1rem">${passed ? 'Continue' : 'Back to Level'}</button>
+        </div>
+      `;
+      $('yassarna-result-continue').addEventListener('click', () => openLevel(levelId));
+    }
+
+    renderDashboard();
+  }
+
   function initTajweedCourse() {
     const wrap = $('tajweed-lessons');
     if (!wrap) return;
@@ -3819,6 +4539,118 @@ window.SITE_CONTENT = {
           `).join('')}
         </div>
       </section>
+    `).join('');
+  }
+
+  /* ---------------------------------------------------------------------
+     99 NAMES OF ALLAH (names.html) — fetched live from a free, open,
+     established Islamic API (UmmahAPI), not typed from memory.
+     --------------------------------------------------------------------- */
+  let namesCache = null;
+
+  async function initNamesPage() {
+    const grid = $('names-grid');
+    if (!grid) return;
+
+    grid.innerHTML = `<p class="card-text">Loading the 99 Names…</p>`;
+    try {
+      const res = await fetch('https://ummahapi.com/api/asma-ul-husna');
+      if (!res.ok) throw new Error('Request failed');
+      const data = await res.json();
+      namesCache = data.data;
+      renderNames(namesCache);
+    } catch (e) {
+      grid.innerHTML = `<div class="empty-state">Couldn't load the Names right now — please check your connection and try again.</div>`;
+    }
+
+    $('names-search')?.addEventListener('input', (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      if (!namesCache) return;
+      const filtered = !q ? namesCache : namesCache.filter(n =>
+        (n.transliteration || '').toLowerCase().includes(q) || (n.meaning || '').toLowerCase().includes(q));
+      renderNames(filtered);
+    });
+  }
+
+  function renderNames(names) {
+    const grid = $('names-grid');
+    if (!names.length) { grid.innerHTML = `<div class="empty-state">No names match that search.</div>`; return; }
+    grid.innerHTML = names.map(n => `
+      <button class="letter-card" data-speak="${escapeHTML(n.name)}">
+        <span class="letter-speaker" aria-hidden="true">🔊</span>
+        <span class="card-tag" style="margin-bottom:0.4rem">${n.number}</span>
+        <span class="letter-big">${escapeHTML(n.name)}</span>
+        <span class="letter-name">${escapeHTML(n.transliteration)}</span>
+        <span class="letter-sound">${escapeHTML(n.meaning)}</span>
+      </button>
+    `).join('');
+    grid.querySelectorAll('[data-speak]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(btn.dataset.speak);
+        utter.lang = 'ar-SA'; utter.rate = 0.7;
+        window.speechSynthesis.speak(utter);
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     DAILY DUAS (duas.html) — 126 authentic duas from the Qur'an and
+     Sunnah, fetched live from the same open API. No audio (the source
+     database doesn't provide recordings) — just Arabic, transliteration,
+     translation, and the real source reference for each one.
+     --------------------------------------------------------------------- */
+  let duasCache = null;
+
+  async function initDuasPage() {
+    const list = $('duas-list');
+    if (!list) return;
+
+    list.innerHTML = `<p class="card-text">Loading duas…</p>`;
+    try {
+      const res = await fetch('https://ummahapi.com/api/duas');
+      if (!res.ok) throw new Error('Request failed');
+      const data = await res.json();
+      duasCache = data.data;
+
+      const categories = [...new Set(duasCache.map(d => d.category).filter(Boolean))].sort();
+      const catSelect = $('duas-category');
+      if (catSelect) {
+        catSelect.innerHTML = '<option value="">All categories</option>' +
+          categories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
+      }
+      renderDuas(duasCache);
+    } catch (e) {
+      list.innerHTML = `<div class="empty-state">Couldn't load duas right now — please check your connection and try again.</div>`;
+    }
+
+    function applyFilters() {
+      if (!duasCache) return;
+      const q = ($('duas-search')?.value || '').trim().toLowerCase();
+      const cat = $('duas-category')?.value || '';
+      const filtered = duasCache.filter(d => {
+        const matchesQ = !q || (d.translation || '').toLowerCase().includes(q) || (d.transliteration || '').toLowerCase().includes(q);
+        const matchesCat = !cat || d.category === cat;
+        return matchesQ && matchesCat;
+      });
+      renderDuas(filtered);
+    }
+    $('duas-search')?.addEventListener('input', applyFilters);
+    $('duas-category')?.addEventListener('change', applyFilters);
+  }
+
+  function renderDuas(duas) {
+    const list = $('duas-list');
+    if (!duas.length) { list.innerHTML = `<div class="empty-state">No duas match that search.</div>`; return; }
+    list.innerHTML = duas.map(d => `
+      <div class="dua-card">
+        ${d.category ? `<span class="card-tag">${escapeHTML(d.category)}</span>` : ''}
+        <p class="dua-arabic">${escapeHTML(d.arabic)}</p>
+        <p class="dua-transliteration">${escapeHTML(d.transliteration)}</p>
+        <p class="dua-translation">${escapeHTML(d.translation)}</p>
+        ${d.reference ? `<p class="dua-reference">${escapeHTML(d.reference)}</p>` : ''}
+      </div>
     `).join('');
   }
 
@@ -4157,7 +4989,7 @@ window.SITE_CONTENT = {
       });
 
       if (!C.khutbahs.length) {
-        wrap.innerHTML = `<div class="empty-state">No khutbah recordings uploaded yet. Add entries to <code>khutbahs</code> in content.js once audio files are ready.</div>`;
+        wrap.innerHTML = `<div class="empty-state">No khutbah recordings uploaded yet — check back soon!</div>`;
         return;
       }
       if (!filtered.length) {
@@ -4343,7 +5175,7 @@ window.SITE_CONTENT = {
       const filtered = activeCategory ? C.gallery.filter(g => g.category === activeCategory) : C.gallery;
 
       if (!C.gallery.length) {
-        wrap.innerHTML = `<div class="empty-state">No photos uploaded yet. Add entries to <code>gallery</code> in content.js once you have real photos.</div>`;
+        wrap.innerHTML = `<div class="empty-state">No photos uploaded yet — check back soon!</div>`;
         return;
       }
       if (!filtered.length) {
@@ -4866,7 +5698,10 @@ window.SITE_CONTENT = {
     initGarden();
     initQuranBrowser();
     initHadithBrowser();
+    initNamesPage();
+    initDuasPage();
     initArabicCourse();
+    initYassarnaPage();
     initTajweedCourse();
     initNasheedPlayer();
     initStories();

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register | House of Guidance</title>
-  <meta name="description" content="Register for Qur'an, Arabic, Tajweed, Hifzh, or Yassarna classes at House of Guidance.">
-  <link rel="canonical" href="https://houseofguidance.netlify.app/portal.html">
+  <title>Yassarnal Qur'an | House of Guidance</title>
+  <meta name="description" content="Learn to read Arabic and the Qur'an, step by step — 10 levels, from the alphabet to fluent reading. Original House of Guidance course.">
+  <link rel="canonical" href="https://houseofguidance.netlify.app/yassarna.html">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0A1420">
@@ -1285,100 +1285,7 @@ a.contact-value:hover { color: var(--gold); }
   <div id="nav-panel" class="nav-panel" role="navigation" aria-label="All sections"></div>
 
   <main>
-    <div class="page-header">
-      <p class="section-eyebrow">Join Us</p>
-      <h1>Register for classes</h1>
-      <p>Fill in your details and we'll be in touch to confirm your program and schedule. We only ask for what we need to place you correctly.</p>
-    </div>
-
-    <section class="section-container panel">
-      <form id="registration-form" name="registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <!-- Netlify Forms requires this hidden field to detect the form at deploy time -->
-        <input type="hidden" name="form-name" value="registration">
-        <p class="honeypot-field"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
-
-        <div class="form-field">
-          <label for="field-name">Full name</label>
-          <input type="text" id="field-name" name="Full Name" required>
-          <span class="form-error">Please enter your full name.</span>
-        </div>
-
-        <div class="form-field">
-          <label for="field-phone">Phone number</label>
-          <input type="tel" id="field-phone" name="Phone Number" placeholder="e.g. +256 700 000000" required>
-          <span class="form-error">Please enter a valid phone number.</span>
-        </div>
-
-        <div class="grid-2">
-          <div class="form-field">
-            <label for="field-age">Age</label>
-            <input type="number" id="field-age" name="Age" min="3" max="100" required>
-            <span class="form-error">Enter a valid age.</span>
-          </div>
-          <div class="form-field">
-            <label for="field-gender">Gender</label>
-            <select id="field-gender" name="Gender" required>
-              <option value="" disabled selected>Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <span class="form-error">Please select an option.</span>
-          </div>
-        </div>
-
-        <div class="form-field">
-          <label for="field-program">Program</label>
-          <select id="field-program" name="Program" required>
-            <option value="" disabled selected>Choose a program</option>
-          </select>
-          <span class="form-error">Please choose a program.</span>
-        </div>
-
-        <div class="form-field">
-          <label for="field-language">Preferred language</label>
-          <select id="field-language" name="Preferred Language" required>
-            <option value="" disabled selected>Select</option>
-            <option value="English">English</option>
-            <option value="Luganda">Luganda</option>
-            <option value="Arabic">Arabic</option>
-            <option value="Other">Other</option>
-          </select>
-          <span class="form-error">Please select a language.</span>
-        </div>
-
-        <div class="form-field">
-          <label for="field-experience">Previous Qur'an experience</label>
-          <select id="field-experience" name="Previous Quran Experience">
-            <option value="None">None — starting from the beginning</option>
-            <option value="Some">Some — can read with help</option>
-            <option value="Experienced">Experienced — reads independently</option>
-          </select>
-        </div>
-
-        <div class="form-field">
-          <label for="field-schedule">Preferred learning schedule</label>
-          <select id="field-schedule" name="Preferred Schedule" required>
-            <option value="" disabled selected>Select</option>
-            <option value="Weekday mornings">Weekday mornings</option>
-            <option value="Weekday evenings">Weekday evenings</option>
-            <option value="Weekends">Weekends</option>
-            <option value="Flexible">Flexible</option>
-          </select>
-          <span class="form-error">Please select a schedule.</span>
-        </div>
-
-        <div class="form-submit-row">
-          <button type="submit" id="registration-submit" class="btn btn-primary" style="width:100%">Submit Registration</button>
-        </div>
-        <p class="form-note">Your registration will be sent to House of Guidance directly.</p>
-      </form>
-
-      <div id="registration-success" class="form-success" style="display:none">
-        <span class="card-icon">✅</span>
-        <h2 class="card-title">JazakAllah khair!</h2>
-        <p class="card-text">Your registration has been received. We'll contact you soon to confirm your class.</p>
-      </div>
-    </section>
+    <div id="yassarna-root" class="section-container"></div>
   </main>
 
   <footer class="footer">
