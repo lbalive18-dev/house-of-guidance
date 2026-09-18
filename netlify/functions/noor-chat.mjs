@@ -146,7 +146,7 @@ function getFriendlyMenuResponse() {
 
 function getLocalKnowledgeReply(chunks) {
   if (!chunks || !chunks.length) return null;
-  const answer = "Based on House of Guidance materials (offline mode — AI unavailable right now):\n\n" +
+  const answer = "Based on House of Guidance materials:\n\n" +
     chunks.map(c => `### ${c.title}\n${c.text.slice(0, 600)}`).join('\n\n') +
     "\n\nFor personal religious rulings, please consult a qualified scholar.";
   const sources = chunks.map(c => ({ title: c.title, url: c.url }));
@@ -170,6 +170,32 @@ Behavior rules — follow all of these strictly:
 
 function getClientIp(req) {
   return req.headers.get('x-nf-client-connection-ip') || req.headers.get('x-forwarded-for') || 'unknown';
+}
+
+function getCacheKey(message) {
+  const norm = message.toLowerCase().trim().replace(/\s+/g, ' ').slice(0, 200);
+  return 'q-' + Buffer.from(norm).toString('base64url').slice(0, 80);
+}
+
+async function getCachedAnswer(message) {
+  try {
+    const store = getStore('noor-cache');
+    const record = await store.get(getCacheKey(message), { type: 'json' }).catch(() => null);
+    if (!record || !record.answer) return null;
+    if (Date.now() - (record.ts || 0) > 7 * 24 * 60 * 60 * 1000) return null;
+    return { answer: record.answer, sources: record.sources || [] };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function setCachedAnswer(message, answer, sources) {
+  try {
+    const store = getStore('noor-cache');
+    await store.setJSON(getCacheKey(message), { answer, sources: sources || [], ts: Date.now() });
+  } catch (e) {
+    // cache is best-effort only
+  }
 }
 
 async function checkRateLimit(ip) {
@@ -261,6 +287,19 @@ export default async (req) => {
   const relevantChunks = retrieveRelevantChunks(message);
   const contextText = relevantChunks.map(c => `[${c.title}]\n${c.text}`).join('\n\n');
 
+  // Local-first: greetings + basic facts are answered without any Gemini call.
+  // This is the main quota saver — menu taps and greetings never touch the API.
+  const pre = getFallbackReply(message);
+  if (pre) {
+    return new Response(JSON.stringify(pre), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
+
+  // Repeat questions are served from cache without any Gemini call.
+  const cached = await getCachedAnswer(message);
+  if (cached) {
+    return new Response(JSON.stringify(cached), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
+
   const result = await callGemini(buildSystemInstruction(), contextText, message).catch(() => ({ error: true }));
 
   if (result.unavailable) {
@@ -271,17 +310,10 @@ export default async (req) => {
   if (result.quota) {
     const local = getLocalKnowledgeReply(relevantChunks);
     if (local) {
-      return new Response(JSON.stringify({
-        answer: local.answer + "\n\n(Note: live AI is temporarily at its free limit — showing site materials for now.)",
-        sources: local.sources,
-        quota: true
-      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify(local), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
-    return new Response(JSON.stringify({
-      answer: "Noor is very busy right now (free-tier limit reached) — please wait a minute and try again. Meanwhile you can explore the Qur'an, Tajweed course, or Prayer Hub.",
-      sources: [],
-      quota: true
-    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    const fallback = getFallbackReply(message) || getFriendlyMenuResponse();
+    return new Response(JSON.stringify(fallback), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   if (result.error || !result.text) {
     const local = getLocalKnowledgeReply(relevantChunks);
@@ -290,6 +322,8 @@ export default async (req) => {
   }
 
   const sources = relevantChunks.map(c => ({ title: c.title, url: c.url }));
+
+  await setCachedAnswer(message, result.text, sources);
 
   return new Response(JSON.stringify({ answer: result.text, sources }), {
     status: 200,
