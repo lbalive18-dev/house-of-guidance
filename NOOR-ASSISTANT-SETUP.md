@@ -19,14 +19,15 @@ is left completely untouched. The site now points at a new function,
 `noor-chat`, instead. You can delete the old one later once you've
 confirmed the new one works, or just leave it there unused.
 
-## Step 1 — Get a free Gemini API key
+## Step 1 — Get a free Groq API key
 
-1. Go to **aistudio.google.com** and sign in with a Google account.
-2. Click **Get API key** → **Create API key**.
-3. Copy the key it gives you (a long string of letters and numbers).
+1. Go to **console.groq.com** and sign up (email, Google, or GitHub — no credit card).
+2. Go to **API Keys** → **Create API key**.
+3. Copy the key it gives you (starts with `gsk_`).
 
-This has a genuinely free usage tier, well within what a community site
-like this needs.
+This has a genuinely free usage tier (around 30 requests/minute and
+1,000 requests/day on `openai/gpt-oss-120b`), well within what a
+community site like this needs.
 
 ## Step 2 — Upload the new files
 
@@ -56,17 +57,23 @@ contains:
 (merge this in rather than overwrite, if you already have other
 dependencies listed there.)
 
-## Step 3 — Set the environment variable
+## Step 3 — Set the environment variables
 
 On **app.netlify.com** → your site → **Site configuration → Environment
-variables** → **Add a variable**:
+variables** → **Add a variable** (add both rows):
 
 | Key | Value |
 |---|---|
-| `GEMINI_API_KEY` | *(the key you copied in Step 1)* |
+| `GROQ_API_KEY` | *(the key you copied in Step 1, starts with `gsk_`)* |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` |
+
+`GROQ_MODEL` is optional (that value is the default), but setting it
+keeps the model choice explicit and easy to change later without code.
 
 This is a real secret — it's never placed in any HTML/JS file, only in
-Netlify's private environment variables.
+Netlify's private environment variables. The old `GEMINI_API_KEY` /
+`GEMINI_MODEL` variables are no longer used and can be removed once
+you've confirmed the new setup works.
 
 ## Step 4 — Redeploy and test
 
@@ -80,7 +87,7 @@ Netlify's private environment variables.
    of sending.
 
 If you see: *"Noor isn't fully set up yet — the assistant's AI connection
-hasn't been configured"* — that means `GEMINI_API_KEY` isn't set correctly
+hasn't been configured"* — that means `GROQ_API_KEY` isn't set correctly
 yet, or the deploy hasn't picked it up. Double-check Step 3, then
 redeploy again.
 

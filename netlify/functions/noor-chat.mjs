@@ -2,16 +2,16 @@
 // Real Islamic knowledge assistant for House of Guidance.
 //
 // Flow: validate input → rate-limit by IP → search House of Guidance's own
-// content for relevant chunks → send those chunks + the question to Gemini
+// content for relevant chunks → send those chunks + the question to Groq
 // with a careful system instruction → return { answer, sources }.
 //
-// If Gemini is unavailable or errors, falls back to a small, carefully
+// If Groq is unavailable or errors, falls back to a small, carefully
 // checked set of local answers (greetings + a handful of basic Islamic
 // questions) rather than just saying "I'm having trouble." This ONLY
-// activates when the live AI can't answer — when Gemini is working, it
+// activates when the live AI can't answer — when Groq is working, it
 // always answers first.
 //
-// Requires an environment variable holding a Gemini API key — see
+// Requires an environment variable holding a Groq API key — see
 // NOOR-ASSISTANT-SETUP.md for exactly where to get one and what to name it.
 
 import { getStore } from '@netlify/blobs';
@@ -51,7 +51,7 @@ function retrieveRelevantChunks(message, limit = 4) {
 }
 
 // ---------------------------------------------------------------------
-// LOCAL FALLBACK — used whenever Gemini can't answer (not configured, or
+// LOCAL FALLBACK — used whenever the AI provider can't answer (not configured, or
 // briefly erroring). Simple, predictable pattern matching against a
 // small, carefully checked set of greetings and basic Islamic facts.
 // Checked in order; first match wins. Every fact here is a well
@@ -211,42 +211,65 @@ async function checkRateLimit(ip) {
   return record.count <= RATE_LIMIT_MAX;
 }
 
-async function callGemini(systemInstruction, contextText, userMessage) {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.AI_API_KEY;
+async function callGroq(systemInstruction, contextText, userMessage) {
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return { unavailable: true };
   }
 
-  const model = process.env.GEMINI_MODEL || 'gemini-3.7-flash';
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const model = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+  const url = 'https://api.groq.com/openai/v1/chat/completions';
 
   const userContent = contextText
     ? `House of Guidance context (use if relevant):\n${contextText}\n\nQuestion: ${userMessage}`
     : `Question: ${userMessage}`;
 
   const body = {
-    system_instruction: { parts: [{ text: systemInstruction }] },
-    contents: [{ role: 'user', parts: [{ text: userContent }] }],
-    generationConfig: { temperature: 0.4, maxOutputTokens: 700 }
+    model,
+    messages: [
+      { role: 'system', content: systemInstruction },
+      { role: 'user', content: userContent }
+    ],
+    temperature: 0.4,
+    max_tokens: 700
   };
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
+  let res;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(body),
+      signal: controller.signal
+    });
+    clearTimeout(timer);
+  } catch (e) {
+    console.error('Groq API network/timeout error:', String((e && e.message) || e).slice(0, 200));
+    return { error: true };
+  }
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
-    console.error('Gemini API error:', res.status, errText.slice(0, 500));
+    console.error('Groq API error:', res.status, errText.slice(0, 500));
     if (res.status === 429) return { quota: true };
     return { error: true };
   }
 
-  const data = await res.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    console.error('Groq response was not JSON');
+    return { error: true };
+  }
+  const text = data?.choices?.[0]?.message?.content?.trim();
   if (!text) {
-    console.error('Gemini response missing text:', JSON.stringify(data).slice(0, 500));
+    console.error('Groq response missing text:', JSON.stringify(data).slice(0, 500));
     return { error: true };
   }
   return { text };
@@ -287,20 +310,20 @@ export default async (req) => {
   const relevantChunks = retrieveRelevantChunks(message);
   const contextText = relevantChunks.map(c => `[${c.title}]\n${c.text}`).join('\n\n');
 
-  // Local-first: greetings + basic facts are answered without any Gemini call.
+  // Local-first: greetings + basic facts are answered without any AI call.
   // This is the main quota saver — menu taps and greetings never touch the API.
   const pre = getFallbackReply(message);
   if (pre) {
     return new Response(JSON.stringify(pre), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 
-  // Repeat questions are served from cache without any Gemini call.
+  // Repeat questions are served from cache without any AI call.
   const cached = await getCachedAnswer(message);
   if (cached) {
     return new Response(JSON.stringify(cached), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 
-  const result = await callGemini(buildSystemInstruction(), contextText, message).catch(() => ({ error: true }));
+  const result = await callGroq(buildSystemInstruction(), contextText, message).catch(() => ({ error: true }));
 
   if (result.unavailable) {
     const local = getLocalKnowledgeReply(relevantChunks);
