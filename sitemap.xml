@@ -41,19 +41,11 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://houseofguidance.netlify.app/nasheeds.html</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://houseofguidance.netlify.app/gallery.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://houseofguidance.netlify.app/advocacy.html</loc>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://houseofguidance.netlify.app/chat.html</loc>
-    <priority>0.6</priority>
   </url>
 </urlset>

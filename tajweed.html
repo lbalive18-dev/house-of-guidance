@@ -1013,7 +1013,6 @@ a.contact-value:hover { color: var(--gold); }
 .admin-item-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; }
 
 /* =========================================================================
-   COMMUNITY CHAT (chat.html)
    ========================================================================= */
 .chat-room-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.3rem; }
 .chat-room-tab {
@@ -1334,7 +1333,6 @@ a.contact-value:hover { color: var(--gold); }
           <a href="yassarna.html">Yassarnal Qur'an</a>
           <a href="names.html">99 Names of Allah</a>
           <a href="duas.html">Daily Duas</a>
-          <a href="chat.html">Community Chat</a>
           <a href="index.html#about">About</a>
           <a href="quran.html">Qur'an</a>
           <a href="hadith.html">Hadith</a>
@@ -1721,8 +1719,6 @@ window.SITE_CONTENT = {
       { icon: "🌸", label: "The Garden", description: "Qur'an verses about Paradise, for quiet reflection.", href: "#garden" }
     ]},
     { category: "Community", items: [
-      { icon: "💬", label: "Community Chat", description: "Join topic rooms and talk with others in the community.", href: "chat.html" },
-      { icon: "🎵", label: "Nasheeds", description: "Islamic songs and recitation, free of instruments.", href: "nasheeds.html" },
       { icon: "🕋", label: "Khutbahs", description: "Friday sermons to read or listen to anytime.", href: "khutbahs.html" },
       { icon: "📸", label: "Gallery", description: "Photos from classes, events, and community life.", href: "gallery.html" },
       { icon: "❓", label: "Halal Quiz", description: "Fun, quick questions to test and grow your knowledge.", href: "#quiz" }
@@ -1955,7 +1951,6 @@ window.SITE_CONTENT = {
         { label: "Hadith Books", href: "hadith.html" },
         { label: "Tajweed Course", href: "tajweed.html" },
         { label: "Daily Reminder", href: "index.html#ayah" },
-        { label: "Nasheeds & Audio", href: "nasheeds.html" },
         { label: "Programs", href: "index.html#programs" },
         { label: "Knowledge Hub", href: "index.html#knowledge" },
         { label: "Khutbahs", href: "khutbahs.html" },
@@ -1970,11 +1965,9 @@ window.SITE_CONTENT = {
         { label: "📖 Yassarnal Qur'an", href: "yassarna.html" },
         { label: "99 Names of Allah", href: "names.html" },
         { label: "Daily Duas", href: "duas.html" },
-        { label: "💬 Community Chat", href: "chat.html" },
         { label: "About Us", href: "index.html#about" },
         { label: "FAQ", href: "index.html#faq" },
 
-        { label: "Beautiful Stories", href: "index.html#stories" },
         { label: "Gallery", href: "gallery.html" },
         { label: "Events", href: "index.html#events" }
       ]
@@ -2482,7 +2475,6 @@ window.SITE_CONTENT = {
      advocacy/grievance form, using the same reliable submission path.
      --------------------------------------------------------------------- */
   /* ---------------------------------------------------------------------
-     COMMUNITY CHAT (chat.html) — topic rooms, polling every few seconds.
      Not true instant messaging (that needs a different kind of backend
      service) — this is the honest version buildable on this site's
      existing foundation (Netlify Blobs), with real moderation support.
@@ -3770,7 +3762,6 @@ window.SITE_CONTENT = {
   }
 
   /* ---------------------------------------------------------------------
-     6e. NASHEED & AUDIO PLAYER (nasheeds.html)
      --------------------------------------------------------------------- */
   function initNasheedPlayer() {
     const listWrap = $('nasheed-list');
@@ -4508,7 +4499,8 @@ window.SITE_CONTENT = {
       }
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'ar-SA'; utter.rate = 0.75;
+    utter.lang = 'ar-SA';
+      utter.rate = 0.75;
       speakWithArabicVoice(utter);
     }
 
@@ -4751,7 +4743,8 @@ window.SITE_CONTENT = {
         }
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(btn.dataset.speak);
-        utter.lang = 'ar-SA'; utter.rate = 0.7;
+    utter.lang = 'ar-SA';
+        utter.rate = 0.7;
         speakWithArabicVoice(utter);
       });
     });
@@ -5663,6 +5656,7 @@ window.SITE_CONTENT = {
      11. NOOR AI ASSISTANT
      --------------------------------------------------------------------- */
   let speechEnabled = true;
+  let noorSpeechLanguage = 'en-US';
 
   function toggleChatWindow() {
     const box = $('guidance-chatbot');
@@ -5677,7 +5671,7 @@ window.SITE_CONTENT = {
     window.speechSynthesis.cancel();
     const clean = text.replace(/<[^>]*>/g, '');
     const utter = new SpeechSynthesisUtterance(clean);
-    utter.lang = /\b(Oli otya|Gyebale|Mwebale|Kale|Otyanno)\b/i.test(text) ? 'en-ZA' : 'en-US';
+    utter.lang = noorSpeechLanguage;
     utter.rate = 0.92;
     window.speechSynthesis.speak(utter);
   }
@@ -5752,33 +5746,45 @@ window.SITE_CONTENT = {
     const input = $('chat-user-text');
     const userMsg = (prefilled ?? input.value).trim();
     if (!userMsg) return;
-    lastUserMessage = userMsg;
     appendUserMessage(userMsg);
-    if (!prefilled) { input.value = ''; input.style.height = 'auto'; }
+    if (!prefilled && input) { input.value = ''; if (input.style) input.style.height = 'auto'; }
 
+    const historyKey = 'hog-noor-history-v1';
+    let history = [];
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(historyKey) || '[]');
+      if (Array.isArray(saved)) history = saved.filter(item => item && (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string').slice(-6);
+    } catch (e) { /* session-only memory is optional */ }
+    const priorHistory = history.map(item => ({ role: item.role, content: item.content.slice(0, 300) }));
+    const languageContext = [userMsg, ...priorHistory.map(item => item.content)].join(' ');
+    noorSpeechLanguage = /\b(luganda|oluganda|oli otya|gyebale|mwebale|kale|otyanno|wasuze otya|nsaba|njagala|nnyamba)\b/i.test(languageContext) ? 'lg-UG' : 'en-US';
     const typing = appendTyping();
 
     try {
       const response = await fetch(C.chatEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
+        body: JSON.stringify({ message: userMsg, history: priorHistory })
       });
       const data = await response.json();
       typing.remove();
-      if (data && typeof data.answer === 'string' && data.answer.trim()) {
-        appendBotMessage(data.answer, data.sources, data.options);
+      const answer = data && (typeof data.answer === 'string' ? data.answer : data.reply);
+      if (typeof answer === 'string' && answer.trim()) {
+        history.push({ role: 'user', content: userMsg.slice(0, 300) }, { role: 'assistant', content: answer.slice(0, 300) });
+        try { sessionStorage.setItem(historyKey, JSON.stringify(history.slice(-6))); } catch (e) { /* memory is optional */ }
+        appendBotMessage(answer, data.sources, data.options);
       } else {
-        appendErrorMessage("SubhanAllah, I had a small glitch. Could you ask that again?", () => processUserChat(userMsg));
+        appendBotMessage("SubhanAllah, I had a small glitch. Could you ask that again?");
       }
     } catch (err) {
       typing.remove();
-      appendErrorMessage("I'm having trouble connecting right now.", () => processUserChat(userMsg));
+      appendBotMessage("I'm having trouble connecting right now. Please try again in a moment.");
       console.error('Noor chat error:', err);
     }
   }
 
   function clearChat() {
+    try { sessionStorage.removeItem('hog-noor-history-v1'); } catch (e) { /* memory is optional */ }
     const conv = $('chat-conversation');
     if (!conv) return;
     conv.innerHTML = `
@@ -5788,7 +5794,6 @@ window.SITE_CONTENT = {
       <div class="msg-disclaimer">Noor gives general educational answers, not religious rulings. For fatwas or personal legal questions, please consult a qualified scholar.</div>
     `;
   }
-
   function initChat() {
     if (!$('guidance-chatbot')) return;
     $('chat-trigger')?.addEventListener('click', toggleChatWindow);

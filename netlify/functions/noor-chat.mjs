@@ -18,6 +18,8 @@ import { getStore } from '@netlify/blobs';
 import knowledgeChunks from './noor-knowledge.json' with { type: 'json' };
 
 const MAX_MESSAGE_LENGTH = 800;
+const MAX_HISTORY_MESSAGES = 6; // three recent exchanges, capped to protect free-tier token use
+const MAX_HISTORY_CHARS = 300;
 const RATE_LIMIT_MAX = 20;          // max messages
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // per 10 minutes, per IP
 
@@ -25,6 +27,14 @@ const STOPWORDS = new Set(['the','a','an','is','are','was','were','to','of','in'
   'where','who','how','why','does','do','did','can','could','should','would','i','me','my','you','your','it','this',
   'that','be','with','about','tell','please','explain']);
 
+function normalizeConversationHistory(value) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter(item => item && (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string')
+    .slice(-MAX_HISTORY_MESSAGES)
+    .map(item => ({ role: item.role, content: item.content.trim().slice(0, MAX_HISTORY_CHARS) }))
+    .filter(item => item.content);
+}
 function tokenize(text) {
   return (text.toLowerCase().match(/[a-z']+/g) || []).filter(w => w.length > 2 && !STOPWORDS.has(w));
 }
@@ -158,6 +168,7 @@ function buildSystemInstruction() {
 
 Behavior rules — follow all of these strictly:
 - Be respectful, warm, and educational. Keep answers concise and easy to understand.
+- Reply in the language the user uses. If the user writes in Luganda or asks for Luganda, answer naturally in clear Luganda; keep doing so in follow-up questions unless they switch languages.
 - When the provided "House of Guidance context" below is relevant, prioritize and prefer it, and mention it naturally.
 - When discussing Islamic matters, prefer the Qur'an and authentic Sunnah. If you cite a Qur'an verse, name the surah and verse number. If you cite a hadith, name the collection (e.g. Sahih al-Bukhari, Sahih Muslim) and reference if you reliably know it — if you are not confident of the exact reference, say so plainly rather than guessing.
 - NEVER fabricate a Qur'an verse, a hadith, a scholar's name, or a quotation. If you don't know something with confidence, say so honestly.
@@ -172,15 +183,21 @@ function getClientIp(req) {
   return req.headers.get('x-nf-client-connection-ip') || req.headers.get('x-forwarded-for') || 'unknown';
 }
 
-function getCacheKey(message) {
+function getCacheKey(message, history = []) {
   const norm = message.toLowerCase().trim().replace(/\s+/g, ' ').slice(0, 200);
-  return 'q-' + Buffer.from(norm).toString('base64url').slice(0, 80);
+  if (!history.length) return 'q-' + Buffer.from(norm).toString('base64url').slice(0, 80);
+  let hash = 2166136261;
+  for (const char of JSON.stringify([norm, history])) {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return 'q-' + Buffer.from(norm).toString('base64url').slice(0, 48) + '-' + (hash >>> 0).toString(36);
 }
 
-async function getCachedAnswer(message) {
+async function getCachedAnswer(message, history = []) {
   try {
     const store = getStore('noor-cache');
-    const record = await store.get(getCacheKey(message), { type: 'json' }).catch(() => null);
+    const record = await store.get(getCacheKey(message, history), { type: 'json' }).catch(() => null);
     if (!record || !record.answer) return null;
     if (Date.now() - (record.ts || 0) > 7 * 24 * 60 * 60 * 1000) return null;
     return { answer: record.answer, sources: record.sources || [] };
@@ -189,10 +206,10 @@ async function getCachedAnswer(message) {
   }
 }
 
-async function setCachedAnswer(message, answer, sources) {
+async function setCachedAnswer(message, answer, sources, history = []) {
   try {
     const store = getStore('noor-cache');
-    await store.setJSON(getCacheKey(message), { answer, sources: sources || [], ts: Date.now() });
+    await store.setJSON(getCacheKey(message, history), { answer, sources: sources || [], ts: Date.now() });
   } catch (e) {
     // cache is best-effort only
   }
@@ -211,7 +228,7 @@ async function checkRateLimit(ip) {
   return record.count <= RATE_LIMIT_MAX;
 }
 
-async function callGroq(systemInstruction, contextText, userMessage) {
+async function callGroq(systemInstruction, contextText, userMessage, history = []) {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     return { unavailable: true };
@@ -228,6 +245,7 @@ async function callGroq(systemInstruction, contextText, userMessage) {
     model,
     messages: [
       { role: 'system', content: systemInstruction },
+      ...history,
       { role: 'user', content: userContent }
     ],
     temperature: 0.4,
@@ -288,6 +306,7 @@ export default async (req) => {
   }
 
   const message = typeof body.message === 'string' ? body.message.trim() : '';
+  const history = normalizeConversationHistory(body.history);
   if (!message) {
     return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400 });
   }
@@ -318,12 +337,12 @@ export default async (req) => {
   }
 
   // Repeat questions are served from cache without any AI call.
-  const cached = await getCachedAnswer(message);
+  const cached = await getCachedAnswer(message, history);
   if (cached) {
     return new Response(JSON.stringify(cached), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 
-  const result = await callGroq(buildSystemInstruction(), contextText, message).catch(() => ({ error: true }));
+  const result = await callGroq(buildSystemInstruction(), contextText, message, history).catch(() => ({ error: true }));
 
   if (result.unavailable) {
     const local = getLocalKnowledgeReply(relevantChunks);
@@ -346,7 +365,7 @@ export default async (req) => {
 
   const sources = relevantChunks.map(c => ({ title: c.title, url: c.url }));
 
-  await setCachedAnswer(message, result.text, sources);
+  await setCachedAnswer(message, result.text, sources, history);
 
   return new Response(JSON.stringify({ answer: result.text, sources }), {
     status: 200,

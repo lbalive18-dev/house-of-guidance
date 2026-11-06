@@ -594,6 +594,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
    ABOUT / TEAM / CONTACT / SUPPORT / VOLUNTEER
    ========================================================================= */
 .about-lede { font-size: 0.95rem; line-height: 1.65; }
+.about-principles { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
+.about-principle-row { display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,2fr); gap:clamp(1rem,3vw,2.5rem); align-items:start; width:100%; padding:clamp(1.1rem,3vw,2rem); border-left:3px solid var(--emerald-bright); background:linear-gradient(105deg,rgba(31,111,92,.15),rgba(16,29,48,.72)); }
+.about-principle-title { margin:0; color:var(--ivory); font-family:var(--font-display); font-size:clamp(1.5rem,2.5vw,2rem); }
+.about-principle-copy { margin:0; max-width:70ch; line-height:1.8; }
+.about-objectives-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin:0; padding:0; list-style:none; counter-reset:objectives; }
+.about-objectives-grid li { counter-increment:objectives; position:relative; min-height:100%; padding:1rem 1rem 1rem 3rem; border:1px solid var(--surface-border); border-radius:var(--radius-md); color:var(--muted); font-size:.88rem; line-height:1.7; background:rgba(6,13,22,.38); }
+.about-objectives-grid li::before { content:counter(objectives,decimal-leading-zero); position:absolute; left:1rem; top:1rem; color:var(--emerald-bright); font-weight:800; font-size:.75rem; }
+@media(max-width:760px) { .about-principle-row { grid-template-columns:1fr; gap:.6rem; } .about-objectives-grid { grid-template-columns:1fr; } }
 .plain-list { margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.88rem; line-height: 1.8; }
 .plain-list li { padding-left: 0.2rem; }
 
@@ -829,23 +837,6 @@ a.contact-value:hover { color: var(--gold); }
   .garden-foliage { font-size: 3.2rem; }
 }
 
-/* =========================================================================
-   BEAUTIFUL STORIES — layered depth cards
-   ========================================================================= */
-.stories-grid { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.1rem; }
-.story-card {
-  background: var(--surface);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--surface-border);
-  padding: 1.5rem;
-  position: relative;
-  box-shadow: 0 calc(8px + var(--depth, 0) * 4px) calc(20px + var(--depth, 0) * 8px) rgba(0,0,0,calc(0.25 + var(--depth, 0) * 0.05));
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.story-card:hover { transform: translateY(-4px); border-color: rgba(212,175,55,0.3); }
-.story-title { font-size: 1.1rem; }
-.story-lesson { font-size: 0.85rem; color: var(--gold); margin-top: 0.7rem; line-height: 1.6; border-top: 1px solid var(--surface-border); padding-top: 0.7rem; }
-
 /* Path to Marriage */
 .marriage-etiquette-card { border-top: 3px solid var(--emerald-bright); }
 
@@ -1018,7 +1009,6 @@ a.contact-value:hover { color: var(--gold); }
 .admin-item-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; }
 
 /* =========================================================================
-   COMMUNITY CHAT (chat.html)
    ========================================================================= */
 .chat-room-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.3rem; }
 .chat-room-tab {
@@ -1512,19 +1502,6 @@ a.contact-value:hover { color: var(--gold); }
       </div>
     </section>
 
-    <!-- Beautiful Stories -->
-    <section id="stories" class="section-container panel">
-      <div class="section-header-block">
-        <p class="section-eyebrow">Stories That Guide Us</p>
-        <h2>Beautiful Stories</h2>
-        <p class="section-sub">Lessons from the Qur'an, the Prophets, and the Sahabah — told plainly, without embellishment.</p>
-      </div>
-      <div class="filter-bar" style="margin-top:1rem">
-        <select id="story-category" class="filter-select" style="width:100%"></select>
-      </div>
-      <div id="stories-grid" class="stories-grid"></div>
-    </section>
-
     <!-- Daily Motivation -->
     <section class="section-container panel">
       <div class="section-header"><h2>Daily Motivation</h2></div>
@@ -1798,7 +1775,6 @@ a.contact-value:hover { color: var(--gold); }
           <a href="yassarna.html">Yassarnal Qur'an</a>
           <a href="names.html">99 Names of Allah</a>
           <a href="duas.html">Daily Duas</a>
-          <a href="chat.html">Community Chat</a>
           <a href="index.html#about">About</a>
           <a href="quran.html">Qur'an</a>
           <a href="hadith.html">Hadith</a>
@@ -2173,7 +2149,7 @@ window.SITE_CONTENT = {
     { category: "Learn", items: [
       { icon: "📖", label: "Yassarnal Qur'an", description: "10-level course to read Qur'anic Arabic, from the alphabet up.", href: "yassarna.html" },
       { icon: "🎙️", label: "Tajweed", description: "Learn correct Qur'an pronunciation and recitation rules.", href: "tajweed.html" },
-      { icon: "📗", label: "Qur'an Reader", description: "All 114 surahs — Arabic, translation, and full audio recitation.", href: "quran.html" },
+      { icon: "📗", label: "The Noble Qur\u2019an", description: "All 114 surahs — Arabic, translation, and full audio recitation.", href: "quran.html" },
       { icon: "📕", label: "Hadith Books", description: "Nawawi's 40, Hadith Qudsi, Bukhari, and Muslim — Arabic and English.", href: "hadith.html" }
     ]},
     { category: "Reflect & Practice", items: [
@@ -2185,8 +2161,6 @@ window.SITE_CONTENT = {
       { icon: "🌸", label: "The Garden", description: "Qur'an verses about Paradise, for quiet reflection.", href: "#garden" }
     ]},
     { category: "Community", items: [
-      { icon: "💬", label: "Community Chat", description: "Join topic rooms and talk with others in the community.", href: "chat.html" },
-      { icon: "🎵", label: "Nasheeds", description: "Islamic songs and recitation, free of instruments.", href: "nasheeds.html" },
       { icon: "🕋", label: "Khutbahs", description: "Friday sermons to read or listen to anytime.", href: "khutbahs.html" },
       { icon: "📸", label: "Gallery", description: "Photos from classes, events, and community life.", href: "gallery.html" },
       { icon: "❓", label: "Halal Quiz", description: "Fun, quick questions to test and grow your knowledge.", href: "#quiz" }
@@ -2215,22 +2189,6 @@ window.SITE_CONTENT = {
   // filename only, uploaded same folder as index.html, same as team photos.
   imamDirectory: [
     // { name: "", village: "", district: "Butambala", photo: "", bio: "Describe their grassroots work — teaching, orphan support, etc.", waysToSupport: "What would genuinely help them, e.g. 'Qur'an learning materials for 12 students'" }
-  ],
-
-  // ---------------------------------------------------------------------
-  // COMMUNITY CHAT — topic rooms, not one open free-for-all. Messages
-  // refresh every few seconds (not instant like WhatsApp — true real-time
-  // messaging needs a different kind of backend service; this is the
-  // honest version buildable on this static site's existing foundation).
-  // Anyone can pick any display name — there's no real login system, so
-  // this is a light deterrent against spam, not a secure identity check.
-  // ---------------------------------------------------------------------
-  chatRooms: [
-    { key: "general", label: "General", description: "General conversation for the community." },
-    { key: "quran-discussion", label: "Qur'an Discussion", description: "Reflections, questions, and discussion about the Qur'an." },
-    { key: "yassarna-students", label: "Yassarna Students", description: "A space for current Yassarna learners." },
-    { key: "ask-a-question", label: "Ask a Question", description: "General Islamic questions — for personal rulings, please still consult a qualified scholar." },
-    { key: "sisters-corner", label: "Sisters' Corner", description: "A space for sisters in the community." }
   ],
 
   // Rotates automatically, one per day, based on today's date —
@@ -2327,44 +2285,6 @@ window.SITE_CONTENT = {
     { ref: "35:34", note: "The relief and gratitude of its people" }
   ],
 
-  // ---------------------------------------------------------------------
-  // BEAUTIFUL STORIES — general, well-established outlines only. Nothing
-  // invented: no fabricated dialogue, dates, or specific verse quotations.
-  // Each notes which Surah discusses it, without quoting exact text.
-  // ---------------------------------------------------------------------
-  storyCategories: ["Stories from the Qur'an", "Stories of the Prophets", "Stories of the Sahabah", "Lessons from Islamic History"],
-  stories: [
-    {
-      title: "Prophet Yunus and the Whale",
-      category: "Stories of the Prophets",
-      teaser: "A story of patience, mistake, and the power of sincere repentance.",
-      body: "Prophet Yunus (Jonah), peace be upon him, left his people in frustration before receiving Allah's permission to do so. He was swallowed by a great fish and, in that darkness, turned to Allah in sincere repentance. He was saved, and later returned to his people, who this time believed. The story is recounted in the Qur'an, notably in Surah As-Saffat and Surah Al-Anbiya, and the surah named after him, Surah Yunus.",
-      lesson: "Even a Prophet's moment of despair was met with mercy the instant he turned back to Allah sincerely — a reminder that no one is ever too far from forgiveness."
-    },
-    {
-      title: "Prophet Yusuf's Trials",
-      category: "Stories of the Prophets",
-      teaser: "Betrayal, imprisonment, and eventual honor — a story of patience through hardship.",
-      body: "Prophet Yusuf (Joseph), peace be upon him, was betrayed by his own brothers, sold into slavery, falsely accused, and imprisoned — yet responded to each trial with patience and integrity. He eventually rose to a position of authority in Egypt and was reunited with his family, forgiving those who had wronged him. His story is told in full in Surah Yusuf, described in the Qur'an as 'the best of stories.'",
-      lesson: "Patience through repeated hardship, paired with trust in Allah's plan, can lead to an outcome far greater than what seemed possible in the moment of trial."
-    },
-    {
-      title: "Bilal ibn Rabah's Steadfastness",
-      category: "Stories of the Sahabah",
-      teaser: "An enslaved man's unwavering faith under severe persecution in early Makkah.",
-      body: "Bilal ibn Rabah, may Allah be pleased with him, was among the earliest converts to Islam in Makkah and was severely persecuted for his faith by his enslaver, who tortured him in the desert heat demanding he renounce Islam. Bilal responded only with 'Ahad, Ahad' (One, He is One), affirming the oneness of Allah. He was eventually freed and became known for his beautiful voice, later giving the call to prayer (adhan) in Madinah.",
-      lesson: "Steadfastness in faith under the harshest pressure is one of the most repeated themes in the lives of the earliest Muslims."
-    },
-    {
-      title: "The People of the Cave",
-      category: "Stories from the Qur'an",
-      teaser: "A group of young believers who fled persecution and were protected in a remarkable way.",
-      body: "Surah Al-Kahf recounts the story of a group of young men who fled a tyrannical ruler to protect their faith, taking refuge in a cave. The Qur'an describes them being placed into a long sleep, protected across what the text describes as a great span of time, waking to a changed world. The story is often read as a lesson in trusting Allah when standing firm on faith comes at great personal cost.",
-      lesson: "Choosing to protect one's faith, even at the cost of everything familiar, is met with a protection and outcome beyond what one could arrange alone."
-    }
-  ],
-
-
   fallbackAyah: {
     arabic: "وَقُل رَّبِّ زِدْنِي عِلْمًا",
     translation: "And say: My Lord, increase me in knowledge.",
@@ -2415,11 +2335,10 @@ window.SITE_CONTENT = {
     {
       label: "Learn",
       items: [
-        { label: "Read the Qur'an", href: "quran.html" },
+        { label: "Read the Noble Qur\u2019an", href: "quran.html" },
         { label: "Hadith Books", href: "hadith.html" },
         { label: "Tajweed Course", href: "tajweed.html" },
         { label: "Daily Reminder", href: "index.html#ayah" },
-        { label: "Nasheeds & Audio", href: "nasheeds.html" },
         { label: "Programs", href: "index.html#programs" },
         { label: "Knowledge Hub", href: "index.html#knowledge" },
         { label: "Khutbahs", href: "khutbahs.html" },
@@ -2434,11 +2353,9 @@ window.SITE_CONTENT = {
         { label: "📖 Yassarnal Qur'an", href: "yassarna.html" },
         { label: "99 Names of Allah", href: "names.html" },
         { label: "Daily Duas", href: "duas.html" },
-        { label: "💬 Community Chat", href: "chat.html" },
         { label: "About Us", href: "index.html#about" },
         { label: "FAQ", href: "index.html#faq" },
 
-        { label: "Beautiful Stories", href: "index.html#stories" },
         { label: "Gallery", href: "gallery.html" },
         { label: "Events", href: "index.html#events" }
       ]
@@ -2469,13 +2386,16 @@ window.SITE_CONTENT = {
   // ---------------------------------------------------------------------
   about: {
     whoWeAre: "House of Guidance is a community dedicated to Qur'an, Arabic, and Islamic education — teaching with structure, patience, and sincerity.",
-    vision: "A community where every Muslim has the means to read, understand, and live by the Qur'an.",
-    mission: "To provide accessible, structured Islamic education — from first letters of Arabic to Tajweed and memorization — rooted in sound teaching and good character.",
+    vision: "To nurture a knowledgeable, guided and morally upright Ummah grounded in the Qur\u2019an and authentic Sunnah, contributing to the spiritual and social well-being of society.",
+    mission: "To promote authentic Islamic knowledge, Qur\u2019anic education, spiritual development and upright character while advancing sustainable community development through teaching, da\u2018wah and service to humanity.",
     objectives: [
-      "Teach the Qur'an with correct Tajweed, from beginner to advanced levels",
-      "Build a supportive learning community for Arabic and Islamic studies",
-      "Support Hifzh students with structured, sustainable memorization",
-      "Share authentic, well-sourced Islamic knowledge and reminders"
+      "Qur\u2019anic Education: Promote Qur\u2019an reading, memorisation, understanding and application in daily life.",
+      "Islamic Knowledge: Provide authentic Islamic education based on the Qur\u2019an and Sunnah, including Arabic language learning.",
+      "Da\u2018wah and Awareness: Organise Islamic seminars, lectures, workshops and community awareness programmes.",
+      "Character Development: Nurture faith, good manners, responsibility, unity and upright character.",
+      "Community Support: Support vulnerable individuals and families through meaningful community initiatives.",
+      "Empowerment: Equip children, youth and adults with beneficial knowledge, skills and values.",
+      "Sustainable Development: Establish beneficial partnerships and sustainable initiatives that contribute to the development of the Ummah."
     ],
     values: [
       { title: "Sincerity", text: "Teaching and learning for the sake of Allah first." },
@@ -2804,21 +2724,21 @@ window.SITE_CONTENT = {
     const a = C.about;
     wrap.innerHTML = `
       <p class="card-text about-lede">${escapeHTML(a.whoWeAre)}</p>
-      <div class="grid grid-2" style="margin-top:1.5rem">
-        <div class="card reveal">
-          <span class="card-tag">Our Vision</span>
-          <p class="card-text">${escapeHTML(a.vision)}</p>
-        </div>
-        <div class="card reveal" style="animation-delay:0.05s">
-          <span class="card-tag">Our Mission</span>
-          <p class="card-text">${escapeHTML(a.mission)}</p>
-        </div>
-      </div>
-      <div class="card reveal" style="margin-top:1.1rem">
-        <span class="card-tag">Our Objectives</span>
-        <ul class="plain-list">
-          ${a.objectives.map(o => `<li>${escapeHTML(o)}</li>`).join('')}
-        </ul>
+      <div class="about-principles">
+        <section class="about-principle-row card reveal" aria-labelledby="about-vision-title">
+          <h3 class="about-principle-title" id="about-vision-title">Vision</h3>
+          <p class="card-text about-principle-copy">${escapeHTML(a.vision)}</p>
+        </section>
+        <section class="about-principle-row card reveal" aria-labelledby="about-mission-title">
+          <h3 class="about-principle-title" id="about-mission-title">Mission</h3>
+          <p class="card-text about-principle-copy">${escapeHTML(a.mission)}</p>
+        </section>
+        <section class="about-principle-row about-objectives-row card reveal" aria-labelledby="about-objectives-title">
+          <h3 class="about-principle-title" id="about-objectives-title">Objectives</h3>
+          <ol class="about-objectives-grid">
+            ${a.objectives.map(o => `<li>${escapeHTML(o)}</li>`).join('')}
+          </ol>
+        </section>
       </div>
       <div class="grid grid-2" style="margin-top:1.1rem">
         ${a.values.map((v, i) => `
@@ -2946,7 +2866,6 @@ window.SITE_CONTENT = {
      advocacy/grievance form, using the same reliable submission path.
      --------------------------------------------------------------------- */
   /* ---------------------------------------------------------------------
-     COMMUNITY CHAT (chat.html) — topic rooms, polling every few seconds.
      Not true instant messaging (that needs a different kind of backend
      service) — this is the honest version buildable on this site's
      existing foundation (Netlify Blobs), with real moderation support.
@@ -4234,7 +4153,6 @@ window.SITE_CONTENT = {
   }
 
   /* ---------------------------------------------------------------------
-     6e. NASHEED & AUDIO PLAYER (nasheeds.html)
      --------------------------------------------------------------------- */
   function initNasheedPlayer() {
     const listWrap = $('nasheed-list');
@@ -4972,7 +4890,8 @@ window.SITE_CONTENT = {
       }
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'ar-SA'; utter.rate = 0.75;
+    utter.lang = 'ar-SA';
+      utter.rate = 0.75;
       speakWithArabicVoice(utter);
     }
 
@@ -5215,7 +5134,8 @@ window.SITE_CONTENT = {
         }
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(btn.dataset.speak);
-        utter.lang = 'ar-SA'; utter.rate = 0.7;
+    utter.lang = 'ar-SA';
+        utter.rate = 0.7;
         speakWithArabicVoice(utter);
       });
     });
@@ -5561,49 +5481,7 @@ window.SITE_CONTENT = {
     loadVerse();
   }
 
-  /* ---------------------------------------------------------------------
-     6c. BEAUTIFUL STORIES — general, well-known outlines, layered cards
-     --------------------------------------------------------------------- */
-  function initStories() {
-    const wrap = $('stories-grid');
-    if (!wrap) return;
-    const categorySelect = $('story-category');
-    if (categorySelect) {
-      categorySelect.innerHTML = '<option value="">All categories</option>' +
-        C.storyCategories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
-    }
-
-    function render() {
-      const cat = categorySelect?.value || '';
-      const filtered = cat ? C.stories.filter(s => s.category === cat) : C.stories;
-      wrap.innerHTML = filtered.map((s, i) => `
-        <div class="story-card reveal" style="animation-delay:${i * 0.06}s; --depth:${i % 3}">
-          <span class="card-tag">${escapeHTML(s.category)}</span>
-          <h3 class="card-title story-title">${escapeHTML(s.title)}</h3>
-          <p class="card-text">${escapeHTML(s.teaser)}</p>
-          <button class="btn btn-ghost story-toggle" style="margin-top:0.85rem; width:100%">Read the story</button>
-          <div class="story-body" style="display:none">
-            <p class="card-text" style="margin-top:0.85rem">${escapeHTML(s.body)}</p>
-            <p class="story-lesson"><strong>Lesson:</strong> ${escapeHTML(s.lesson)}</p>
-          </div>
-        </div>
-      `).join('');
-
-      wrap.querySelectorAll('.story-toggle').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const body = btn.nextElementSibling;
-          const isOpen = body.style.display !== 'none';
-          body.style.display = isOpen ? 'none' : 'block';
-          btn.textContent = isOpen ? 'Read the story' : 'Show less';
-        });
-      });
-    }
-
-    categorySelect?.addEventListener('change', render);
-    render();
-  }
-
-  /* ---------------------------------------------------------------------
+/* ---------------------------------------------------------------------
      7. KHUTBAHS / EVENTS / GALLERY — render only real, configured items
      --------------------------------------------------------------------- */
   function initKhutbahs() {
@@ -6127,6 +6005,7 @@ window.SITE_CONTENT = {
      11. NOOR AI ASSISTANT
      --------------------------------------------------------------------- */
   let speechEnabled = true;
+  let noorSpeechLanguage = 'en-US';
 
   function toggleChatWindow() {
     const box = $('guidance-chatbot');
@@ -6141,7 +6020,7 @@ window.SITE_CONTENT = {
     window.speechSynthesis.cancel();
     const clean = text.replace(/<[^>]*>/g, '');
     const utter = new SpeechSynthesisUtterance(clean);
-    utter.lang = /\b(Oli otya|Gyebale|Mwebale|Kale|Otyanno)\b/i.test(text) ? 'en-ZA' : 'en-US';
+    utter.lang = noorSpeechLanguage;
     utter.rate = 0.92;
     window.speechSynthesis.speak(utter);
   }
@@ -6216,33 +6095,45 @@ window.SITE_CONTENT = {
     const input = $('chat-user-text');
     const userMsg = (prefilled ?? input.value).trim();
     if (!userMsg) return;
-    lastUserMessage = userMsg;
     appendUserMessage(userMsg);
-    if (!prefilled) { input.value = ''; input.style.height = 'auto'; }
+    if (!prefilled && input) { input.value = ''; if (input.style) input.style.height = 'auto'; }
 
+    const historyKey = 'hog-noor-history-v1';
+    let history = [];
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(historyKey) || '[]');
+      if (Array.isArray(saved)) history = saved.filter(item => item && (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string').slice(-6);
+    } catch (e) { /* session-only memory is optional */ }
+    const priorHistory = history.map(item => ({ role: item.role, content: item.content.slice(0, 300) }));
+    const languageContext = [userMsg, ...priorHistory.map(item => item.content)].join(' ');
+    noorSpeechLanguage = /\b(luganda|oluganda|oli otya|gyebale|mwebale|kale|otyanno|wasuze otya|nsaba|njagala|nnyamba)\b/i.test(languageContext) ? 'lg-UG' : 'en-US';
     const typing = appendTyping();
 
     try {
       const response = await fetch(C.chatEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
+        body: JSON.stringify({ message: userMsg, history: priorHistory })
       });
       const data = await response.json();
       typing.remove();
-      if (data && typeof data.answer === 'string' && data.answer.trim()) {
-        appendBotMessage(data.answer, data.sources, data.options);
+      const answer = data && (typeof data.answer === 'string' ? data.answer : data.reply);
+      if (typeof answer === 'string' && answer.trim()) {
+        history.push({ role: 'user', content: userMsg.slice(0, 300) }, { role: 'assistant', content: answer.slice(0, 300) });
+        try { sessionStorage.setItem(historyKey, JSON.stringify(history.slice(-6))); } catch (e) { /* memory is optional */ }
+        appendBotMessage(answer, data.sources, data.options);
       } else {
-        appendErrorMessage("SubhanAllah, I had a small glitch. Could you ask that again?", () => processUserChat(userMsg));
+        appendBotMessage("SubhanAllah, I had a small glitch. Could you ask that again?");
       }
     } catch (err) {
       typing.remove();
-      appendErrorMessage("I'm having trouble connecting right now.", () => processUserChat(userMsg));
+      appendBotMessage("I'm having trouble connecting right now. Please try again in a moment.");
       console.error('Noor chat error:', err);
     }
   }
 
   function clearChat() {
+    try { sessionStorage.removeItem('hog-noor-history-v1'); } catch (e) { /* memory is optional */ }
     const conv = $('chat-conversation');
     if (!conv) return;
     conv.innerHTML = `
@@ -6252,7 +6143,6 @@ window.SITE_CONTENT = {
       <div class="msg-disclaimer">Noor gives general educational answers, not religious rulings. For fatwas or personal legal questions, please consult a qualified scholar.</div>
     `;
   }
-
   function initChat() {
     if (!$('guidance-chatbot')) return;
     $('chat-trigger')?.addEventListener('click', toggleChatWindow);
@@ -6344,7 +6234,6 @@ window.SITE_CONTENT = {
     initYassarnaPage();
     initTajweedCourse();
     initNasheedPlayer();
-    initStories();
     initDhikrCounter();
     initQuiz();
     initKhutbahs();
