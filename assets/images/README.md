@@ -1,3 +1,5 @@
 # Image credits
 
 - `quran-study.jpg`: Photograph by MATAQ Darul Ulum, sourced from Unsplash (photo ID `uhwBniYvTAU`). Used as illustrative Qur’an reading imagery; it does not depict House of Guidance or its activities. Source: https://unsplash.com/photos/a-person-holding-a-smart-phone-in-their-hand-uhwBniYvTAU . Licensed under the Unsplash License: https://unsplash.com/license .
+- `vision-mosque.jpg`: Photograph from Unsplash, photo ID `FKdlYFanWeI`; illustrative mosque architecture for the Vision section, not a HOG site. Source: https://unsplash.com/photos/a-large-building-with-arches-and-a-sky-background-FKdlYFanWeI .
+- `mission-quran.jpg`: Photograph from Unsplash, photo ID `QCXL8wjqAWA`; illustrative Qur’an study image for the Mission section, not a HOG lesson. Source: https://unsplash.com/photos/una-person-sentada-en-una-mesa-con-un-libro-abierto-QCXL8wjqAWA .

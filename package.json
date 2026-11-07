@@ -6,5 +6,9 @@
     "@google/generative-ai": "^0.1.0",
     "@netlify/blobs": "^7.3.0",
     "web-push": "^3.6.7"
+  },
+  "scripts": {
+    "test": "node scripts/check-site.mjs",
+    "build": "node scripts/check-site.mjs"
   }
 }
