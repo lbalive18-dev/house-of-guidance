@@ -508,30 +508,91 @@
   function initKhutbahs() {
     const wrap = $('khutbahs-list');
     if (!wrap) return;
-    if (!C.khutbahs.length) {
-      wrap.innerHTML = `<div class="empty-state">No khutbah recordings uploaded yet. Add entries to <code>khutbahs</code> in content.js once audio files are ready.</div>`;
-      return;
-    }
-    wrap.innerHTML = C.khutbahs.map(k => `
-      <div class="card khutbah-row">
-        <button class="khutbah-play" aria-label="Play ${escapeHTML(k.title)}" data-audio="${k.audio}">▶</button>
-        <div class="khutbah-meta">
-          <h3 class="card-title">${escapeHTML(k.title)}</h3>
-          <p class="card-text">${escapeHTML(k.speaker)} · ${escapeHTML(k.date)}</p>
-        </div>
-      </div>
-    `).join('');
 
-    let currentAudio = null;
-    wrap.querySelectorAll('.khutbah-play').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const src = btn.getAttribute('data-audio');
-        if (!src) return;
-        if (currentAudio) { currentAudio.pause(); }
-        currentAudio = new Audio(src);
-        currentAudio.play().catch(() => alert('Could not play this recording.'));
+    let filterBar = $('khutbah-filter-bar');
+    if (!filterBar && wrap.parentElement) {
+      filterBar = document.createElement('div');
+      filterBar.id = 'khutbah-filter-bar';
+      filterBar.className = 'filter-bar';
+      filterBar.innerHTML = `
+        <input type="text" id="khutbah-search" class="filter-search" placeholder="Search title or topic…">
+        <select id="khutbah-category" class="filter-select">
+          <option value="">All Categories</option>
+        </select>
+        <select id="khutbah-language" class="filter-select">
+          <option value="">All Languages</option>
+        </select>
+      `;
+      wrap.parentElement.insertBefore(filterBar, wrap);
+    }
+
+    const searchInput = $('khutbah-search');
+    const categorySelect = $('khutbah-category');
+    const languageSelect = $('khutbah-language');
+
+    const categories = [...new Set(C.khutbahs.map(k => k.category).filter(Boolean))];
+    const languages = [...new Set(C.khutbahs.map(k => k.language).filter(Boolean))];
+    if (categorySelect) {
+      categorySelect.innerHTML = '<option value="">All Categories</option>' +
+        categories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
+    }
+    if (languageSelect) {
+      languageSelect.innerHTML = '<option value="">All Languages</option>' +
+        languages.map(l => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join('');
+    }
+
+    function formatSize(bytes) {
+      if (!bytes) return '';
+      if (bytes < 1024) return bytes + ' B';
+      const kb = bytes / 1024;
+      if (kb < 1024) return kb.toFixed(1) + ' KB';
+      const mb = kb / 1024;
+      if (mb < 1024) return mb.toFixed(1) + ' MB';
+      return (mb / 1024).toFixed(1) + ' GB';
+    }
+
+    function render() {
+      const q = (searchInput?.value || '').toLowerCase();
+      const cat = categorySelect?.value || '';
+      const lang = languageSelect?.value || '';
+      const filtered = C.khutbahs.filter(k => {
+        const matchesQ = !q || k.title.toLowerCase().includes(q) || (k.speaker || '').toLowerCase().includes(q) || (k.category || '').toLowerCase().includes(q);
+        const matchesCat = !cat || k.category === cat;
+        const matchesLang = !lang || k.language === lang;
+        return matchesQ && matchesCat && matchesLang;
       });
-    });
+
+      if (!filtered.length) {
+        wrap.innerHTML = `<div class="empty-state">No khutbah documents match your search.</div>`;
+        return;
+      }
+
+      wrap.innerHTML = filtered.map(k => {
+        const pdfName = k.pdf ? k.pdf.split('/').pop() : 'document.pdf';
+        return `
+          <div class="card khutbah-row reveal" style="animation-delay:${filtered.indexOf(k) * 0.04}s">
+            <div class="khutbah-actions">
+              <a href="${escapeHTML(k.pdf)}" target="_blank" rel="noopener" class="khutbah-btn khutbah-view" aria-label="Read ${escapeHTML(k.title)}">📖 Read PDF</a>
+              <a href="${escapeHTML(k.pdf)}" download="${escapeHTML(pdfName)}" class="khutbah-btn khutbah-download" aria-label="Download ${escapeHTML(k.title)}">⬇ Download</a>
+            </div>
+            <div class="khutbah-meta">
+              <h3 class="card-title">${escapeHTML(k.title)}</h3>
+              <p class="card-text">${escapeHTML(k.speaker || '')} · ${escapeHTML(k.date || '')}</p>
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+                ${k.category ? `<span class="card-tag">${escapeHTML(k.category)}</span>` : ''}
+                ${k.language ? `<span class="card-tag">${escapeHTML(k.language)}</span>` : ''}
+                ${k.size ? `<span class="card-tag">${escapeHTML(k.size)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (searchInput) searchInput.addEventListener('input', render);
+    if (categorySelect) categorySelect.addEventListener('change', render);
+    if (languageSelect) languageSelect.addEventListener('change', render);
+    render();
   }
 
   function initEvents() {

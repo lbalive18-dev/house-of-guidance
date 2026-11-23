@@ -34,10 +34,10 @@ const SITE_CONTENT = {
     // Uncomment and edit lines like the one above once you have real photos.
   ],
 
-  // Khutbahs — add one entry per recording. audio must point to a real file you upload,
-  // e.g. assets/media/khutbahs/2026-01-10-patience.mp3
+  // Khutbahs — add one entry per PDF document. pdf must point to a real file you upload,
+  // e.g. assets/media/khutbahs/2026-01-10-patience.pdf
   khutbahs: [
-    // { title: "On Patience", speaker: "Sheikh ...", date: "2026-01-10", audio: "assets/media/khutbahs/....mp3" }
+    // { title: "On Patience", speaker: "Sheikh ...", date: "2026-01-10", category: "Character", language: "English", pdf: "assets/media/khutbahs/patience-2026-01-10.pdf", size: "2.4 MB" }
   ],
 
   // Upcoming events — only add real, confirmed events. Leave the array empty

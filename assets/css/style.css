@@ -243,15 +243,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .ayah-audio { margin-top: 1rem; width: 100%; }
 
 /* Khutbahs */
-.khutbah-row { display: flex; align-items: center; gap: 0.9rem; }
-.khutbah-play {
-  flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--gold-soft);
-  border: 1px solid rgba(212,175,55,0.3); color: var(--gold); display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 1rem;
+.khutbah-row { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+.khutbah-actions {
+  display: flex; gap: 0.6rem; flex-wrap: wrap; width: 100%;
 }
-.khutbah-meta { flex-grow: 1; }
+.khutbah-btn {
+  flex: 1; min-width: 140px; padding: 0.75rem 1rem; border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border); background: var(--surface); color: var(--text);
+  font-family: var(--font-body); font-weight: 700; font-size: 0.85rem; text-decoration: none;
+  text-align: center; transition: transform .15s ease, border-color .15s ease, background-color .15s ease;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.khutbah-btn:hover { border-color: var(--gold); background: rgba(212,175,55,0.08); }
+.khutbah-btn:active { transform: translateY(1px); }
+.khutbah-view { border-color: rgba(47,161,135,0.3); color: #A7F3D0; }
+.khutbah-view:hover { background: rgba(47,161,135,0.1); }
+.khutbah-download { border-color: rgba(212,175,55,0.3); color: var(--gold); }
+.khutbah-download:hover { background: var(--gold-soft); }
+
+.khutbah-meta { flex-grow: 1; width: 100%; }
 .khutbah-meta .card-title { margin-bottom: 0.2rem; font-size: 0.95rem; }
-.khutbah-meta .card-text { font-size: 0.78rem; }
+.khutbah-meta .card-text { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
+
+@media (min-width: 480px) {
+  .khutbah-row { flex-direction: row; align-items: center; }
+  .khutbah-actions { width: auto; }
+}
 
 /* Events */
 .event-card { border-top: 3px solid var(--gold); }

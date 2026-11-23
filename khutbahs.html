@@ -1311,15 +1311,16 @@ a.contact-value:hover { color: var(--gold); }
 
   <main>
     <div class="page-header">
-      <p class="section-eyebrow">Listen &amp; Learn</p>
+      <p class="section-eyebrow">Read &amp; Download</p>
       <h1>Khutbahs</h1>
-      <p>Recorded khutbahs from House of Guidance, ready to stream or download.</p>
+      <p>Khutbah documents from House of Guidance, ready to read or download.</p>
     </div>
 
     <section class="section-container panel">
-      <div class="filter-bar">
-        <input type="text" id="khutbah-search" class="filter-search" placeholder="Search by title or speaker...">
+      <div id="khutbah-filter-bar" class="filter-bar">
+        <input type="text" id="khutbah-search" class="filter-search" placeholder="Search title or topic…">
         <select id="khutbah-category" class="filter-select"></select>
+        <select id="khutbah-language" class="filter-select"></select>
       </div>
       <div id="khutbahs-list" class="grid"></div>
     </section>
