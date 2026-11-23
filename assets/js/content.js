@@ -37,7 +37,13 @@ const SITE_CONTENT = {
   // Khutbahs — add one entry per PDF document. pdf must point to a real file you upload,
   // e.g. assets/media/khutbahs/2026-01-10-patience.pdf
   khutbahs: [
-    // { title: "On Patience", speaker: "Sheikh ...", date: "2026-01-10", category: "Character", language: "English", pdf: "assets/media/khutbahs/patience-2026-01-10.pdf", size: "2.4 MB" }
+    { title: "Allah is With the Doers of Good", speaker: "House of Guidance", date: "", category: "Faith & Belief", language: "English", pdf: "assets/media/khutbahs/Allah-is-With-the-Doers-of-Good.pdf", size: "582 KB" },
+    { title: "Harmful Types of Listening", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/Harmful-Types-of-Listening.pdf", size: "572 KB" },
+    { title: "Sincere Counsel", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/Sincere-Counsel.pdf", size: "574 KB" },
+    { title: "The Perils of Deception", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/The-Perils-of-Deception.pdf", size: "551 KB" },
+    { title: "The Struggle With Satan", speaker: "House of Guidance", date: "", category: "Faith & Belief", language: "English", pdf: "assets/media/khutbahs/The-Struggle-With-Satan.pdf", size: "170 KB" },
+    { title: "The Trial of Wealth", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/The-Trial-of-Wealth.pdf", size: "578 KB" },
+    { title: "Wickedness in Disputation", speaker: "House of Guidance", date: "", category: "Current Issues", language: "English", pdf: "assets/media/khutbahs/Wickedness-in-Disputation.pdf", size: "566 KB" }
   ],
 
   // Upcoming events — only add real, confirmed events. Leave the array empty
