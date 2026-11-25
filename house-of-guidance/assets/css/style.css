@@ -243,7 +243,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .ayah-audio { margin-top: 1rem; width: 100%; }
 
 /* Khutbahs */
-.khutbah-row { display: flex; align-items: center; gap: 0.9rem; }
+.khutbah-row { display: flex; flex-direction: column; align-items: stretch; gap: 0.9rem; }
 .khutbah-play {
   flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--gold-soft);
   border: 1px solid rgba(212,175,55,0.3); color: var(--gold); display: flex; align-items: center; justify-content: center;
@@ -252,6 +252,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .khutbah-meta { flex-grow: 1; }
 .khutbah-meta .card-title { margin-bottom: 0.2rem; font-size: 0.95rem; }
 .khutbah-meta .card-text { font-size: 0.78rem; }
+.khutbah-actions { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+@media (min-width: 480px) { .khutbah-actions { flex-direction: row; } }
+.khutbah-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; padding: 0.6rem 0.9rem; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; flex: 1; }
+.khutbah-view { background: linear-gradient(135deg, var(--emerald-bright), var(--emerald)); color: #ECFFF9; }
+.khutbah-view:hover { box-shadow: 0 8px 20px rgba(47,161,135,0.35); }
+.khutbah-download { background: var(--gold-soft); color: var(--gold); border-color: rgba(212,175,55,0.3); }
+.khutbah-download:hover { background: rgba(212,175,55,0.24); }
 
 /* Events */
 .event-card { border-top: 3px solid var(--gold); }

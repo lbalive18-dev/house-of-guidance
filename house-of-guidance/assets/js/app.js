@@ -527,30 +527,41 @@
   function initKhutbahs() {
     const wrap = $('khutbahs-list');
     if (!wrap) return;
+
+    const categorySelect = $('khutbah-category');
+    const languageSelect = $('khutbah-language');
+
+    const categories = [...new Set(C.khutbahs.map(k => k.category).filter(Boolean))];
+    const languages = [...new Set(C.khutbahs.map(k => k.language).filter(Boolean))];
+    if (categorySelect) {
+      categorySelect.innerHTML = '<option value="">All Categories</option>' +
+        categories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
+    }
+    if (languageSelect) {
+      languageSelect.innerHTML = '<option value="">All Languages</option>' +
+        languages.map(l => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join('');
+    }
+
     if (!C.khutbahs.length) {
-      wrap.innerHTML = `<div class="empty-state">No khutbah recordings uploaded yet. Add entries to <code>khutbahs</code> in content.js once audio files are ready.</div>`;
+      wrap.innerHTML = `<div class="empty-state">No khutbah documents uploaded yet. Add entries to <code>khutbahs</code> in content.js once PDF files are ready.</div>`;
       return;
     }
-    wrap.innerHTML = C.khutbahs.map(k => `
+
+    wrap.innerHTML = C.khutbahs.map(k => {
+      const pdfName = k.pdf ? k.pdf.split('/').pop() : 'document.pdf';
+      return `
       <div class="card khutbah-row">
-        <button class="khutbah-play" aria-label="Play ${escapeHTML(k.title)}" data-audio="${k.audio}">▶</button>
+        <div class="khutbah-actions">
+          <a href="${escapeHTML(k.pdf)}" target="_blank" rel="noopener" class="khutbah-btn khutbah-view" aria-label="Read ${escapeHTML(k.title)}">📖 Read PDF</a>
+          <a href="${escapeHTML(k.pdf)}" download="${escapeHTML(pdfName)}" class="khutbah-btn khutbah-download" aria-label="Download ${escapeHTML(k.title)}">⬇ Download</a>
+        </div>
         <div class="khutbah-meta">
           <h3 class="card-title">${escapeHTML(k.title)}</h3>
-          <p class="card-text">${escapeHTML(k.speaker)} · ${escapeHTML(k.date)}</p>
+          <p class="card-text">${escapeHTML(k.speaker || '')}${k.date ? ' · ' + escapeHTML(k.date) : ''}${k.category ? ' · ' + escapeHTML(k.category) : ''}${k.language ? ' · ' + escapeHTML(k.language) : ''}${k.size ? ' · ' + escapeHTML(k.size) : ''}</p>
         </div>
       </div>
-    `).join('');
-
-    let currentAudio = null;
-    wrap.querySelectorAll('.khutbah-play').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const src = btn.getAttribute('data-audio');
-        if (!src) return;
-        if (currentAudio) { currentAudio.pause(); }
-        currentAudio = new Audio(src);
-        currentAudio.play().catch(() => alert('Could not play this recording.'));
-      });
-    });
+    `;
+    }).join('');
   }
 
   function initEvents() {

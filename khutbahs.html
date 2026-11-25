@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khutbahs | House of Guidance</title>
-  <meta name="description" content="Listen to khutbah recordings from House of Guidance.">
+  <meta name="description" content="Read and download khutbah documents from House of Guidance.">
   <link rel="canonical" href="https://houseofguidance.netlify.app/khutbahs.html">
   <!-- Open Graph -->
   <meta property="og:title" content="House of Guidance | Qur'an, Arabic, Tajweed & Islamic Learning">
@@ -370,7 +370,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .ayah-audio { margin-top: 1rem; width: 100%; }
 
 /* Khutbahs */
-.khutbah-row { display: flex; align-items: center; gap: 0.9rem; }.khutbah-play {
+.khutbah-row { display: flex; flex-direction: column; align-items: stretch; gap: 0.9rem; }.khutbah-play {
   flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--gold-soft);
   border: 1px solid rgba(212,175,55,0.3); color: var(--gold); display: flex; align-items: center; justify-content: center;
   cursor: pointer; font-size: 1rem;
@@ -378,6 +378,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .khutbah-meta { flex-grow: 1; }
 .khutbah-meta .card-title { margin-bottom: 0.2rem; font-size: 0.95rem; }
 .khutbah-meta .card-text { font-size: 0.78rem; }
+.khutbah-actions { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+@media (min-width: 480px) { .khutbah-actions { flex-direction: row; } }
+.khutbah-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; text-decoration: none; font-weight: 700; font-size: 0.8rem; padding: 0.6rem 0.9rem; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; flex: 1; }
+.khutbah-view { background: linear-gradient(135deg, var(--emerald-bright), var(--emerald)); color: #ECFFF9; }
+.khutbah-view:hover { box-shadow: 0 8px 20px rgba(47,161,135,0.35); }
+.khutbah-download { background: var(--gold-soft); color: var(--gold); border-color: rgba(212,175,55,0.3); }
+.khutbah-download:hover { background: rgba(212,175,55,0.24); }
 
 /* Events */
 .event-card { border-top: 3px solid var(--gold); }
@@ -1403,12 +1410,19 @@ window.SITE_CONTENT = {
     // Uncomment and edit lines like the one above once you have real photos.
   ],
 
-  // Khutbahs — add one entry per recording. audio must point to a real file you upload,
-  // e.g. patience-2026-01-10.mp3 (same folder as index.html)
+  // Khutbahs — add one entry per PDF document. pdf must point to a real file you upload
+  // to assets/media/khutbahs/ (e.g. assets/media/khutbahs/patience-2026-01-10.pdf)
   khutbahCategories: ["Faith & Belief", "Character", "Family", "Worship", "Community", "Current Issues"],
+  khutbahLanguages: ["English", "Arabic", "Luganda", "Swahili", "French"],
   // fullText is optional — add it whenever you want a "Read full text" expander to appear.
   khutbahs: [
-    // { title: "On Patience", speaker: "Sheikh ...", date: "2026-01-10", category: "Character", audio: "patience-2026-01-10.mp3", fullText: "" }
+    { title: "Allah is With the Doers of Good", speaker: "House of Guidance", date: "", category: "Faith & Belief", language: "English", pdf: "assets/media/khutbahs/Allah-is-With-the-Doers-of-Good.pdf", size: "582 KB" },
+    { title: "Harmful Types of Listening", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/Harmful-Types-of-Listening.pdf", size: "572 KB" },
+    { title: "Sincere Counsel", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/Sincere-Counsel.pdf", size: "574 KB" },
+    { title: "The Perils of Deception", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/The-Perils-of-Deception.pdf", size: "551 KB" },
+    { title: "The Struggle With Satan", speaker: "House of Guidance", date: "", category: "Faith & Belief", language: "English", pdf: "assets/media/khutbahs/The-Struggle-With-Satan.pdf", size: "170 KB" },
+    { title: "The Trial of Wealth", speaker: "House of Guidance", date: "", category: "Character", language: "English", pdf: "assets/media/khutbahs/The-Trial-of-Wealth.pdf", size: "578 KB" },
+    { title: "Wickedness in Disputation", speaker: "House of Guidance", date: "", category: "Current Issues", language: "English", pdf: "assets/media/khutbahs/Wickedness-in-Disputation.pdf", size: "566 KB" }
   ],
 
   // ---------------------------------------------------------------------
@@ -5146,37 +5160,50 @@ window.SITE_CONTENT = {
 
     const searchInput = $('khutbah-search');
     const categorySelect = $('khutbah-category');
+    const languageSelect = $('khutbah-language');
+
+    const categories = [...new Set(C.khutbahs.map(k => k.category).filter(Boolean))];
+    const languages = [...new Set(C.khutbahs.map(k => k.language).filter(Boolean))];
     if (categorySelect) {
       categorySelect.innerHTML = '<option value="">All categories</option>' +
-        C.khutbahCategories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
+        categories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
     }
-
-    let currentAudio = null;
+    if (languageSelect) {
+      languageSelect.innerHTML = '<option value="">All languages</option>' +
+        languages.map(l => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join('');
+    }
 
     function render() {
       const q = (searchInput?.value || '').trim().toLowerCase();
       const cat = categorySelect?.value || '';
+      const lang = languageSelect?.value || '';
       const filtered = C.khutbahs.filter(k => {
-        const matchesQ = !q || k.title.toLowerCase().includes(q) || k.speaker.toLowerCase().includes(q);
+        const matchesQ = !q || k.title.toLowerCase().includes(q) || (k.speaker || '').toLowerCase().includes(q) || (k.category || '').toLowerCase().includes(q);
         const matchesCat = !cat || k.category === cat;
-        return matchesQ && matchesCat;
+        const matchesLang = !lang || k.language === lang;
+        return matchesQ && matchesCat && matchesLang;
       });
 
       if (!C.khutbahs.length) {
-        wrap.innerHTML = `<div class="empty-state">No khutbah recordings uploaded yet — check back soon!</div>`;
+        wrap.innerHTML = `<div class="empty-state">No khutbah documents uploaded yet — check back soon!</div>`;
         return;
       }
       if (!filtered.length) {
-        wrap.innerHTML = `<div class="empty-state">No khutbahs match that search.</div>`;
+        wrap.innerHTML = `<div class="empty-state">No khutbah documents match that search.</div>`;
         return;
       }
-      wrap.innerHTML = filtered.map(k => `
+      wrap.innerHTML = filtered.map(k => {
+        const pdfName = k.pdf ? k.pdf.split('/').pop() : 'document.pdf';
+        return `
         <div class="card khutbah-card">
           <div class="khutbah-row">
-            <button class="khutbah-play" aria-label="Play ${escapeHTML(k.title)}" data-audio="${k.audio}">▶</button>
+            <div class="khutbah-actions">
+              <a href="${escapeHTML(k.pdf)}" target="_blank" rel="noopener" class="khutbah-btn khutbah-view" aria-label="Read ${escapeHTML(k.title)}">📖 Read PDF</a>
+              <a href="${escapeHTML(k.pdf)}" download="${escapeHTML(pdfName)}" class="khutbah-btn khutbah-download" aria-label="Download ${escapeHTML(k.title)}">⬇ Download</a>
+            </div>
             <div class="khutbah-meta">
               <h3 class="card-title">${escapeHTML(k.title)}</h3>
-              <p class="card-text">${escapeHTML(k.speaker)} · ${escapeHTML(k.date)}${k.category ? ' · ' + escapeHTML(k.category) : ''}</p>
+              <p class="card-text">${escapeHTML(k.speaker || '')}${k.date ? ' · ' + escapeHTML(k.date) : ''}${k.category ? ' · ' + escapeHTML(k.category) : ''}${k.language ? ' · ' + escapeHTML(k.language) : ''}${k.size ? ' · ' + escapeHTML(k.size) : ''}</p>
             </div>
           </div>
           ${k.fullText ? `
@@ -5184,7 +5211,8 @@ window.SITE_CONTENT = {
             <p class="card-text khutbah-fulltext" style="display:none; margin-top:0.85rem">${escapeHTML(k.fullText)}</p>
           ` : ''}
         </div>
-      `).join('');
+      `;
+      }).join('');
 
       wrap.querySelectorAll('.khutbah-fulltext-toggle').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -5194,20 +5222,11 @@ window.SITE_CONTENT = {
           btn.textContent = isOpen ? 'Read full text' : 'Show less';
         });
       });
-
-      wrap.querySelectorAll('.khutbah-play').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const src = btn.getAttribute('data-audio');
-          if (!src) return;
-          if (currentAudio) { currentAudio.pause(); }
-          currentAudio = new Audio(src);
-          currentAudio.play().catch(() => alert('Could not play this recording.'));
-        });
-      });
     }
 
     searchInput?.addEventListener('input', render);
     categorySelect?.addEventListener('change', render);
+    languageSelect?.addEventListener('change', render);
     render();
   }
 
